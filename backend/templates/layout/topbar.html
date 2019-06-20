@@ -1,0 +1,21 @@
+{% load static %}
+<div class="title-bar">
+  <div class="title-bar-left">
+    <button class="menu-button" type="button" data-open="offCanvasLeft"><span></span></button>
+  </div>
+
+  <div class="title-bar-right">
+    <div class="login-side" data-toggle="dropdown-pane">
+      <div class="user-data">
+        <strong>Carlos Andrés Vargas Penagos</strong>
+        <div class="organitation">Owner</div>
+      </div>
+      <figure><img src="{% static 'backend/images/avatar.png' %}"></figure>
+    </div>
+    <div class="dropdown-pane dropdown-user" id="dropdown-pane" data-dropdown data-position="bottom" data-alignment="right" data-hover="true" data-hover-pane="true">
+      <ul>
+        <li><a href="">Cerrar sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

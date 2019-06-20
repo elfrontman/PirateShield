@@ -1,0 +1,32 @@
+{# This is base.html #}
+{% include "layout/header.html" %}
+
+<div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas data-transition="overlap">
+	<aside>
+		{% include "layout/sidebar.html" %}	
+	</aside>
+</div>
+
+<div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-transition="overlap">
+	<section class="right-sidebar">
+		{% block right_sidebar %}{% endblock %}		
+	</section>
+</div>
+
+
+<div class="content-canvas off-canvas-content" data-off-canvas-content>
+	<section class="content-section">
+		{% include "layout/topbar.html" %}	
+
+		<div class="main-page">
+			{% include "layout/content-sidebar.html" %}	
+		  	<section class="section-content">
+				{% block content %}{% endblock %}		
+			</section>	
+		</div>
+	</div>
+</div>
+
+
+
+{% include "layout/footer.html" %}

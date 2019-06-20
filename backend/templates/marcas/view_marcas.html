@@ -1,0 +1,33 @@
+{% extends "layout/base.html" %}
+{% block content %}
+	{% if brand_list %}
+	<ul class="list-data">
+		{% for brand in brand_list %}
+		<li class="grid-x">
+			
+			<div class="cell small-10 medium-10">
+				<figure>
+					<img src="/media/{{ brand.logo }}" alt="">
+				</figure>
+				<div class="info-row">
+					<h3>{{ brand.name }}</h3>		
+					<span>{{ brand.brand_category_id.name }}</span>
+				</div>	
+			</div>
+			<div class="cell auto content-buttons">
+				<div class="small button-group">
+				  <a data-open="offCanvasRight" class="button">Editar</a>
+				  <a data-open="offCanvasRight" class="button alert">Eliminar</a>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}
+
+{% block right_sidebar %}
+	<h3>Editar Marca</h3>
+
+	<form action=""></form>
+{% endblock %}

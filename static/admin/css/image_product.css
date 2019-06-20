@@ -1,0 +1,11 @@
+.field-image_tag a{
+	display: block;
+	max-width: 300px;
+	max-height: 300px;
+	overflow: hidden;
+}
+
+.field-image_tag a img {
+	width: 100%;
+	height: auto;
+}
