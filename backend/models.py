@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
