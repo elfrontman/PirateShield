@@ -1,0 +1,9 @@
+{# This is base.html #}
+{% include "layout/header.html" %}
+<div class="internal-view">
+	<div class="content-internal-view">
+		{% block content %}{% endblock %}
+	</div>
+</div>
+
+{% include "layout/footer.html" %}

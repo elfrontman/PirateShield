@@ -1,7 +1,30 @@
-<h3>Editar Marca</h3>
+{% extends "layout/internal.html" %}
 
-<form action="" method="POST">
+
+{% block content %}
+
+
+<form  method="POST">
+	<h2>
+		{% if is_edit %}
+			Editar Marca
+		{% else %}
+			Crear Marca
+		{% endif %}
+		
+	</h2>
+	{% csrf_token %}
 	{{ form.as_p }}
-
-	<input type="submit" class="button expanded" value="GUARDAR">
+	
+	<div class="grid-x">
+		<div class="cell small-12 medium-6">
+			<a href="{% url 'marcas' %}" class="button expanded alert">REGRESAR</a>
+		</div>
+		<div class="cell small-12 medium-6">
+			<input type="submit" class="button expanded" value="GUARDAR">
+		</div>
+	</div>
+	
+	
 </form>
+{% endblock %}

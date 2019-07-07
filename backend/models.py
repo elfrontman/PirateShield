@@ -42,7 +42,9 @@ class Brand(models.Model):
 class Product(models.Model):
 	name = models.CharField(max_length=250)
 	reference = models.CharField(max_length=250)
+	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
 	description = models.TextField()
+	image = models.ImageField(upload_to = 'clients/', default='clients/logo_default.jpg')
 	product_category = models.ForeignKey(CategoryProduct, on_delete=models.DO_NOTHING)
 
 	def __str__(self):

@@ -1,5 +1,15 @@
 {% extends "layout/base.html" %}
 {% block content %}
+	
+	<nav class="actions-bar grid-x">
+		<div class="cell small-12 medium-6">
+			<div class="title-actions-bar">Marcas</div>
+		</div>
+		<div class="cell small-12 medium-6 actions-buttons">
+			<a class="button hollow small" href="{% url 'brand_new' %}">Crear marca</a>
+		</div>
+	</nav>
+
 	{% if brand_list %}
 	<ul class="list-data">
 		{% for brand in brand_list %}
@@ -11,21 +21,18 @@
 				</figure>
 				<div class="info-row">
 					<h3>{{ brand.name }}</h3>		
-					<span>{{ brand.brand_category_id.name }}</span>
+					<span>{{ brand.brand_category_id.name }}</span> 
+					<span>(Productos: {{ brand.product_set.all|length }})</span>
 				</div>	
 			</div>
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
-				  <a data-open="offCanvasRight" class="button">Editar</a>
-				  <a data-open="offCanvasRight" class="button alert">Eliminar</a>
+				  <a href="{% url 'brand_detail' pk=brand.pk %}" class="button">Editar</a>
+				  <a href="{% url 'brand_delete' pk=brand.pk %}" class="button alert">Eliminar</a>
 				</div>
 			</div>
 		</li>
 		{% endfor %}
 	</ul>
 	{% endif %}
-{% endblock %}
-
-{% block right_sidebar %}
-	{% include "marcas/create_marca.html" %}
 {% endblock %}

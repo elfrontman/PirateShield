@@ -1,6 +1,29 @@
 body{
 	background: #edf6fd;
+	overflow: hidden;
 }
+
+*{
+	font-family: 'Raleway', sans-serif;
+}
+
+h1, h2{
+	font-family: 'Literata', serif;
+	font-weight: bold;
+}
+
+h3, h4, h5, h6{
+	font-family: 'Raleway', sans-serif;
+	font-weight: bold;
+	line-height: 1.2;
+}
+
+.button{
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+
 .wrapp-app{
 	display: flex;
 }
@@ -12,6 +35,8 @@ body{
 .main-page .section-content{
 	width: 100%;
 	padding: 1rem;
+	overflow: auto;
+    height: calc(100vh - 68px);
 }
 
 aside{
@@ -284,14 +309,18 @@ aside{
 	background: #0274d5;
 }
 
+.list-data.internal-list{
+	max-height: 68vh;
+	overflow: auto;
+}
+
 .list-data{
 	margin: 0;
 }
 
 .list-data li{
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.2rem;
 	background-color: white;
-	box-shadow: 1px 3px 4px 0px rgba(0, 0, 0, 0.15);
 	padding-right: 1rem;
 
 
@@ -314,7 +343,7 @@ aside{
 .list-data li h3{
 	font-size: 1.2rem;
 	margin: 0;
-	line-height: 1;
+	line-height: 0.8;
 }
 
 .list-data li span{
@@ -329,4 +358,157 @@ aside{
 .list-data li .button-group{
 	margin: 1rem 0 0;
 	display: inline-block;
+}
+
+.list-data li .button-group .button.tiny{
+	font-size: 0.6rem;
+}
+
+.internal-view{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	top: 0;
+	left: 0;
+}
+
+
+.internal-view .content-internal-view{
+	position: absolute;
+	max-width: 80vw;
+	width: 100%;
+	right: 50%;
+	bottom: 50%;
+	transform: translate(50%, 50%);
+}
+
+.actions-bar{
+	padding:  1rem 1rem;
+	background: white;
+	margin-bottom: 1rem;
+}
+
+.actions-bar .actions-buttons{
+	text-align: right;
+}
+
+.actions-bar .button{
+	margin-bottom: 0;
+}
+
+.actions-bar .title-actions-bar{
+	font-size: 1.3rem;
+	font-weight: bold;
+	padding-top: 3px;
+}
+
+.title-internal{
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.no-title-section{
+	padding-top: 5.4rem;
+}
+
+form, .content-delete{
+	max-width: 50vw;
+	margin: 0 auto;
+}
+
+form *{
+	box-shadow: none !important;
+
+}
+
+form > p{
+	margin-bottom: 0;
+}
+
+form input, form select{
+	margin-bottom: 0.5rem !important;
+}
+
+form textarea{
+	resize: none;
+	max-height: 100px;
+}
+
+form .input-file{
+	font-size: 0;
+	display: flex;
+}
+
+form .input-file label{
+	background-color: #333;
+	color: white;
+	font-size: 0.9rem;
+	padding: 0.5rem;
+	height: 45px;
+	flex-grow: 1;
+	white-space: nowrap;
+
+}
+
+form .input-file a{
+	font-size: 0.9rem;
+	padding: 0.5rem;
+	border: 1px solid #cacaca;
+	height: 45px;
+	flex-grow: 1;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
+}
+
+form .input-file input{
+	display: none;
+}
+
+.select-point{
+	width: 360px;
+	height: 360px;
+	background: #333;
+	overflow: hidden;
+	position: relative;
+}
+
+.select-point img{
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.select-point #layer-marker{
+	left: 0;
+	top: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.select-point #pointer-marker{
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	background-color: transparent;
+	border: 2px solid orange;
+}
+
+.select-point #pointer-marker:before{
+	content: '';
+	width: 50%;
+	height: 50%;
+	border-radius: 50%;
+	position: absolute;
+	right: 50%;
+	bottom: 50%;
+	transform: translate(50%, 50%);
+	border: 4px solid orange;
+
 }
