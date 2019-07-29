@@ -1,9 +1,25 @@
 {% load static %}
 <div class="header-aside">
-	<figure><img src="{{ request.session.brand_logo }}"></figure>
+	<figure>
+		{% if user.brand %}
+			<img src="{{ user.brand.logo }}">
+		{% else %}
+          <img src="/media/{{ user.image }}">
+		{% endif %}
+	</figure>
 	<h3>{{ user.get_full_name  }}</h3>
-	<div class="organitation">{{ request.session.brand_name }}</div>
-	<div class="role"></div>
+	
+	{% if user.brand %}
+		<div class="organitation">{{ user.brand.name }}</div>
+	{% else %}
+		<div class="organitation">Staff</div>
+	{% endif %}
+	
+	<div class="role">
+		{% for group in user.groups.all  %}
+		{{ group }} 
+		{% endfor %}
+	</div>
 </div>
 
 <div class="section-aside">

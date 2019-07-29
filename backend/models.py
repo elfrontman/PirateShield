@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
@@ -74,8 +74,6 @@ class ImageProduct(models.Model):
 		return self.name
 
 
-
-
 class DetailImageProduct(models.Model):
 	name = models.CharField(max_length=250)
 	description = models.TextField()
@@ -97,6 +95,11 @@ class DetailImageProduct(models.Model):
 
 	def __str__(self):
 		return self.name
+
+
+class User(AbstractUser):
+	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, blank=True, null=True)
+	image = models.ImageField(upload_to = 'users/', default='users/default-avatar.png', blank=True, null=True)
 
 
 class UserBrand(models.Model):

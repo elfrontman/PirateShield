@@ -1,19 +1,14 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
-from backend.models import UserBrand
-
+@login_required
 def index(request):
 
-	user_brand = UserBrand.objects.get(user=request.user)
-
-	print(user_brand)
-
-	context = {
-		'brand': user_brand.brand
-	}
-
-	request.session['brand_name'] = user_brand.brand.name
-	request.session['brand_logo'] = user_brand.brand.logo.url
+	print(request.user)
+	return render(request, 'dashboard.html', {})
+	
 
 
-	return render(request, 'dashboard.html', context)
+
+
+	

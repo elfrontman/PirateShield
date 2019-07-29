@@ -127,3 +127,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + '/media'
 
 LOGIN_REDIRECT_URL = '/backend/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+AUTH_USER_MODEL = 'backend.user'

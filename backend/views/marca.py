@@ -1,9 +1,6 @@
-from django.shortcuts import render
-from django.forms import modelformset_factory
-from django.template import loader, RequestContext
-from django.http import HttpResponse, HttpResponseRedirect 
+from django.template import loader
+from django.http import HttpResponse 
 from django.shortcuts import redirect, get_object_or_404
-from django.views.decorators.csrf import csrf_protect
 
 from backend.models import Brand
 from backend.forms import BrandForm, DeleteBrand

@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from backend.models import CategoryBrand, CategoryProduct
 from backend.forms import CategoryBrandForm, DeleteCategoryBrand, CategoryProductForm, DeleteCategoryProduct
 
 
+@login_required
 def index(request):
     return render(request, 'herramientas.html', {})
 
