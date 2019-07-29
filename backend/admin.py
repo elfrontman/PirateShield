@@ -38,7 +38,6 @@ admin.site.register(Brand)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(DetailImageProduct, DetailImageProductAdmin)
 admin.site.register(UserBrand)
-#admin.site.register(ImageProduct)
 
 
 admin.site.site_header = "Consola de Administración - Pirate Shield"

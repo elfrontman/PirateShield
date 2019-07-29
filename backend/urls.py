@@ -22,7 +22,7 @@ urlpatterns = [
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/<int:pk>', punto_imagen.detail, name="punto_imagen_detail"),
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/<int:pk>/delete/', punto_imagen.delete, name="punto_imagen_delete"),
 
-	path('herramientas', herramientas.index, name="herramientas"),
+	path('herramientas/', herramientas.index, name="herramientas"),
 	path('herramientas/brand/crear_categoria', herramientas.categoria_marca, name="create_category_brand")
 
 
