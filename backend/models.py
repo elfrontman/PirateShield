@@ -3,7 +3,8 @@ from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -99,3 +100,7 @@ class DetailImageProduct(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class UserBrand(models.Model):
+	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
+	user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
