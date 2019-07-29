@@ -1,0 +1,24 @@
+{% extends "layout/internal.html" %}
+
+
+{% block content %}
+<div class="title-internal">
+	<h2>Eliminar categoría</h2>
+	<h5>¿Desea borrar la categoría: "{{ brand }}"?</h5>
+</div>
+
+<div class="grid-x">
+	<div class="cell small-12 medium-6">
+		<a href="{% url 'marcas' %}" class="button expanded alert">REGRESAR</a>
+	</div>
+	<div class="cell small-12 medium-6">
+		<form method="POST">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit" class="button expanded ">ELIMINAR</button>	
+		</form>
+		
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout/base.html" %}
+{% block content %}
+	
+	<nav class="actions-bar grid-x">
+		<div class="cell small-12 medium-6">
+			<div class="title-actions-bar">Categorias de Marca</div>
+		</div>
+		<div class="cell small-12 medium-6 actions-buttons">
+			<a class="button hollow small" href="{% url 'new_category_brand' %}">Crear categoria de marca</a>
+		</div>
+	</nav>
+
+	{% if list %}
+	<ul class="list-data single-list">
+		{% for item in list %}
+		<li class="grid-x">
+			
+			<div class="cell small-10 medium-10">
+				<div class="info-row ">
+					<h3>{{ item.name }}</h3>		
+					<span>{{ item.item_category_id.name }}</span> 
+					<span>(Marcas: {{ item.brand_set.all|length }})</span>
+				</div>	
+			</div>
+			<div class="cell auto content-buttons">
+				<div class="small button-group">
+				  <a href="{% url 'detail_category_brand' pk=item.pk %}" class="button">Editar</a>
+				  <a href="{% url 'categoria_marca_delete' pk=item.pk %}" class="button alert">Eliminar</a>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}

@@ -7,10 +7,10 @@
   <div class="title-bar-right">
     <div class="login-side" data-toggle="dropdown-pane">
       <div class="user-data">
-        <strong>Carlos Andrés Vargas Penagos</strong>
-        <div class="organitation">Owner</div>
+        <strong>{{ user.get_full_name  }}</strong>
+        <div class="organitation">{{ request.session.brand_name }}</div>
       </div>
-      <figure><img src="{% static 'backend/images/avatar.png' %}"></figure>
+      <figure><img src="{{ request.session.brand_logo }}"></figure>
     </div>
     <div class="dropdown-pane dropdown-user" id="dropdown-pane" data-dropdown data-position="bottom" data-alignment="right" data-hover="true" data-hover-pane="true">
       <ul>

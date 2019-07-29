@@ -364,6 +364,15 @@ aside{
 	font-size: 0.6rem;
 }
 
+
+.list-data.single-list li{
+	padding: 1rem;
+}
+
+.list-data.single-list li .button-group{
+	margin: 0;
+}
+
 .internal-view{
 	position: absolute;
 	width: 100%;
@@ -539,4 +548,21 @@ form .input-file input{
 	border-right: 1rem solid #0081ed;
 
 
+}
+
+.login-box{
+	background: white;
+    max-width: 500px;
+    padding: 2rem;
+    position: absolute;
+    transform: translate(50%, 50%);
+    right: 50%;
+    bottom: 50%;
+    width: 100%;
+}
+
+
+.login-box .alert{
+	background: #f75e5e;
+    color: white;
 }

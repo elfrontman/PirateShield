@@ -1,0 +1,30 @@
+{% extends "layout/base_single.html" %}
+
+{% block content %}
+ 
+  <section class="login-box">
+     {% if form.errors %}
+  <div class="callout alert">
+    Usuario y contraseña inválido, intente de nuevo
+  </div>
+  {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <label>
+        Usuario
+        {{ form.username }}
+      </label>
+      <label>
+        Contraseña:
+        {{ form.password }}
+      </label>
+
+      <div>
+        <input type="submit" value="Iniciar sesion" class="button expanded" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
+    </form>
+    
+  </section>
+{% endblock %}

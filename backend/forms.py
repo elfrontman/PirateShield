@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct
+from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct
 
 class BrandForm(ModelForm):
 	class Meta:
@@ -15,6 +15,9 @@ class BrandForm(ModelForm):
 			"description": _("Descripción"),
 			"brand_category_id" : _("Categoría"),
 		}
+
+
+		
 
 class DeleteBrand(ModelForm):
 	class Meta:
@@ -65,7 +68,40 @@ class DetailImageProductForm(ModelForm):
 		fields = ['name', 'description', 'marker_x', 'marker_y', 'image_check', 'image_fail']
 		widgets = {'marker_x': HiddenInput(), 'marker_y': HiddenInput()}
 
+
 class DeleteDetailImageProduct(ModelForm):
 	class Meta:
 		model = DetailImageProduct
+		fields = []
+
+
+
+class CategoryBrandForm(ModelForm):
+	class Meta:
+		model = CategoryBrand
+		fields = ['name']
+
+		labels = {
+			"name" : _("Nombre de la Categoría"),
+		}
+
+
+class DeleteCategoryBrand(ModelForm):
+	class Meta:
+		model = CategoryBrand
+		fields = []
+
+
+class CategoryProductForm(ModelForm):
+	class Meta:
+		model = CategoryProduct
+		fields = ['name']
+
+		labels = {
+			"name" : _("Nombre de la Categoría"),
+		}
+
+class DeleteCategoryProduct(ModelForm):
+	class Meta:
+		model = CategoryProduct
 		fields = []

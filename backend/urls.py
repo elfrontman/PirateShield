@@ -23,7 +23,18 @@ urlpatterns = [
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/<int:pk>/delete/', punto_imagen.delete, name="punto_imagen_delete"),
 
 	path('herramientas/', herramientas.index, name="herramientas"),
-	path('herramientas/brand/crear_categoria', herramientas.categoria_marca, name="create_category_brand")
+	path('herramientas/brand/categorias/', herramientas.categoria_marca, name="category_brand"),
+	path('herramientas/brand/categoria/new', herramientas.create_categoria_marca, name="new_category_brand"),
+	path('herramientas/brand/categoria/<int:pk>', herramientas.categoria_marca_detail, name="detail_category_brand"),
+	path('herramientas/brand/categoria/<int:pk>/delete', herramientas.categoria_marca_delete, name="categoria_marca_delete"),
+
+	path('herramientas/producto/categorias/', herramientas.categoria_producto, name="category_producto"),
+	path('herramientas/producto/categoria/new', herramientas.create_categoria_producto, name="new_category_producto"),
+	path('herramientas/producto/categoria/<int:pk>', herramientas.categoria_producto_detail, name="detail_category_producto"),
+	path('herramientas/producto/categoria/<int:pk>/delete', herramientas.categoria_producto_delete, name="categoria_producto_delete")
+
+	
+	
 
 
 ]
