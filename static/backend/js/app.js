@@ -31,4 +31,7 @@ $(document).ready(function(){
 
 		$(this).append(pointer);
 	})
+
+	$('#id_is_active').parents('p').addClass('check-row')
+	$('#clear_id-clear, [for=image-clear_id]').remove();
 });

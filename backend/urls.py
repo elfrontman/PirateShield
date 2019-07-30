@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas
+from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios
 
 
 urlpatterns = [
@@ -31,7 +31,11 @@ urlpatterns = [
 	path('herramientas/producto/categorias/', herramientas.categoria_producto, name="category_producto"),
 	path('herramientas/producto/categoria/new', herramientas.create_categoria_producto, name="new_category_producto"),
 	path('herramientas/producto/categoria/<int:pk>', herramientas.categoria_producto_detail, name="detail_category_producto"),
-	path('herramientas/producto/categoria/<int:pk>/delete', herramientas.categoria_producto_delete, name="categoria_producto_delete")
+	path('herramientas/producto/categoria/<int:pk>/delete', herramientas.categoria_producto_delete, name="categoria_producto_delete"),
+
+	path('usuarios/', usuarios.index, name="list_usuarios"),
+	path('usuarios/new', usuarios.create, name="create_usuarios"),
+	path('usuarios/<int:pk>', usuarios.detail, name="detail_usuarios"),
 
 	
 	

@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct
+from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User
 
 class BrandForm(ModelForm):
 	class Meta:
@@ -105,3 +105,27 @@ class DeleteCategoryProduct(ModelForm):
 	class Meta:
 		model = CategoryProduct
 		fields = []
+
+
+class UserForm(ModelForm):
+
+	class Meta:
+		model = User
+		fields = ['username', 'password','first_name', 'last_name', 'email', 'is_active', 'brand', 'image']
+
+		labels = {
+			"username" : _("Nombre de usuario"),
+			"password" : _("Contraseña"),
+			"first_name" : _("Nombres completos"),
+			"last_name" : _("Apellidos completos"),
+			"email" : _("Correo electrónico"),
+			"is_active" : _("Usuario activo"),
+			"brand" : _("Marca"),
+			"image" : _("Imagen de perfil")
+		}
+
+		help_texts = {
+            'username': 'Necesario. 150 caracteres o menos. Letras, dígitos y @ /. / + / - / _ solamente.',
+            'is_active': 'Designa si este usuario debe ser tratado como activo. Anule la selección de esto en lugar de eliminar cuentas.'
+        }
+

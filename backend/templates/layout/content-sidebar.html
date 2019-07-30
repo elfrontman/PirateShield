@@ -1,9 +1,10 @@
  <div class="menu-sidebar">
   <nav>
     <ul>
-      <li><a href="/backend/marcas"><i></i><span>Marcas</span></a></li>
-      <li><a href="/backend/productos"><i></i><span>Productos</span></a></li>
+      <li><a href="{% url 'marcas' %}"><i></i><span>Marcas</span></a></li>
+      <li><a href="{% url 'productos' %}"><i></i><span>Productos</span></a></li>
       <li><a href="{% url 'herramientas' %}"><i></i><span>Herramientas</span></a></li>
+      <li><a href="{% url 'list_usuarios' %}"><i></i><span>Usuarios y Grupos</span></a></li>
     </ul>
   </nav>
 </div>

@@ -25,10 +25,10 @@
 <div class="section-aside">
 	<nav>
 		<ul>
-			<li><a href="/backend/marcas"><i></i>Marcas</a></li>
-			<li><a href="/backend/productos"><i></i>Productos</a></li>
-			<li><a href="/backend/herramientas"><i></i>Herramientas</a></li>
-			
+			<li><a href="{% url 'marcas' %}"><i></i>Marcas</a></li>
+      		<li><a href="{% url 'productos' %}"><i></i>Productos</a></li>
+      		<li><a href="{% url 'herramientas' %}"><i></i>Herramientas</a></li>
+      		<li><a href="{% url 'list_usuarios' %}"><i></i>Usuarios y Grupos</a></li>
 		</ul>
 	</nav>
 </div>

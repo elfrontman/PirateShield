@@ -566,3 +566,17 @@ form .input-file input{
 	background: #f75e5e;
     color: white;
 }
+
+.helptext{
+	font-size: 0.8rem;
+    margin-top: -7px;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #8d8d8d;
+    line-height: 1.2;
+}
+
+.check-row label{
+	display: inline-block;
+	margin-bottom: 0.5rem;
+}
