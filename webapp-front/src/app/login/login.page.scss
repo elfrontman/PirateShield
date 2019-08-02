@@ -1,0 +1,28 @@
+.content-login{
+	padding: 1rem;
+	position: absolute;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 50%);
+}
+
+.image-logo{
+	max-width: 280px;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+ion-item{
+	margin-bottom: 3rem;
+}
+
+ion-button{
+	position: relative;
+	height: 50px;
+	font-weight: bold;
+}
+
+ion-button ion-icon{
+	position: absolute;
+	right: 1rem;
+}

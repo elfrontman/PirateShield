@@ -1,0 +1,77 @@
+.banner-section{
+	position: relative;
+}
+
+.banner-section:before{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+}
+
+.banner-section .logo{
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.banner-section .logo img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.banner{
+	left: 0;
+	top: 0;
+}
+
+.content-banner{
+	width: 100%;
+	position: absolute;
+	bottom: 50%;
+	transform: translateY(50%);
+
+}
+
+.title h2, .title h3{
+	color: white;
+	margin: 0;
+}
+
+.title h2{
+	margin-top: 1.5rem;
+    line-height: 0.8;
+}
+
+.product figure{
+	margin: 0;
+    border: 1px solid #ccc;
+    height: 110px;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.product figure img{
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+	height: 100%;
+	object-fit: cover;
+}
+
+.product strong{
+	color: #6d6d6d;
+	display: block;
+}
+
+.product small{
+	color: #ccc;
+	display: block;
+}
