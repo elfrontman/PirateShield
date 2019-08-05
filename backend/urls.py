@@ -1,6 +1,12 @@
-from django.urls import path
-from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios
+from django.urls import path, include
+from rest_framework import routers
+from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, REST_view
 
+
+router = routers.DefaultRouter()
+router.register(r'users', REST_view.UserViewSet)
+router.register(r'brands', REST_view.BrandViewSet)
+router.register(r'product/by/(?P<brand>\w+)/$', REST_view.ProductList, basename="Product")
 
 urlpatterns = [
 	path('', dashboard.index, name='index'),
@@ -36,6 +42,9 @@ urlpatterns = [
 	path('usuarios/', usuarios.index, name="list_usuarios"),
 	path('usuarios/new', usuarios.create, name="create_usuarios"),
 	path('usuarios/<int:pk>', usuarios.detail, name="detail_usuarios"),
+
+	path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 	
 	
