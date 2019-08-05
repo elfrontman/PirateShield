@@ -8,7 +8,7 @@ import { IonSlides } from '@ionic/angular';
 })
 export class ImageProductPage implements OnInit {
 
-	@ViewChild('slideProduct') slides: IonSlides;
+	@ViewChild('slideProduct', {static: false}) slides: IonSlides;
 	slideOpts
 
 	constructor() {
