@@ -24,8 +24,7 @@ def create(request):
 		form = UserForm(request.POST)
 	
 		if form.is_valid():
-			brand = form.save(commit=False)
-			brand.save()
+			new_user = User.objects.create_user(**form.cleaned_data)
 
 			return redirect('list_usuarios')
 	else:
