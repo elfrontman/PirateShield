@@ -1,12 +1,15 @@
 from django.urls import path, include
 from rest_framework import routers
+
 from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, REST_view
 
 
 router = routers.DefaultRouter()
 router.register(r'users', REST_view.UserViewSet)
 router.register(r'brands', REST_view.BrandViewSet)
-router.register(r'product/by/(?P<brand>\w+)/$', REST_view.ProductList, basename="Product")
+router.register(r'productbybrand', REST_view.ProductList)
+router.register(r'imageproduct', REST_view.ImageDetailProduct)
+router.register(r'detailproduct', REST_view.DetailImageProduct)
 
 urlpatterns = [
 	path('', dashboard.index, name='index'),

@@ -1,6 +1,6 @@
-from backend.models import User, Brand, CategoryBrand, Product
-from rest_framework import viewsets, generics
-from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct
+from rest_framework import viewsets, filters
+from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
@@ -18,10 +18,20 @@ class CategoryBrandViewSet(viewsets.ModelViewSet):
 
 
 class ProductList(viewsets.ModelViewSet):
-	
+	list_display = ("brand")
+	search_fields = ['brand__id']
+	filter_backends = (filters.SearchFilter,)
+	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
-	model = serializer_class.Meta.model
 
-	def get_queryset(self):
-		brand = self.kwargs['brand']
-		return  Product.objects.filter(brand=brand)
+class ImageDetailProduct(viewsets.ModelViewSet):
+	queryset = ImageProduct.objects.all()
+	serializer_class = ImageProductSerializer
+
+
+class DetailImageProduct(viewsets.ModelViewSet):
+	filter_backends = (filters.SearchFilter,)
+	search_fields = ['image_product__id']
+	queryset = DetailImageProduct.objects.all()
+	serializer_class = 	DetailImageProductSerializer
+

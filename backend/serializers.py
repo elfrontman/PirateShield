@@ -1,4 +1,4 @@
-from backend.models import User, Brand, CategoryBrand, Product
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct
 from rest_framework import serializers
 
 
@@ -28,4 +28,17 @@ class UserSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product
+		fields = '__all__'
+
+class DetailImageProductSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = DetailImageProduct
+		fields = '__all__'
+
+
+class ImageProductSerializer(serializers.ModelSerializer):
+	details = DetailImageProductSerializer(many=True, read_only=True)
+
+	class Meta:
+		model = ImageProduct
 		fields = '__all__'
