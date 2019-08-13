@@ -27,13 +27,13 @@
 
 
     <ion-list>
-  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of brands" routerLink="/brand" detail>
+  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of brands" routerLink="/brand/{{brand.id}}" detail>
           <ion-thumbnail slot="start">
-            <img [src]="brand.image">
+            <img [src]="brand.logo">
           </ion-thumbnail >
           <ion-label>
             <h2>{{ brand.name }}</h2>
-            <h3>{{ brand.category }}</h3>
+            <h3>{{ brand.brand_category_id.name }}</h3>
           </ion-label>
         </ion-item>
   	</ion-list>

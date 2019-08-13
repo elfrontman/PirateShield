@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { MainServicesService } from './../main-services.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-image-product',
@@ -10,8 +12,10 @@ export class ImageProductPage implements OnInit {
 
 	@ViewChild('slideProduct', {static: false}) slides: IonSlides;
 	slideOpts
+	product;
+	loadModule;
 
-	constructor() {
+	constructor(private service:MainServicesService, private router:ActivatedRoute) {
 		this.slideOpts = {
 			initialSlide: 0,
 			speed: 400,
@@ -20,6 +24,13 @@ export class ImageProductPage implements OnInit {
 	}
 
 	ngOnInit() {
+		this.router.params.subscribe( params => {
+			this.service.getProduct(params.id)
+				.subscribe( data => {
+					this.product = data
+					this.loadModule = true;
+				})
+		})
 	}
 
 	onNextSlide(){

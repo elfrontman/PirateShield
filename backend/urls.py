@@ -7,6 +7,7 @@ from .views import marca, producto, dashboard, imagen_producto, punto_imagen, he
 router = routers.DefaultRouter()
 router.register(r'users', REST_view.UserViewSet)
 router.register(r'brands', REST_view.BrandViewSet)
+router.register(r'product', REST_view.ProductViewSet)
 router.register(r'productbybrand', REST_view.ProductList)
 router.register(r'imageproduct', REST_view.ImageDetailProduct)
 router.register(r'detailproduct', REST_view.DetailImageProduct)

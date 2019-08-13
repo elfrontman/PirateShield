@@ -17,6 +17,11 @@ class CategoryBrandViewSet(viewsets.ModelViewSet):
 	serializer_class = CategoryBrandSerializer
 
 
+class ProductViewSet(viewsets.ModelViewSet):
+	queryset = Product.objects.all()
+	serializer_class = ProductSerializer
+
+
 class ProductList(viewsets.ModelViewSet):
 	list_display = ("brand")
 	search_fields = ['brand__id']

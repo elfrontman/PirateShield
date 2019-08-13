@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainServicesService } from './../main-services.service';
 
 @Component({
   selector: 'app-brands',
@@ -9,18 +10,12 @@ export class BrandsPage implements OnInit {
 
 	brands = []
 
-  constructor() { 
-
-  	for(let i = 0; i < 10; i++){
-  		this.brands.push({
-  			name: "Adidas",
-  			category: "Ropa deportiva",
-  			image: "./assets/images/marca.png"
-  		})
-  	}
-  }
+  constructor(private service: MainServicesService) { }
 
   ngOnInit() {
+    this.service.getBrands().subscribe( (data:any) => {
+      this.brands = data
+    })
   }
 
 }
