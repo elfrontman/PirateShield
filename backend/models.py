@@ -100,8 +100,18 @@ class DetailImageProduct(models.Model):
 class User(AbstractUser):
 	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, blank=True, null=True)
 	image = models.ImageField(upload_to = 'users/', default='users/default-avatar.png', blank=True, null=True)
+	movil = models.CharField(max_length=10, blank=True, null=True)
 
 
 class UserBrand(models.Model):
 	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
 	user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+
+class Operativo(models.Model):
+	token = models.CharField(max_length=250)
+	user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+	expiration = models.DateTimeField()
+	first_login = models.DateTimeField(blank=True, null=True)
+	last_login = models.DateTimeField(blank=True, null=True)
+	is_active = models.BooleanField(default=True)

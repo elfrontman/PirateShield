@@ -1,8 +1,8 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User
+from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo
 
 class BrandForm(ModelForm):
 	class Meta:
@@ -129,3 +129,25 @@ class UserForm(ModelForm):
             'is_active': 'Designa si este usuario debe ser tratado como activo. Anule la selección de esto en lugar de eliminar cuentas.'
         }
 
+
+class UserTerrenoForm(ModelForm):
+
+	expiration_date = DateTimeField(label='Operativo valido hasta:', widget=DateTimeInput(attrs={'type':'date'}))
+
+	class Meta:
+
+		model = User
+		fields = ['first_name', 'last_name', 'movil', 'expiration_date']
+		
+
+		labels = {
+			"first_name" : _("Nombres completos"),
+			"last_name" : _("Apellidos completos"),
+			"movil" : _("Número de celular")
+		}
+
+
+class InactiveOperativo(ModelForm):
+	class Meta:
+		model = Operativo
+		fields = []

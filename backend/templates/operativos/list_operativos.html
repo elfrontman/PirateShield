@@ -1,0 +1,34 @@
+{% extends "layout/base.html" %}
+{% block content %}
+	
+	<nav class="actions-bar grid-x">
+		<div class="cell small-12 medium-6">
+			<div class="title-actions-bar">Operativos</div>
+		</div>
+		<div class="cell small-12 medium-6 actions-buttons">
+			<a class="button hollow small" href="{% url 'new_operativo' %}">Nuevo operativo</a>
+		</div>
+	</nav>
+
+	{% if operativos %}
+	<ul class="list-data single-list">
+		{% for item in operativos %}
+		<li class="grid-x">
+			
+			<div class="cell small-10 medium-10">
+				<div class="info-row ">
+					<h3>{{ item.user.first_name }} {{ item.user.last_name }}</h3>		
+					<span><strong>Token: {{ item.token }}</strong></span> <br>
+					<span><strong>Valido hasta:</strong> {{ item.expiration }}</span>
+				</div>	
+			</div>
+			<div class="cell auto content-buttons">
+				<div class="small button-group">
+				  <a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button alert">Terminar operativo</a>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}

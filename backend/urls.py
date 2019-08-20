@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, REST_view
+from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, operativos,REST_view
 
 
 router = routers.DefaultRouter()
@@ -46,6 +46,10 @@ urlpatterns = [
 	path('usuarios/', usuarios.index, name="list_usuarios"),
 	path('usuarios/new', usuarios.create, name="create_usuarios"),
 	path('usuarios/<int:pk>', usuarios.detail, name="detail_usuarios"),
+
+	path('operativos/', operativos.index, name="operativos"),
+	path('operativos/new', operativos.new, name="new_operativo"),
+	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
 
 	path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
