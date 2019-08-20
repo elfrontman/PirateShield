@@ -52,6 +52,8 @@ urlpatterns = [
 	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
 
 	path('', include(router.urls)),
+
+	path('login_app/', REST_view.login_app, name="login_app"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 	

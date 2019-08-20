@@ -1,5 +1,6 @@
 from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct
 from rest_framework import viewsets, filters
+from rest_framework.response import Response
 from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -39,4 +40,12 @@ class DetailImageProduct(viewsets.ModelViewSet):
 	search_fields = ['image_product__id']
 	queryset = DetailImageProduct.objects.all()
 	serializer_class = 	DetailImageProductSerializer
+
+
+def login_app(request):
+	if request.method == 'POST':
+		return Response({'msg': 'Se creo el post normiiiii'})
+
+
+
 

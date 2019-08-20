@@ -118,10 +118,10 @@ aside{
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	background: white;
 	vertical-align: sub;
 	position: absolute;
 	left: 2rem;
+	font-size: 1.5rem;
 }
 
 .content-section{
@@ -234,15 +234,21 @@ aside{
 }
 
 .menu-sidebar ul a i {
-	background: #dbe4ea;
 	display: block;
-	width: 30px;
-	height: 30px;
-	margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    text-align: center;
 }
 
 .menu-sidebar ul a:hover{
 	background: #0081ed;
+	color: white;
+}
+
+.menu-sidebar ul a:hover span{
+	color: #1779ba;
 }
 
     
