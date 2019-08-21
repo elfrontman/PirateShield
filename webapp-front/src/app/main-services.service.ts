@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 
@@ -10,7 +10,11 @@ import {map} from 'rxjs/operators';
 })
 export class MainServicesService {
 
-  constructor(private http: HttpClient) { }
+  headers;
+
+  constructor(private http: HttpClient) { 
+
+  }
 
   getBrands(){
   	return this.http.get(environment.API_URL + '/brands')	
@@ -34,7 +38,16 @@ export class MainServicesService {
 
 
   loginToken(token){
-    return this.http.post(environment.API_URL + '/login_app/', {'token': token})
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+
+    const formData = new FormData()
+    formData.append('token', token);
+
+
+    return this.http.post(environment.API_URL + '/login_app/', {'token': token}, {headers: this.headers})
       .pipe(map(response => response))
   }
 }

@@ -1,16 +1,16 @@
 from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, Operativo
 from rest_framework import viewsets, filters
-from rest_framework.response import Response
 from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import redirect, get_object_or_404
+from rest_framework.decorators import api_view, permission_classes
+from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny
 from rest_framework.status import (
-    HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
     HTTP_200_OK
-
 )
 from django.http import JsonResponse
+from django.core import serializers
+from pprint import pprint
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
@@ -50,15 +50,20 @@ class DetailImageProduct(viewsets.ModelViewSet):
 	queryset = DetailImageProduct.objects.all()
 	serializer_class = 	DetailImageProductSerializer
 
+
+
+
 @csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
 def login_app(request):
 	if request.method == 'POST':
-		operativo = get_object_or_404(Operativo, token=request.POST['token'])
+
+		operativo = get_object_or_404(Operativo, token=request.data.get('token'))
 
 		if operativo:
-			return JsonResponse({'login': 'true', 'msg': 'Active Session'}, status=HTTP_200_OK)
-		else:
-			return JsonResponse({'login': 'false', 'msg': 'Inactive Session'}, status=HTTP_200_OK)
+			user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
+			return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user}, status=HTTP_200_OK)
 
 		
 

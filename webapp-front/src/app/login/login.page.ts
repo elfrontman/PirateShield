@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MainServicesService } from '../main-services.services';
+import { MainServicesService } from './../main-services.service';
 
 @Component({
 	selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
 
 	login(){
 		this.mS.loginToken(this.token)
-		.subscribe( data => {
+		.subscribe( (data:any) => {
 			if(!data.error){
 				this.router.navigateByUrl('/brands');			
 				return;
