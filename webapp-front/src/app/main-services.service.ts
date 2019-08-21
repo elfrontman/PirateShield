@@ -33,4 +33,8 @@ export class MainServicesService {
   }
 
 
+  loginToken(token){
+    return this.http.post(environment.API_URL + '/login_app/', {'token': token})
+      .pipe(map(response => response))
+  }
 }
