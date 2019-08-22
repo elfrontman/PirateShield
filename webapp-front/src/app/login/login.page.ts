@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { MainServicesService } from './../main-services.service';
 
 @Component({
@@ -10,8 +11,9 @@ import { MainServicesService } from './../main-services.service';
 export class LoginPage implements OnInit {
 
 	token: string;
+	toast: any;
 
-	constructor(private router: Router, private mS: MainServicesService) { }
+	constructor(private router: Router, private mS: MainServicesService, public toastController: ToastController) { }
 
 	ngOnInit() {
 	}
@@ -23,10 +25,28 @@ export class LoginPage implements OnInit {
 				this.router.navigateByUrl('/brands');			
 				return;
 			}
-
-			alert('Sin sesion')
+		}, (error) => {
+			this.showToast();
 		})
 
+	}
+
+	showToast() {
+		console.log('la tost')
+		this.toast = this.toastController.create({
+			message: 'Token invalido',
+			duration: 3000,
+			showCloseButton: true,
+			closeButtonText: 'Cerrar',
+	      	animated:true,
+	      	cssClass:"error-toast"
+		}).then((toastData)=>{
+			console.log(toastData);
+			toastData.present();
+		});
+	}
+	HideToast(){
+		this.toast = this.toastController.dismiss();
 	}
 
 }
