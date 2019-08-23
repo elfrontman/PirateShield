@@ -17,7 +17,7 @@ $(document).ready(function(){
 	var offsetY = $('#id_marker_y').val()
 
 	if(offsetY > 0 || offsetX > 0){
-		pointer.css({top: offsetY - 15 , left:offsetX - 15});	
+		pointer.css({top: (offsetY) + '%' , left:(offsetX) + '%'});	
 		$('.select-point').append(pointer);
 	}
 
@@ -28,10 +28,10 @@ $(document).ready(function(){
 		let size = 360;
 
 
-		$('#id_marker_x').val(event.offsetX * size / 100)
-		$('#id_marker_y').val(event.offsetY * size / 100)
+		$('#id_marker_x').val((event.offsetX * 100 / size) - 7)
+		$('#id_marker_y').val((event.offsetY * 100 / size) - 7)
 
-		pointer.css({top: event.offsetY - 15 , left:event.offsetX - 15});
+		pointer.css({top: ($('#id_marker_y').val()) + '%' , left:($('#id_marker_x').val()) + '%'});
 
 		$(this).append(pointer);
 	})
