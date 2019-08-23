@@ -24,8 +24,12 @@ $(document).ready(function(){
 
 	$('.select-point').click(function(event){
 		event.preventDefault();
-		$('#id_marker_x').val(event.offsetX)
-		$('#id_marker_y').val(event.offsetY)
+
+		let size = 360;
+
+
+		$('#id_marker_x').val(event.offsetX * size / 100)
+		$('#id_marker_y').val(event.offsetY * size / 100)
 
 		pointer.css({top: event.offsetY - 15 , left:event.offsetX - 15});
 
