@@ -1,4 +1,4 @@
-{% extends "layout/internal.html" %}
+{% extends "layout/base.html" %}
 
 
 {% block content %}
@@ -19,7 +19,7 @@
 			
 			<div class="grid-x">
 				<div class="cell small-12 medium-6">
-					<a href="{% url 'productos' %}" class="button expanded alert">REGRESAR</a>
+					<a href="{% url 'products_by_brand' pk=brand%}" class="button expanded alert">REGRESAR</a>
 				</div>
 				<div class="cell small-12 medium-6">
 					<input type="submit" class="button expanded" value="GUARDAR">

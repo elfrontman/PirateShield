@@ -1,2 +1,5 @@
-
+env/
 mypirateenv/
+__pycache__/
+*.pyc
+mysql.cnf

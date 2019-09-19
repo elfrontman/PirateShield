@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //API_URL: 'http://127.0.0.1:8000/backend'
-  API_URL: 'http://ec2-34-227-176-28.compute-1.amazonaws.com:8080/backend'
+  API_URL: 'http://127.0.0.1:8000/backend'
+  //API_URL: 'http://ec2-34-227-176-28.compute-1.amazonaws.com:8080/backend'
 };
 
 /*

@@ -7,11 +7,12 @@ from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBr
 class BrandForm(ModelForm):
 	class Meta:
 		model = Brand
-		fields = ['name', 'logo', 'description', 'brand_category_id']
+		fields = ['name', 'logo', 'banner','description', 'brand_category_id']
 
 		labels = {
 			"name" : _("Nombre de la marca"),
 			"logo" : _("Logo de la marca"),
+			"banner": _("Imagen de banner"),
 			"description": _("Descripción"),
 			"brand_category_id" : _("Categoría"),
 		}
@@ -29,11 +30,11 @@ class ProductForm(ModelForm):
 	class Meta:
 		model = Product
 		fields = '__all__'
+		widgets= {'brand': HiddenInput()}
 
 		labels = {
 			"name" : _("Nombre del producto"),
 			"reference" : _("Referencia"),
-			"brand" : _("Marca"),
 			"image" : _("Imagen"),
 			"description": _("Descripción"),
 			"product_category" : _("Categoría"),

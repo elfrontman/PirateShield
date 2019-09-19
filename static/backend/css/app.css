@@ -428,7 +428,7 @@ aside{
 }
 
 form, .content-delete{
-	max-width: 50vw;
+	max-width: 80vw;
 	margin: 0 auto;
 }
 
@@ -463,6 +463,7 @@ form .input-file label{
 	height: 45px;
 	flex-grow: 1;
 	white-space: nowrap;
+	margin-bottom: 0.5rem;
 
 }
 

@@ -22,7 +22,7 @@ def productos(request):
 	return HttpResponse(template.render(context, request))
 
 
-def product_new(request):
+def product_new(request, pk_brand):
 	template = loader.get_template('productos/create_producto.html')
 
 	if request.method == 'POST':
@@ -32,11 +32,11 @@ def product_new(request):
 			product = form.save(commit=False)
 			product.save()
 
-			return redirect('productos')
+			return redirect('products_by_brand', pk=pk_brand)
 	else:
-		form = ProductForm()
+		form = ProductForm(initial={'brand': pk_brand})
 	
-	return HttpResponse(template.render({'form': form}, request))
+	return HttpResponse(template.render({'form': form, 'brand': pk_brand}, request))
 
 
 def product_detail(request, pk):
@@ -49,17 +49,18 @@ def product_detail(request, pk):
 		form = ProductForm(request.POST, instance=product)
 
 		if form.is_valid():
+			pk_brand = product.brand.pk
 			product = form.save(commit=False)
 			product.save()
 
-			return redirect('productos')
+			return redirect('products_by_brand', pk=pk_brand)
 
 	else:
 		form = ProductForm(instance=product)
 
 	pprint(product.imageproduct_set.all())
 
-	return HttpResponse(template.render({'form': form, 'is_edit': 'True', 'images': product.imageproduct_set.all(), 'product': product}, request))
+	return HttpResponse(template.render({'form': form, 'is_edit': 'True', 'images': product.imageproduct_set.all(), 'product': product, 'brand': product.brand.pk}, request))
 
 
 def product_delete(request, pk):
@@ -71,9 +72,10 @@ def product_delete(request, pk):
 		form = DeleteProduct(request.POST, instance=product)
 
 		if form.is_valid():
+			pk_brand = product.brand.pk
 			product.delete()
-			return redirect('productos')
+			return redirect('products_by_brand', pk=pk_brand)
 	else:
 		form = DeleteProduct(instance=product)
 	
-	return HttpResponse(template.render({'form': form, 'product':product.name}, request))
+	return HttpResponse(template.render({'form': form, 'product':product.name, 'brand': product.brand.pk}, request))

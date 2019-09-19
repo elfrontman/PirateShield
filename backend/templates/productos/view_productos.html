@@ -6,7 +6,7 @@
 			<div class="title-actions-bar">Productos</div>
 		</div>
 		<div class="cell small-12 medium-6 actions-buttons">
-			<a class="button hollow small" href="{% url 'product_new' %}">Crear producto</a>
+			<a class="button hollow small" href="{% url 'product_new' pk_brand=brand_pk %}">Crear producto</a>
 		</div>
 	</nav>
 
@@ -15,7 +15,7 @@
 		{% for product in product_list %}
 		<li class="grid-x">
 			
-			<div class="cell small-10 medium-10">
+			<div class="cell small-8 medium-8">
 				<figure>
 					<img src="/media/{{ product.image }}" alt="">
 				</figure>

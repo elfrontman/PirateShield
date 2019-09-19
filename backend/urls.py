@@ -18,9 +18,11 @@ urlpatterns = [
 	path('brand/new', marca.brand_new, name='brand_new'),
 	path('brand/<int:pk>', marca.brand_detail, name='brand_detail'),
 	path('brand/<int:pk>/delete/', marca.brand_delete, name='brand_delete'),
+	path('brand/<int:pk>/productos/', marca.products_by_brand, name='products_by_brand'),
 
 	path('productos', producto.productos, name='productos'),
-	path('producto/new', producto.product_new, name='product_new'),
+
+	path('producto/<int:pk_brand>/new', producto.product_new, name='product_new'),
 	path('producto/<int:pk>', producto.product_detail, name='product_detail'),
 	path('producto/<int:pk>/delete/', producto.product_delete, name='product_delete'),
 

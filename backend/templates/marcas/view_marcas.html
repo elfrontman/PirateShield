@@ -15,7 +15,7 @@
 		{% for brand in brand_list %}
 		<li class="grid-x">
 			
-			<div class="cell small-10 medium-10">
+			<div class="cell small-8 medium-8">
 				<figure>
 					<img src="/media/{{ brand.logo }}" alt="">
 				</figure>
@@ -27,8 +27,9 @@
 			</div>
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
-				  <a href="{% url 'brand_detail' pk=brand.pk %}" class="button">Editar</a>
-				  <a href="{% url 'brand_delete' pk=brand.pk %}" class="button alert">Eliminar</a>
+					<a href="{% url 'products_by_brand' pk=brand.pk  %}" class="button">Ver productos</a>
+					<a href="{% url 'brand_detail' pk=brand.pk %}" class="button">Editar</a>
+				  	<a href="{% url 'brand_delete' pk=brand.pk %}" class="button alert">Eliminar</a>
 				</div>
 			</div>
 		</li>
