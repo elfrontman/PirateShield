@@ -34,7 +34,7 @@ def brand_new(request):
 	template = loader.get_template('marcas/create_marca.html')
 
 	if request.method == 'POST':
-		form = BrandForm(request.POST)
+		form = BrandForm(request.POST, request.FILES or None)
 
 
 	
