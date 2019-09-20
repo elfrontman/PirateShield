@@ -26,7 +26,7 @@ def product_new(request, pk_brand):
 	template = loader.get_template('productos/create_producto.html')
 
 	if request.method == 'POST':
-		form = ProductForm(request.POST)
+		form = ProductForm(request.POST, request.FILES)
 	
 		if form.is_valid():
 			product = form.save(commit=False)
@@ -46,7 +46,7 @@ def product_detail(request, pk):
 	
 
 	if request.method == 'POST':
-		form = ProductForm(request.POST, instance=product)
+		form = ProductForm(request.POST, request.FILES, instance=product)
 
 		if form.is_valid():
 			pk_brand = product.brand.pk

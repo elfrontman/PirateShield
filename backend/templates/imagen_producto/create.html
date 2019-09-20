@@ -35,7 +35,7 @@
 			{% for mark in marks %}
 				<li class="grid-x">
 			
-					<div class="cell small-8 medium-8">
+					<div class="cell small-6 medium-6">
 						<figure>
 							<img src="/media/{{ mark.image_check }}" alt="">
 						</figure>
@@ -46,6 +46,7 @@
 					</div>
 					<div class="cell auto content-buttons">
 						<div class="small button-group">
+						  <a href="{% url 'punto_detail_imagen_new' pk_product=product pk_image_product=image_product.pk  pk_mark=mark.pk%}" class="button tiny">Agregar imagen</a>
 						  <a href="{% url 'punto_imagen_detail' pk_product=product pk_image_product=image_product.pk  pk=mark.pk%}" class="button tiny">Editar</a>
 						  <a href="{% url 'punto_imagen_delete' pk_product=product pk_image_product=image_product.pk  pk=mark.pk %}" class="button alert tiny">Eliminar</a>
 						</div>

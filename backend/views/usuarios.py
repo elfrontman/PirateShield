@@ -21,7 +21,7 @@ def create(request):
 	template = loader.get_template('usuarios/create_user.html')
 
 	if request.method == 'POST':
-		form = UserForm(request.POST)
+		form = UserForm(request.POST, request.FILES)
 	
 		if form.is_valid():
 			new_user = User.objects.create_user(**form.cleaned_data)
@@ -38,7 +38,7 @@ def detail(request, pk):
 	user_detail = get_object_or_404(User, pk=pk)
 
 	if request.method == 'POST':
-		form = UserForm(request.POST, instance=user_detail)
+		form = UserForm(request.POST, request.FILES, instance=user_detail)
 	
 		if form.is_valid():
 			user = form.save(commit=False)
