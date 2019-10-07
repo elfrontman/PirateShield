@@ -36,6 +36,11 @@ export class MainServicesService {
       .pipe( map(response => response) )  
   }
 
+  getDetailMarkerProduct(id_product){
+    return this.http.get(environment.API_URL + '/detailproduct/' + id_product)  
+      .pipe( map(response => response) )  
+  }
+
 
   loginToken(token){
     this.headers = new HttpHeaders({

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import CategoryBrand, CategoryProduct, Brand, Product, ImageProduct, DetailImageProduct, User, Operativo
+from .models import CategoryBrand, CategoryProduct, Brand, Product, ImageProduct, DetailImageProduct, User, Operativo, ImageDetailCompare
 # Register your models here.
 
 class DetailImageProductAdmin(admin.ModelAdmin):
@@ -39,6 +39,7 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(DetailImageProduct, DetailImageProductAdmin)
 admin.site.register(User)
 admin.site.register(Operativo)
+admin.site.register(ImageDetailCompare)
 
 
 admin.site.site_header = "Consola de Administración - Pirate Shield"

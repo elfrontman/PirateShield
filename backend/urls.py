@@ -10,7 +10,8 @@ router.register(r'brands', REST_view.BrandViewSet)
 router.register(r'product', REST_view.ProductViewSet)
 router.register(r'productbybrand', REST_view.ProductList)
 router.register(r'imageproduct', REST_view.ImageDetailProduct)
-router.register(r'detailproduct', REST_view.DetailImageProduct)
+router.register(r'detailproduct', REST_view.DetailImageProductViewSet)
+router.register(r'markerproduct', REST_view.DetailMarkerProduct)
 
 urlpatterns = [
 	path('', dashboard.index, name='index'),
@@ -34,9 +35,10 @@ urlpatterns = [
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/<int:pk>', punto_imagen.detail, name="punto_imagen_detail"),
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/<int:pk>/delete/', punto_imagen.delete, name="punto_imagen_delete"),
 
+	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/<int:pk_mark>/detalle/', punto_imagen.image_pointer, name="punto_detail_imagen"),
 	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/<int:pk_mark>/detalle/new', punto_imagen.new_image, name="punto_detail_imagen_new"),
-	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk>', punto_imagen.image_detail, name="punto_detail_imagen_detail"),
-	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk>/delete/', punto_imagen.delete_detail, name="punto_detail_imagen_delete"),
+	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/<int:pk>', punto_imagen.image_detail, name="punto_detail_imagen_detail"),
+	path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/delete/<int:pk>', punto_imagen.delete_detail, name="punto_detail_imagen_delete"),
 
 	path('herramientas/', herramientas.index, name="herramientas"),
 	path('herramientas/brand/categorias/', herramientas.categoria_marca, name="category_brand"),

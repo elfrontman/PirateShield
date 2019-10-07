@@ -97,6 +97,19 @@ class DetailImageProduct(models.Model):
 	def __str__(self):
 		return self.name
 
+class ImageDetailCompare(models.Model):
+	TYPE_CHOICES = (
+	    ('1','Imagen Correcta'),
+	    ('2', 'Imagen Incorrecta'),
+	)
+
+	name = models.CharField(max_length=250, blank=True, null=True)
+	description = models.TextField(blank=True, null=True)
+	image_check = models.ImageField(upload_to='products/details', default='products/details/image_default.jpg')
+	type_image = models.CharField(max_length=15, choices=TYPE_CHOICES, default='')
+	detail_image = models.ForeignKey(DetailImageProduct, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+
 
 class User(AbstractUser):
 	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, blank=True, null=True)

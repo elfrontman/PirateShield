@@ -1,6 +1,6 @@
 from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, Operativo
 from rest_framework import viewsets, filters
-from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer
+from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer, DetailMarkerProductSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
@@ -44,11 +44,20 @@ class ImageDetailProduct(viewsets.ModelViewSet):
 	serializer_class = ImageProductSerializer
 
 
-class DetailImageProduct(viewsets.ModelViewSet):
+class DetailImageProductViewSet(viewsets.ModelViewSet):
 	filter_backends = (filters.SearchFilter,)
 	search_fields = ['image_product__id']
 	queryset = DetailImageProduct.objects.all()
 	serializer_class = 	DetailImageProductSerializer
+
+class DetailMarkerProduct(viewsets.ModelViewSet):
+	filter_backends = (filters.SearchFilter,)
+	search_fields = ['id']
+	queryset = DetailImageProduct.objects.all()
+	serializer_class = DetailMarkerProductSerializer
+
+
+
 
 
 

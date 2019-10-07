@@ -1,4 +1,4 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
 from rest_framework import serializers
 
 
@@ -30,10 +30,25 @@ class UserSerializer(serializers.ModelSerializer):
 		fields = ['url', 'username', 'email', 'brand']
 
 
+class ImageDetailCompareSerializer(serializers.ModelSerializer):
+	class Meta:
+		model =  ImageDetailCompare
+		fields = '__all__'
+
+
+
 class DetailImageProductSerializer(serializers.ModelSerializer):
+	
 	class Meta:
 		model = DetailImageProduct
-		fields = ('id', 'name', 'description','marker_x','marker_y','image_product','image_check','image_fail')
+		fields = ('id', 'name', 'description','marker_x','marker_y','image_product')
+
+class DetailMarkerProductSerializer(serializers.ModelSerializer):
+	detail_images = ImageDetailCompareSerializer(many=True, source='imagedetailcompare_set')
+
+	class Meta:
+		model = DetailImageProduct
+		fields = ('id', 'name', 'description','marker_x','marker_y','image_product', 'detail_images')
 
 
 class ImageProductSerializer(serializers.ModelSerializer):
@@ -52,3 +67,4 @@ class ProductSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product
 		fields = '__all__'
+

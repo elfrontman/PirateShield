@@ -2,7 +2,7 @@ from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, 
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo
+from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo, ImageDetailCompare
 
 class BrandForm(ModelForm):
 	class Meta:
@@ -66,7 +66,7 @@ class DeleteImagenProduct(ModelForm):
 class DetailImageProductForm(ModelForm):
 	class Meta:
 		model = DetailImageProduct
-		fields = ['name', 'description', 'marker_x', 'marker_y', 'image_check', 'image_fail']
+		fields = ['name', 'description', 'marker_x', 'marker_y']
 		widgets = {'marker_x': HiddenInput(), 'marker_y': HiddenInput()}
 
 
@@ -75,6 +75,13 @@ class DeleteDetailImageProduct(ModelForm):
 		model = DetailImageProduct
 		fields = []
 
+
+class ImageDetailCompareForm(ModelForm):
+	class Meta:
+		model = ImageDetailCompare
+		fields = '__all__'
+		widgets= {'detail_image': HiddenInput()}
+		
 
 
 class CategoryBrandForm(ModelForm):
