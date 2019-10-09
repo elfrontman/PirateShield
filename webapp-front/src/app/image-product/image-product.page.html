@@ -37,7 +37,7 @@
 				<div class="image-content">
 					<img [src]="slide.image">
 					<div class="layer-marker">
-						<div *ngFor="let marker of slide.detail" routerLink="/detail-image" class="marker" [ngStyle]="{top: marker.marker_y + '%', left: marker.marker_x + '%'}"></div>
+						<div *ngFor="let marker of slide.detail" [routerLink]="['/detail-image', product.id ,marker.id]" class="marker" [ngStyle]="{top: marker.marker_y + '%', left: marker.marker_x + '%'}"></div>
 					</div>
 				</div>
 			</ion-slide>

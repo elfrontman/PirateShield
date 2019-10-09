@@ -1,31 +1,44 @@
-<ion-content>
+<ion-content *ngIf="loadModule">
 	<ion-grid>
 		<ion-row>
 			<ion-col size="3">
 				<div class="logo">
-					<img src="./assets/images/marca.png" alt="">	
+					<img [src]="product.brand.logo" alt="">	
 				</div>
 			</ion-col>
 			<ion-col size="9">
 				<div class="title">
-					<h2>Camiseta de millonarios</h2>
-					<h3>1234-123-123-</h3>
+					<h2>{{ product.name }}</h2>
+					<h3>{{ product.reference }}</h3>
 				</div>
 			</ion-col>
 		</ion-row>
 		<ion-row>
 			<ion-col>
-				<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt eos error maxime harum cum cupiditate, asperiores similique magnam adipisci, quaerat enim excepturi sint quasi dolorem quae, neque repudiandae voluptatibus voluptate.</p>
+				<p class="description">{{ description }}</p>
 			</ion-col>
 		</ion-row>
 
 	</ion-grid>
 
 	<div class="content-image">
-		<img src="./assets/images/check.png" alt="">
+		<ion-slides pager="true" [options]="slideOpts" #slideCheck>
+			<ion-slide *ngFor="let slide of images_check">
+				<div class="image-content">
+					<img [src]="slide.image_check">
+				</div>
+			</ion-slide>
+		</ion-slides>
+		
 	</div>
 	<div class="content-image">
-		<img src="./assets/images/fail.png" alt="">
+		<ion-slides pager="true" [options]="slideOpts" #slideFail>
+			<ion-slide *ngFor="let slide of images_fail">
+				<div class="image-content">
+					<img [src]="slide.image_check">
+				</div>
+			</ion-slide>
+		</ion-slides>
 	</div>
 </ion-content>
 

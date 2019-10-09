@@ -36,8 +36,8 @@ export class MainServicesService {
       .pipe( map(response => response) )  
   }
 
-  getDetailMarkerProduct(id_product){
-    return this.http.get(environment.API_URL + '/detailproduct/' + id_product)  
+  getDetailMarkerProduct(id_marker){
+    return this.http.get(environment.API_URL + '/markerproduct/' + id_marker)  
       .pipe( map(response => response) )  
   }
 
