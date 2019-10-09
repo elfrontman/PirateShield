@@ -140,12 +140,13 @@ class UserForm(ModelForm):
 
 class UserTerrenoForm(ModelForm):
 
+	activation_date = DateTimeField(label='Operativo valido desde:', widget=DateTimeInput(attrs={'type':'date'}))
 	expiration_date = DateTimeField(label='Operativo valido hasta:', widget=DateTimeInput(attrs={'type':'date'}))
 
 	class Meta:
 
 		model = User
-		fields = ['first_name', 'last_name', 'movil', 'expiration_date']
+		fields = ['first_name', 'last_name', 'movil', 'activation_date', 'expiration_date']
 		
 
 		labels = {

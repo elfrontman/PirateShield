@@ -128,4 +128,5 @@ class Operativo(models.Model):
 	expiration = models.DateTimeField()
 	first_login = models.DateTimeField(blank=True, null=True)
 	last_login = models.DateTimeField(blank=True, null=True)
-	is_active = models.BooleanField(default=True)
+	is_active = models.BooleanField(default=False)
+	activation = models.DateTimeField(blank=True, null=True)

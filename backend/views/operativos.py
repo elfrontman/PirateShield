@@ -8,6 +8,7 @@ from django.utils.crypto import get_random_string
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
 from backend.models import User, Operativo
+from datetime import datetime
 
 from pprint import pprint
 
@@ -37,7 +38,13 @@ def new(request):
 			operativo = Operativo()
 			operativo.user = new_user
 			operativo.expiration = request.POST['expiration_date']
+			operativo.activation = request.POST['activation_date']
 			operativo.token = get_random_string(length=6)
+
+			date_activation = datetime.strptime(operativo.activation , '%Y-%m-%d')
+
+			if date_activation.date() == datetime.now().date():
+				operativo.is_active = True
 
 			operativo.save()
 

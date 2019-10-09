@@ -6,11 +6,12 @@ from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
-    HTTP_200_OK
+    HTTP_200_OK,
+    HTTP_401_UNAUTHORIZED
 )
 from django.http import JsonResponse
-from django.core import serializers
-from pprint import pprint
+from datetime import datetime
+
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
@@ -70,9 +71,23 @@ def login_app(request):
 
 		operativo = get_object_or_404(Operativo, token=request.data.get('token'))
 
-		if operativo:
-			user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
-			return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user}, status=HTTP_200_OK)
+
+		if operativo and operativo.is_active:
+
+			#date_activation = datetime.strptime(operativo.activation , '%Y-%m-%d')
+			 
+			if operativo.activation.date() > datetime.now().date():
+				operativo.is_active = False
+				operativo.save()
+
+				return JsonResponse({'error': 'true', 'msg': 'Token expirado'}, status=HTTP_401_UNAUTHORIZED)
+
+			if operativo.activation.date() >= datetime.now().date():
+				user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
+				return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user}, status=HTTP_200_OK)
+
+		else:
+			return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
 
 		
 
