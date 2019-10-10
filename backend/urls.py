@@ -6,7 +6,7 @@ from .views import marca, producto, dashboard, imagen_producto, punto_imagen, he
 
 router = routers.DefaultRouter()
 router.register(r'users', REST_view.UserViewSet)
-router.register(r'brands', REST_view.BrandViewSet)
+router.register(r'brands', REST_view.BrandViewSet, basename='Brand')
 router.register(r'product', REST_view.ProductViewSet)
 router.register(r'productbybrand', REST_view.ProductList)
 router.register(r'imageproduct', REST_view.ImageDetailProduct)
@@ -58,6 +58,7 @@ urlpatterns = [
 	path('operativos/', operativos.index, name="operativos"),
 	path('operativos/new', operativos.new, name="new_operativo"),
 	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
+	path('operativos/activate/<int:pk>', operativos.activate, name="activate_operativo"),
 
 	path('', include(router.urls)),
 

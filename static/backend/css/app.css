@@ -587,3 +587,16 @@ form .input-file input{
 	display: inline-block;
 	margin-bottom: 0.5rem;
 }
+
+.list-check{
+	background: white;
+    padding: 1rem;
+    list-style: none;
+    border: 1px solid #ccc;
+    min-height: 100%;
+    overflow: auto;
+}
+
+.list-check ul{
+	list-style: none;
+}

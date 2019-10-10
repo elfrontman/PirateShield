@@ -128,5 +128,15 @@ class Operativo(models.Model):
 	expiration = models.DateTimeField()
 	first_login = models.DateTimeField(blank=True, null=True)
 	last_login = models.DateTimeField(blank=True, null=True)
-	is_active = models.BooleanField(default=False)
+	is_active = models.BooleanField(default=True)
+	is_ready = models.BooleanField(default=False)
 	activation = models.DateTimeField(blank=True, null=True)
+	brandsList = models.CharField(max_length=250, blank=True, null=True)
+	productList = models.CharField(max_length=250, blank=True, null=True)
+
+
+class OperativoBrand(models.Model):
+	operativo = models.ForeignKey(Operativo, on_delete=models.DO_NOTHING)
+	brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
+	producto = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+	all_prodcut = models.BooleanField()

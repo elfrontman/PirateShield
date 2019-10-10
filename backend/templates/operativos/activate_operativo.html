@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+
+
+{% block content %}
+<div class="title-internal">
+	<h2>Activar operativo</h2>
+	<h5>¿Desea activar este operativo?</h5>
+</div>
+
+<div class="grid-x">
+	<div class="cell small-12 medium-6">
+		<a href="{% url 'operativos' %}" class="button expanded alert">REGRESAR</a>
+	</div>
+	<div class="cell small-12 medium-6">
+		<form method="POST">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit" class="button expanded ">ACTIVAR</button>	
+		</form>
+		
+	</div>
+</div>
+
+{% endblock %}

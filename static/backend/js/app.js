@@ -38,4 +38,15 @@ $(document).ready(function(){
 
 	$('#id_is_active').parents('p').addClass('check-row')
 	$('#clear_id-clear, [for=image-clear_id]').remove();
+
+
+	$('.parent-select').click(function (event) {
+		console.log(event)
+		event.stopPropagation();
+		if(this.checked){
+			$(this).parents('li').find(' > ul li input[type=checkbox]').prop('checked', true)
+		}else{
+			$(this).parents('li').find(' > ul li input[type=checkbox]').prop('checked', false)
+		}
+	})
 });

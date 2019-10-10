@@ -14,7 +14,33 @@
 		
 	</h2>
 	{% csrf_token %}
-	{{ form.as_p }}
+	
+	<div class="grid-x">
+		<div class="cell small-12 medium-6">
+			{{ form.as_p }}
+		</div>
+		<div class="cell small-12 medium-6">
+			<ul class="list-check">
+
+				{% for brand in brands %}
+					<li >
+					<input class="parent-select" name="brands[]" type="checkbox" value="{{brand.id}}"> {{ brand.name }}
+						<ul>
+						{% for product in brand.product_set.all %}
+							<li>
+							<input name="products[]" type="checkbox" value="{{product.id}}"> {{ product.name }}
+							</li>
+						{%  endfor%}
+						</ul>
+					</li>
+				{% endfor %}
+			</ul>
+			
+		</div>
+	</div>
+
+	
+	
 	
 	<br>
 	<div class="grid-x">

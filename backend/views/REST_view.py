@@ -11,6 +11,7 @@ from rest_framework.status import (
 )
 from django.http import JsonResponse
 from datetime import datetime
+from pprint import pprint
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,20 @@ class UserViewSet(viewsets.ModelViewSet):
 class BrandViewSet(viewsets.ModelViewSet):
 	queryset = Brand.objects.all()
 	serializer_class = BrandSerializer
+
+	def get_queryset(self):
+		token = self.request.query_params.get('token')
+
+		operativo = Operativo.objects.get(token=token)
+		brandsList = operativo.brandsList
+		
+		if brandsList:
+			brands = Brand.objects.filter(id__in=brandsList.split(','))
+			
+			return brands
+
+		return None
+		
 
 
 class CategoryBrandViewSet(viewsets.ModelViewSet):
@@ -39,6 +54,19 @@ class ProductList(viewsets.ModelViewSet):
 	filter_backends = (filters.SearchFilter,)
 	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
+
+	def get_queryset(self):
+		token = self.request.query_params.get('token')
+
+		operativo = Operativo.objects.get(token=token)
+		productList = operativo.productList
+		
+		if productList:
+			brands = Product.objects.filter(id__in=productList.split(','))
+			
+			return brands
+
+		return Product.objects.all()
 
 class ImageDetailProduct(viewsets.ModelViewSet):
 	queryset = ImageProduct.objects.all()
@@ -73,18 +101,13 @@ def login_app(request):
 
 
 		if operativo and operativo.is_active:
-
-			#date_activation = datetime.strptime(operativo.activation , '%Y-%m-%d')
-			 
-			if operativo.activation.date() > datetime.now().date():
-				operativo.is_active = False
-				operativo.save()
-
-				return JsonResponse({'error': 'true', 'msg': 'Token expirado'}, status=HTTP_401_UNAUTHORIZED)
-
-			if operativo.activation.date() >= datetime.now().date():
+			if operativo.is_ready:
 				user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
 				return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user}, status=HTTP_200_OK)
+			else:
+				operativo.is_active = False
+				operativo.save()
+				return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
 
 		else:
 			return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)

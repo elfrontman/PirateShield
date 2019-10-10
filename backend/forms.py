@@ -2,7 +2,7 @@ from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, 
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo, ImageDetailCompare
+from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo, ImageDetailCompare, OperativoBrand
 
 class BrandForm(ModelForm):
 	class Meta:
@@ -160,3 +160,9 @@ class InactiveOperativo(ModelForm):
 	class Meta:
 		model = Operativo
 		fields = []
+
+
+class OperativoBrandForm(ModelForm):
+	class Meta:
+		model = OperativoBrand
+		fields = '__all__'

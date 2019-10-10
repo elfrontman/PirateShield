@@ -16,18 +16,43 @@ export class MainServicesService {
 
   }
 
+  service(url, data){
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+
+    const token = localStorage.getItem('token');
+    const formData = new FormData()
+    formData.append('token', token);
+
+    for(let field of Object.keys(data)){
+      formData.append(field, data[field]);
+    }
+
+
+    return this.http.post(environment.API_URL + url, {'token': token}, {headers: this.headers})
+      .pipe(map(response => response))
+  }
+
   getBrands(){
-  	return this.http.get(environment.API_URL + '/brands')	
+    const token = localStorage.getItem('token');
+
+  	return this.http.get(environment.API_URL + '/brands/?token='+token)	
   		.pipe( map(response => response) )
   }
 
   getBrandById(id_brand){
-  	return this.http.get(environment.API_URL + '/brands/' + id_brand)	
+    const token = localStorage.getItem('token');
+
+  	return this.http.get(environment.API_URL + '/brands/' + id_brand +'/?token='+token)	
   		.pipe( map(response => response) )	
   }
 
   getProductsByBrand(id_brand){
-  	return this.http.get(environment.API_URL + '/productbybrand/?search=' + id_brand)	
+    const token = localStorage.getItem('token');
+
+  	return this.http.get(environment.API_URL + '/productbybrand/?search=' + id_brand+'&token='+token)	
   		.pipe( map(response => response) )	
   }
 
@@ -51,7 +76,8 @@ export class MainServicesService {
     const formData = new FormData()
     formData.append('token', token);
 
-
+    localStorage.setItem('token', token);
+  
     return this.http.post(environment.API_URL + '/login_app/', {'token': token}, {headers: this.headers})
       .pipe(map(response => response))
   }

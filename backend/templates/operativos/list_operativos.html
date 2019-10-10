@@ -19,12 +19,18 @@
 				<div class="info-row ">
 					<h3>{{ item.user.first_name }} {{ item.user.last_name }}</h3>		
 					<span><strong>Token: {{ item.token }}</strong></span> <br>
+					<span><strong>Activo desde:</strong> {{ item.activation }}</span> - 
 					<span><strong>Valido hasta:</strong> {{ item.expiration }}</span>
 				</div>	
 			</div>
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
-				  <a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button alert">Terminar operativo</a>
+					{% if not item.is_ready %}
+						<a href="{% url 'activate_operativo' pk=item.pk %}" class="button">Activar operativo</a>
+					{% endif %}
+					
+					
+				  	<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button alert">Terminar operativo</a>
 				</div>
 			</div>
 		</li>
