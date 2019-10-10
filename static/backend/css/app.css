@@ -336,6 +336,13 @@ aside{
 	width: 70px;
 	height: 70px;
 	display: inline-block;
+	padding: 8px;
+}
+
+.list-data li figure img{
+	height: 100%;
+	width: 100%;
+    object-fit: cover;
 }
 
 .list-data .info-row{
