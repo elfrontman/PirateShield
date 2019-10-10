@@ -26,16 +26,16 @@ export class LoginPage implements OnInit {
 				return;
 			}
 		}, (error) => {
-			this.showToast();
+			this.showToast("");
 		})
 
 	}
 
-	showToast() {
+	showToast(message) {
 		console.log('la tost')
 		this.toast = this.toastController.create({
 			message: 'Token invalido',
-			duration: 3000,
+			duration: 6000,
 			showCloseButton: true,
 			closeButtonText: 'Cerrar',
 	      	animated:true,

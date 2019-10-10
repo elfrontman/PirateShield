@@ -49,4 +49,11 @@ $(document).ready(function(){
 			$(this).parents('li').find(' > ul li input[type=checkbox]').prop('checked', false)
 		}
 	})
+
+	$('.child-select').click(function (event) {
+		event.stopPropagation();
+		if(this.checked){
+			$(this).parents('.list-parent').find('.parent-select').prop('checked', true)
+		}
+	})
 });
