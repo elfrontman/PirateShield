@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, operativos,REST_view
+from .views import marca, producto, dashboard, imagen_producto, punto_imagen, herramientas, usuarios, operativos,REST_view, informes
 
 
 router = routers.DefaultRouter()
@@ -59,6 +59,9 @@ urlpatterns = [
 	path('operativos/new', operativos.new, name="new_operativo"),
 	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
 	path('operativos/activate/<int:pk>', operativos.activate, name="activate_operativo"),
+
+	path('informes', informes.index, name="informes"),
+	path('informes/operativos', informes.operativos, name="informe_operativo"),
 
 	path('', include(router.urls)),
 

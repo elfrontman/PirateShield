@@ -133,6 +133,7 @@ class Operativo(models.Model):
 	activation = models.DateTimeField(blank=True, null=True)
 	brandsList = models.CharField(max_length=250, blank=True, null=True)
 	productList = models.CharField(max_length=250, blank=True, null=True)
+	created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 
 class OperativoBrand(models.Model):
