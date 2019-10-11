@@ -19,8 +19,8 @@
 				<div class="info-row ">
 					<h3>{{ item.user.first_name }} {{ item.user.last_name }}</h3>		
 					<span><strong>Token: {{ item.token }}</strong></span> {%if item.is_ready%}<span class="label success"><strong>Operativo Activo</strong></span> {% endif %} <br>
-					<span><strong>Activo desde:</strong> {{ item.activation }}</span> - 
-					<span><strong>Valido hasta:</strong> {{ item.expiration }}</span>
+					<span><strong>Activo desde:</strong> {{ item.activation |date:"M d, Y" }}</span> - 
+					<span><strong>Valido hasta:</strong> {{ item.expiration |date:"M d, Y"  }}</span>
 				</div>	
 			</div>
 			<div class="cell auto content-buttons">

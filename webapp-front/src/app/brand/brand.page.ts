@@ -16,6 +16,7 @@ export class BrandPage implements OnInit {
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
+			
 			this.service.getBrandById(params.id)
 			.subscribe( (data:any) => {
 				this.brand = data;

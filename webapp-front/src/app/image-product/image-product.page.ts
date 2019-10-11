@@ -14,6 +14,7 @@ export class ImageProductPage implements OnInit {
 	slideOpts
 	product;
 	loadModule;
+	prevUrl;
 
 	constructor(private service:MainServicesService, private router:ActivatedRoute) {
 		this.slideOpts = {
@@ -25,6 +26,7 @@ export class ImageProductPage implements OnInit {
 
 	ngOnInit() {
 		this.router.params.subscribe( params => {
+			this.prevUrl = ['/brand', params.id]
 			this.service.getProduct(params.id)
 				.subscribe( data => {
 					this.product = data

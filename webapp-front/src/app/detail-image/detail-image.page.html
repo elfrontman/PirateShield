@@ -22,6 +22,12 @@
 	</ion-grid>
 
 	<div class="content-image">
+		<ion-row>
+			<ion-col>
+				<strong><p class="description">Imagenes Correctas</p></strong>
+			</ion-col>
+		</ion-row>
+		
 		<ion-slides pager="true" [options]="slideOpts" #slideCheck>
 			<ion-slide *ngFor="let slide of images_check">
 				<div class="image-content">
@@ -32,6 +38,12 @@
 		
 	</div>
 	<div class="content-image">
+		
+		<ion-row>
+			<ion-col>
+				<strong><p class="description">Imagenes Incorrectas</p></strong>
+			</ion-col>
+		</ion-row>
 		<ion-slides pager="true" [options]="slideOpts" #slideFail>
 			<ion-slide *ngFor="let slide of images_fail">
 				<div class="image-content">
@@ -46,11 +58,9 @@
 	<ion-toolbar>
 		<ion-tabs >
 			<ion-tab-bar slot="bottom" color="primary">
-				<ion-tab-button >
+
+				<ion-tab-button [routerLink]="prevUrl" routerDirection="backward">
 					<ion-icon name="arrow-round-back"></ion-icon>
-				</ion-tab-button>
-				<ion-tab-button >
-					<ion-icon name="camera"></ion-icon>
 				</ion-tab-button>
 				<ion-tab-button >
 					<ion-icon name="chatbubbles"></ion-icon>

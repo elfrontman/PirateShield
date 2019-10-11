@@ -351,6 +351,11 @@ aside{
 	padding-left: 1rem; 
 }
 
+.list-data .info-row .only-text-center{
+	margin-top: 0.7rem;
+	display: inline-block;
+}
+
 
 
 .list-data li h3{
@@ -371,6 +376,11 @@ aside{
 .list-data li .button-group{
 	margin: 1rem 0 0;
 	display: inline-block;
+}
+
+.list-data li .button-group.only-button-center{
+	margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .list-data li .button-group .button.tiny{
@@ -607,4 +617,8 @@ form .input-file input{
 
 .list-check ul{
 	list-style: none;
+}
+
+.aling-vertical-title{
+	margin-top: -1.2rem;
 }

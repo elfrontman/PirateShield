@@ -6,6 +6,7 @@
 			<div class="title-actions-bar">Imagenes de detalle - {{ detail_image.name }}</div>
 		</div>
 		<div class="cell small-12 medium-6 actions-buttons">
+			<a class="button hollow alert small" href="{% url 'image_producto_detail' pk=product pk_image_product=image_product %}">Regresar</a>
 			<a class="button hollow small" href="{% url 'punto_detail_imagen_new' pk_product=product pk_image_product=image_product pk_mark=mark %}">Crear imagen de detalle</a>
 		</div>
 	</nav>

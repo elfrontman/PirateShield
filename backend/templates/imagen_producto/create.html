@@ -36,16 +36,12 @@
 				<li class="grid-x">
 			
 					<div class="cell small-6 medium-6">
-						<figure>
-							<img src="/media/{{ mark.image_check }}" alt="">
-						</figure>
 						<div class="info-row">
-							<span>{{ mark.name }}</span>		
-							
+							<span class="only-text-center">{{ mark.name }}</span>
 						</div>	
 					</div>
 					<div class="cell auto content-buttons">
-						<div class="small button-group">
+						<div class="small button-group only-button-center">
 						  <a href="{% url 'punto_detail_imagen' pk_product=product pk_image_product=image_product.pk  pk_mark=mark.pk%}" class="button tiny">Agregar imagen</a>
 						  <a href="{% url 'punto_imagen_detail' pk_product=product pk_image_product=image_product.pk  pk=mark.pk%}" class="button tiny">Editar</a>
 						  <a href="{% url 'punto_imagen_delete' pk_product=product pk_image_product=image_product.pk  pk=mark.pk %}" class="button alert tiny">Eliminar</a>

@@ -56,4 +56,17 @@ $(document).ready(function(){
 			$(this).parents('.list-parent').find('.parent-select').prop('checked', true)
 		}
 	})
+
+	$('#mark-form').submit(function(event){
+
+		if ($('#id_marker_x').val().length <= 0 && $('#id_marker_y').val().length <= 0){
+			alert("Seleccione una punto en la imagen");
+			return false;
+		}
+
+		return true;
+
+	})
 });
+
+

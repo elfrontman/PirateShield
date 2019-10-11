@@ -15,16 +15,25 @@ export class DetailImagePage implements OnInit {
 	slideOpts;
 	loadModule:boolean;
 	product;
+	prevUrl;
 
 	constructor(private currRouter: ActivatedRoute, private service: MainServicesService) { 
 		this.slideOpts = {
 			initialSlide: 0,
 			speed: 400,
 		};
+
+
+	}
+
+	goBack(){
+		this
 	}
 
 	ngOnInit() {
 		this.currRouter.params.subscribe( params => {
+			this.prevUrl = ['/product', params.id_product]
+
 			this.service.getProduct(params.id_product)
 			.subscribe( data => {
 				this.product = data
