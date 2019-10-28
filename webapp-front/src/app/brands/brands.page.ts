@@ -10,7 +10,9 @@ export class BrandsPage implements OnInit {
 
 	brands = []
 
-  constructor(private service: MainServicesService) { }
+  constructor(private service: MainServicesService) { 
+    
+  }
 
   ngOnInit() {
     this.service.getBrands().subscribe( (data:any) => {

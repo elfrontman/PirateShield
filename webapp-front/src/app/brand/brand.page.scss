@@ -13,9 +13,8 @@
 }
 
 .banner-section .logo{
-	position: absolute;
-	width: 80px;
-	height: 80px;
+	width: 100px;
+	height: 100px;
 	overflow: hidden;
 	border-radius: 50%;
 }
@@ -51,8 +50,14 @@
 }
 
 .title h2{
-	margin-top: 1.5rem;
-    line-height: 0.8;
+	line-height: 1.2;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.title h3{
+    font-size: 1.2rem;
+    font-weight: 100;
 }
 
 .product figure{
@@ -75,9 +80,11 @@
 .product strong{
 	color: #6d6d6d;
 	display: block;
+	font-size: 0.8rem;
 }
 
 .product small{
 	color: #ccc;
 	display: block;
+	font-size: 0.7rem;
 }

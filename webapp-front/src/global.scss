@@ -50,6 +50,50 @@
 
 .content-input ion-input{
 	padding-left: 10px !important;
+	font-size: 0.8rem;
+}
+
+.content-input.icon-input{
+	padding-left: 15%;
+
+	ion-input{
+		padding-left: 0 !important;
+	}
+
+	input{
+		padding-left: 5px;
+	}
+	
+	img{
+		width: 20px;
+		position: absolute;
+		bottom: 50%;
+		transform: translateY(50%);
+		left: 5px;
+	}
+}
+
+.content-input ion-select{
+	font-size: 0.8rem;
+    padding: 10px 8px 6px;
+
+	.select-icon, .select-text {
+		display: none !important;  /* hidden triangle icon and selected text */
+	}
+}
+
+
+.orange-arrow{
+	h2{
+		font-size: 1rem;
+		font-weight: 500;
+		color: #6b6b6b;
+	}
+
+	h3{
+		font-size: 0.8rem;
+		font-weight: 100;
+	}
 }
 
 .orange-arrow .item-inner{
@@ -66,4 +110,8 @@ ion-fab-button{
 	right: 1rem;
     position: fixed;
     bottom: 1rem;
+}
+
+ion-title{
+	text-align: center;
 }

@@ -1,13 +1,14 @@
 .content-login{
-	padding: 1rem;
+	width: 100%;
+	padding: 1rem 3rem;
 	position: absolute;
     right: 50%;
     bottom: 50%;
-    transform: translate(50%, 50%);
+    transform: translate(50%, 45%);
 }
 
 .image-logo{
-	max-width: 280px;
+	max-width: 70%;
     margin: 0 auto 2rem;
     display: block;
 }
