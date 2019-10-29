@@ -1,13 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false,
-  //API_URL: 'http://127.0.0.1:8000/backend'
-  API_URL: 'http://ec2-34-238-115-63.compute-1.amazonaws.com:8080/backend'
+    production: false,
+    //API_URL: 'http://127.0.0.1:8000/backend'
+    API_URL: 'http://ec2-100-26-102-132.compute-1.amazonaws.com:8080/backend'
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -16,3 +14,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+//# sourceMappingURL=environment.js.map
