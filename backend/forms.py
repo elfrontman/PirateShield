@@ -66,7 +66,7 @@ class DeleteImagenProduct(ModelForm):
 class DetailImageProductForm(ModelForm):
 	class Meta:
 		model = DetailImageProduct
-		fields = ['name', 'description', 'marker_x', 'marker_y']
+		fields = ['name', 'description', 'marker_x', 'marker_y', 'image_check', 'image_fail']
 		widgets = {'marker_x': HiddenInput(), 'marker_y': HiddenInput()}
 
 

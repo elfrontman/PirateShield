@@ -24,6 +24,23 @@
 	<div class="content-image">
 		<ion-row>
 			<ion-col>
+				<div class="image-content">
+					<img class="icon-svg" src="./assets/images/check.svg">
+					<img [src]="main_image_check">
+				</div>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<div class="image-content">
+					<img class="icon-svg" src="./assets/images/fail.svg">
+					<img [src]="main_image_fail">
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
 				<strong><p class="description">Imagenes Correctas</p></strong>
 			</ion-col>
 		</ion-row>
@@ -38,7 +55,6 @@
 		
 	</div>
 	<div class="content-image">
-		
 		<ion-row>
 			<ion-col>
 				<strong><p class="description">Imagenes Incorrectas</p></strong>
@@ -54,18 +70,4 @@
 	</div>
 </ion-content>
 
-<ion-footer >
-	<ion-toolbar>
-		<ion-tabs >
-			<ion-tab-bar slot="bottom" color="primary">
-
-				<ion-tab-button [routerLink]="prevUrl" routerDirection="backward">
-					<ion-icon name="arrow-round-back"></ion-icon>
-				</ion-tab-button>
-				<ion-tab-button >
-					<ion-icon name="chatbubbles"></ion-icon>
-				</ion-tab-button>
-			</ion-tab-bar>
-		</ion-tabs>
-	</ion-toolbar>
-</ion-footer>
+<app-footer></app-footer>

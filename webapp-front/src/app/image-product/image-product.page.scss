@@ -1,3 +1,8 @@
+.icon-svg{
+	width: 30px;
+	height: 30px;
+}
+
 .logo{
 	width: 80px;
 	height: 80px;
@@ -22,9 +27,15 @@
 	font-size: 1.2rem;
 }
 
+.title h3{
+	font-weight: 100;
+	font-size: 0.8rem;
+}
+
 .content-slider{
-	width: 100%;
-	position: relative;
+	width: 75%;
+    position: relative;
+    margin: 1rem auto 0;
 }
 
 .content-slider:after{

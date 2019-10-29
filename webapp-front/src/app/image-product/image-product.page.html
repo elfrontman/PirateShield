@@ -1,17 +1,28 @@
 <ng-container *ngIf="loadModule">
+
 <ion-header>
 	<ion-toolbar color="primary">
-		<ion-buttons slot="secondary">
-			<ion-button>
-				<ion-icon slot="icon-only" name="home"></ion-icon>
-			</ion-button>
-		</ion-buttons>
-		<ion-title>{{ product.brand.name }}</ion-title>
-		<ion-buttons slot="primary">
-			<ion-button>
-				<ion-icon slot="icon-only" name="contact"></ion-icon>
-			</ion-button>
-		</ion-buttons>
+		<ion-grid>
+			<ion-row align-items-center>
+				<ion-col size="2">
+					<ion-buttons >
+						<ion-button>
+							<img class="icon-svg" src="./assets/images/home.svg">
+						</ion-button>
+					</ion-buttons>
+				</ion-col>
+				<ion-col>
+					<ion-title>{{ product.brand.name }}</ion-title>		
+				</ion-col>
+				<ion-col size="2">
+					<ion-buttons >
+						<ion-button>
+							<img class="icon-svg" src="./assets/images/user.svg">
+						</ion-button>
+					</ion-buttons>			
+				</ion-col>
+			</ion-row>
+		</ion-grid>
 	</ion-toolbar>
 </ion-header>
 
@@ -49,19 +60,5 @@
 
 </ion-content>
 
-<ion-footer >
-	<ion-toolbar>
-		<ion-tabs >
-			<ion-tab-bar slot="bottom" color="primary">
-				<ion-tab-button [routerLink]="prevUrl" routerDirection="backward">
-					<ion-icon name="arrow-round-back"></ion-icon>
-				</ion-tab-button>
-				
-				<ion-tab-button >
-					<ion-icon name="chatbubbles"></ion-icon>
-				</ion-tab-button>
-			</ion-tab-bar>
-		</ion-tabs>
-	</ion-toolbar>
-</ion-footer>
+<app-footer></app-footer>
 </ng-container>

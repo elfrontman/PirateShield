@@ -115,3 +115,15 @@ ion-fab-button{
 ion-title{
 	text-align: center;
 }
+
+.swiper-button-prev{
+	background-image: url('./assets/images/back_arrow.svg');
+	background-size: 35px 35px;
+    width: 35px;
+}
+
+.swiper-button-next{
+	background-image: url('./assets/images/next_arrow.svg');
+	background-size: 35px 35px;
+    width: 35px;
+}

@@ -48,7 +48,7 @@ class DetailMarkerProductSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = DetailImageProduct
-		fields = ('id', 'name', 'description','marker_x','marker_y','image_product', 'detail_images')
+		fields = ('id', 'name', 'description','marker_x','marker_y','image_product', 'detail_images', 'image_check', 'image_fail')
 
 
 class ImageProductSerializer(serializers.ModelSerializer):
