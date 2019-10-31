@@ -4,12 +4,12 @@
 
 		<ion-item>
 			<ion-label position="stacked">Token</ion-label>
-			<ion-input [(ngModel)]="token"></ion-input>
+			<ion-input [(ngModel)]="token" #tokeninput autofocus="true"></ion-input>
 		</ion-item>
 
 		<ion-button shape="round" expand="full" (click)="login()">
 			Entrar
-			<ion-icon name="arrow-dropright-circle"></ion-icon>
+			<img src="./assets/images/arrow_login.svg" class="icon-svg">
 		</ion-button>
 	</div>
 	

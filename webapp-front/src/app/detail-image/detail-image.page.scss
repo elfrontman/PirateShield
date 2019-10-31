@@ -1,6 +1,6 @@
 .logo{
-	width: 80px;
-	height: 80px;
+	width: 70px;
+	height: 70px;
 	overflow: hidden;
 	border-radius: 50%;
 }
@@ -28,10 +28,10 @@
 }
 
 .icon-svg{
-	position: absolute !important;
-    right: 23px;
-    top: 5px;
-    width: 30px !important;
+    position: absolute !important;
+    right: 35px;
+    top: 8px;
+    width: 46px !important;
     z-index: 999;
 }
 
@@ -41,7 +41,7 @@
 	font-size: 0.9rem;
 }
 
-.content-image img{
+.content-image img:not(.icon-svg){
 	display: block;
 	border: 1px solid #ccc;
     width: 90%;

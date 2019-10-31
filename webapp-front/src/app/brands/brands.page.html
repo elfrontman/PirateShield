@@ -28,7 +28,7 @@
 
 
     <ion-list>
-  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of brands" routerLink="/brand/{{brand.id}}" detail>
+  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of brands" routerLink="/brand/{{brand.id}}" >
           <ion-thumbnail slot="start">
             <img [src]="brand.logo">
           </ion-thumbnail >
@@ -36,6 +36,8 @@
             <h2>{{ brand.name }}</h2>
             <h3>{{ brand.brand_category_id.name }}</h3>
           </ion-label>
+
+          <img src="./assets/images/arrow_item.svg" class="icon-svg">
         </ion-item>
   	</ion-list>
 

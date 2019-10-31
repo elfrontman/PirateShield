@@ -1,5 +1,6 @@
 .content-login{
 	width: 100%;
+	max-width: 320px;
 	padding: 1rem 3rem;
 	position: absolute;
     right: 50%;
@@ -11,6 +12,12 @@
 	max-width: 70%;
     margin: 0 auto 2rem;
     display: block;
+}
+
+.icon-svg{
+	height: 16px;
+    position: absolute;
+    right: 18px;
 }
 
 ion-item{
