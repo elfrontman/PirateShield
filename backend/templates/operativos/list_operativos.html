@@ -26,11 +26,11 @@
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
 					{% if not item.is_ready %}
-						<a href="{% url 'activate_operativo' pk=item.pk %}" class="button">Activar operativo</a>
+						<a href="{% url 'activate_operativo' pk=item.pk %}" class="button tiny expanded">Activar operativo</a>
 					{% endif %}
 					
-					
-				  	<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button alert">Terminar operativo</a>
+					<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button tiny alert expanded">Terminar operativo</a>
+					<a href="{% url 'chat_operativo' pk=item.pk %}" class="button tiny success expanded">Chat</a>
 				</div>
 			</div>
 		</li>

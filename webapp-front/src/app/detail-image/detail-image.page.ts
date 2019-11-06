@@ -9,10 +9,7 @@ import { MainServicesService } from '../main-services.service';
 })
 export class DetailImagePage implements OnInit {
 
-	images_check: any = [];
-	images_fail: any = [];
-	main_image_check: string;
-	main_image_fail: string;
+	detail_images: any = [];
 	description;
 	slideOpts;
 	loadModule:boolean;
@@ -43,12 +40,7 @@ export class DetailImagePage implements OnInit {
 
 				this.service.getDetailMarkerProduct(params.id).subscribe( (data:any) => {
 
-					this.images_check = data.detail_images.filter( x => x.type_image == 1)
-					this.images_fail = data.detail_images.filter( x => x.type_image == 2)
-
-					this.main_image_check = data.image_check;
-					this.main_image_fail = data.image_fail;
-
+					this.detail_images = data.detail_images;
 					this.description = data.description
 					this.loadModule = true;
 

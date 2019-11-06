@@ -385,6 +385,7 @@ aside{
 
 .list-data li .button-group .button.tiny{
 	font-size: 0.6rem;
+	color: white;
 }
 
 
@@ -621,4 +622,37 @@ form .input-file input{
 
 .aling-vertical-title{
 	margin-top: -1.2rem;
+}
+
+.content-view-chat{
+	position: relative;
+	background: white;
+    height: calc(100vh - 190px);
+    padding: 1rem;
+}
+
+.content-view-chat  .view-chat{
+	height: 90%;
+}
+
+.content-view-chat  .view-chat .message{
+	padding: 0.5rem 0.8rem;
+    width: 60%;
+    border-radius: 10px;
+    background: #edf6fd;
+    color: #333;
+    clear: both;
+    margin-bottom: 1rem;
+    border: 1px solid #0081ed2e;
+}
+
+.content-view-chat  .view-chat .message.isAdmin{
+	background: #0081ed;
+	color: white;
+	float: right;
+}
+
+.content-view-chat form{
+	margin: 0;
+	max-width: 100%;
 }

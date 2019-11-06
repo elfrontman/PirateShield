@@ -59,6 +59,7 @@ urlpatterns = [
 	path('operativos/new', operativos.new, name="new_operativo"),
 	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
 	path('operativos/activate/<int:pk>', operativos.activate, name="activate_operativo"),
+	path('operativos/chat/<int:pk>', operativos.chat, name="chat_operativo"),
 
 	path('informes', informes.index, name="informes"),
 	path('informes/operativos', informes.operativos, name="informe_operativo"),
@@ -66,6 +67,7 @@ urlpatterns = [
 	path('', include(router.urls)),
 
 	path('login_app/', REST_view.login_app, name="login_app"),
+	path('token_chat/', REST_view.chat_token, name="chat_token"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 	

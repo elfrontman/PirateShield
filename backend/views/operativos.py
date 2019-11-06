@@ -93,4 +93,13 @@ def activate(request, pk):
 	return HttpResponse(template.render({}, request))
 
 
+def chat(request, pk):
+	template = loader.get_template('operativos/chat.html')
+	operativo = get_object_or_404(Operativo, pk=pk)
+
+
+	return HttpResponse(template.render({'operativo': operativo}, request))
+
+
+
 

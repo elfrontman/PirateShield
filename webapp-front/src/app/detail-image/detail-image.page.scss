@@ -41,7 +41,16 @@
 	font-size: 0.9rem;
 }
 
-.content-image img:not(.icon-svg){
+.content-image .image-content-section{
+	position: relative;
+}
+
+.content-image .image-content-section .icon-svg{
+	right: 7%;
+
+}
+
+.content-image .image-content-section img:not(.icon-svg){
 	display: block;
 	border: 1px solid #ccc;
     width: 90%;

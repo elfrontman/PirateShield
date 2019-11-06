@@ -18,11 +18,15 @@
 			
 			<div class="cell small-8 medium-8">
 				<figure>
-					<img src="/media/{{ image_detail.image_check }}" alt="">
+					{% if image_detail.image_check %}
+						<img src="/media/{{ image_detail.image_check }}" alt="">
+					{% else %}
+						<img src="/media/{{ image_detail.image_fail }}" alt="">
+					{% endif %}
+
 				</figure>
 				<div class="info-row">
 					<h3>{{ image_detail.name }}</h3>		
-					<span><strong>{{ image_detail.get_type_image_display }}</strong></span> - 
 					<span>{{ image_detail.description }}</span> 
 				</div>	
 			</div>

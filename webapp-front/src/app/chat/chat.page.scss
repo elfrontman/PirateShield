@@ -1,0 +1,38 @@
+.message {
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+
+.my-message {
+  background: #3880ff;
+  color: #fff;
+}
+
+.other-message {
+  background: #e3e3e3;
+  color: #333;
+}
+
+.time {
+  color: #dfdfdf;
+  float: right;
+  font-size: small;
+}
+
+.message-input {
+  margin-top: 0px;
+  background: #fff;
+  min-height: 40px;
+}
+
+.msg-btn {
+  --padding-start: 0.5em;
+  --padding-end: 0.5em;
+}
+
+.icon-svg{
+  width: 30px;
+  height: 30px;
+}

@@ -90,7 +90,6 @@ class DetailMarkerProduct(viewsets.ModelViewSet):
 
 
 
-
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
@@ -111,6 +110,23 @@ def login_app(request):
 
 		else:
 			return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
+
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def chat_token(request):
+	operativo = get_object_or_404(Operativo, token=request.data.get('token'))
+
+	pprint(operativo.token_chat)
+
+	if not operativo.token_chat:
+		operativo.token_chat = request.data.get('token_chat')
+		operativo.save()
+
+		return JsonResponse({'created': True}, status=HTTP_200_OK)
+
+	return JsonResponse({'created': False}, status=HTTP_200_OK)
 
 		
 

@@ -22,51 +22,22 @@
 	</ion-grid>
 
 	<div class="content-image">
-		<ion-row>
-			<ion-col>
-				<div class="image-content">
-					<img class="icon-svg" src="./assets/images/check.svg">
-					<img [src]="main_image_check">
-				</div>
-			</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col>
-				<div class="image-content">
-					<img class="icon-svg" src="./assets/images/fail.svg">
-					<img [src]="main_image_fail">
-				</div>
-			</ion-col>
-		</ion-row>
-
-		<ion-row>
-			<ion-col>
-				<strong><p class="description">Imagenes Correctas</p></strong>
-			</ion-col>
-		</ion-row>
-		
 		<ion-slides pager="true" [options]="slideOpts" #slideCheck>
-			<ion-slide *ngFor="let slide of images_check">
+			<ion-slide *ngFor="let slide of detail_images">
 				<div class="image-content">
-					<img [src]="slide.image_check">
+					<div class="image-content-section" *ngIf="slide.image_check">
+						<img class="icon-svg" src="./assets/images/check.svg">
+						<img [src]="slide.image_check">
+					</div>
+					<div class="image-content-section" *ngIf="slide.image_fail">
+						<img class="icon-svg" src="./assets/images/fail.svg">
+						<img [src]="slide.image_fail">
+					</div>	
 				</div>
+				
 			</ion-slide>
 		</ion-slides>
 		
-	</div>
-	<div class="content-image">
-		<ion-row>
-			<ion-col>
-				<strong><p class="description">Imagenes Incorrectas</p></strong>
-			</ion-col>
-		</ion-row>
-		<ion-slides pager="true" [options]="slideOpts" #slideFail>
-			<ion-slide *ngFor="let slide of images_fail">
-				<div class="image-content">
-					<img [src]="slide.image_check">
-				</div>
-			</ion-slide>
-		</ion-slides>
 	</div>
 </ion-content>
 

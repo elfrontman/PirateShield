@@ -105,8 +105,9 @@ class ImageDetailCompare(models.Model):
 
 	name = models.CharField(max_length=250, blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
-	image_check = models.ImageField(upload_to='products/details', default='products/details/image_default.jpg')
-	type_image = models.CharField(max_length=15, choices=TYPE_CHOICES, default='')
+	image_check = models.ImageField(upload_to='products/details', blank=True)
+	image_fail = models.ImageField(upload_to='products/details', blank=True)
+	#type_image = models.CharField(max_length=15, choices=TYPE_CHOICES, default='')
 	detail_image = models.ForeignKey(DetailImageProduct, on_delete=models.DO_NOTHING, blank=True, null=True)
 
 
@@ -124,6 +125,7 @@ class UserBrand(models.Model):
 
 class Operativo(models.Model):
 	token = models.CharField(max_length=250)
+	token_chat = models.CharField(max_length=250, blank=True)
 	user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 	expiration = models.DateTimeField()
 	first_login = models.DateTimeField(blank=True, null=True)

@@ -81,4 +81,18 @@ export class MainServicesService {
     return this.http.post(environment.API_URL + '/login_app/', {'token': token}, {headers: this.headers})
       .pipe(map(response => response))
   }
+
+  setTokentChat(token_chat){
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+
+    const token = localStorage.getItem('token')
+    
+  
+    return this.http.post(environment.API_URL + '/token_chat/', {'token_chat': token_chat, 'token': token}, {headers: this.headers})
+      .pipe(map(response => response))
+
+  }
 }
