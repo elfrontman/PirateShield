@@ -95,4 +95,11 @@ export class MainServicesService {
       .pipe(map(response => response))
 
   }
+
+  getChat(token_chat){
+    const token = localStorage.getItem('token_chat');
+
+    return this.http.get(environment.SoketIoConfig.url + '/chat/'+token)  
+      .pipe( map(response => response) )
+  }
 }

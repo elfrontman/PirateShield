@@ -631,8 +631,13 @@ form .input-file input{
     padding: 1rem;
 }
 
+.content-view-chat.full-view-chat{
+	height: calc(100vh - 60px);
+}
+
 .content-view-chat  .view-chat{
 	height: 90%;
+	overflow: auto;
 }
 
 .content-view-chat  .view-chat .message{
@@ -644,6 +649,12 @@ form .input-file input{
     clear: both;
     margin-bottom: 1rem;
     border: 1px solid #0081ed2e;
+}
+
+.content-view-chat .view-chat .message .time{
+	display: block;
+    font-size: 70%;
+    text-align: right;
 }
 
 .content-view-chat  .view-chat .message.isAdmin{

@@ -101,5 +101,21 @@ def chat(request, pk):
 	return HttpResponse(template.render({'operativo': operativo}, request))
 
 
+def chat_marca(request, pk):
+	template = loader.get_template('operativos/chat_marca.html')
+	operativo = get_object_or_404(Operativo, pk=pk)
+
+
+	return HttpResponse(template.render({'operativo': operativo, 'extendind': 'layout/base.html'}, request))
+
+
+def chat_ext_marca(request, pk):
+	template = loader.get_template('operativos/chat_marca.html')
+	operativo = get_object_or_404(Operativo, pk=pk)
+
+
+	return HttpResponse(template.render({'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))
+
+
 
 

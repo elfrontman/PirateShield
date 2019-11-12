@@ -19,8 +19,10 @@ export class LoginPage implements OnInit {
 	}
 
 	login(){
+
 		this.mS.loginToken(this.token)
 		.subscribe( (data:any) => {
+			alert("asdasdasdasdasd--|-asdasdasd")
 			if(!data.error){
 				this.router.navigateByUrl('/brands');			
 				return;

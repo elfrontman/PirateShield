@@ -126,7 +126,7 @@ def chat_token(request):
 
 		return JsonResponse({'created': True}, status=HTTP_200_OK)
 
-	return JsonResponse({'created': False}, status=HTTP_200_OK)
+	return JsonResponse({'created': False, 'token': operativo.token_chat}, status=HTTP_200_OK)
 
 		
 

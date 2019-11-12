@@ -6,7 +6,8 @@
 			<div class="title-actions-bar">Chat de operativo - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
 		</div>
 		<div class="cell small-12 medium-6 actions-buttons">
-			<a class="button hollow small alert" href="{% url 'new_operativo' %}">Regresar</a>
+			<a class="button hollow small " href="{% url 'chat_marca' pk=operativo.pk %}">Chat con marca</a>
+			<a class="button hollow small alert" href="{% url 'operativos' %}">Regresar</a>
 		</div>
 	</nav>
 
@@ -20,11 +21,19 @@
 			<input type="hidden" value="{{ operativo.token_chat }}" id="token_chat">
 
 			<div class="grid-x">
-				<div class="cell small-12 medium-10">
+				<div class="cell small-12 medium-8">
 					<input type="text" name="message" id="message">		
 				</div>
 				<div class="cell small-12 medium-2">
 					<input type="submit" value="enviar" class="button expanded">
+				</div>
+				<div class="cell small-12 medium-2">
+					<label class="button expanded alert">
+						imagen	
+						<input type="file" hidden id="filechooser">
+					</label>
+					
+					
 				</div>
 			</div>
 			

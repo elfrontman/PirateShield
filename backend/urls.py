@@ -60,6 +60,8 @@ urlpatterns = [
 	path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
 	path('operativos/activate/<int:pk>', operativos.activate, name="activate_operativo"),
 	path('operativos/chat/<int:pk>', operativos.chat, name="chat_operativo"),
+	path('operativos/brand_chat/<int:pk>', operativos.chat_marca, name="chat_marca"),
+	path('externalchat/<int:pk>', operativos.chat_ext_marca, name="chat_ext_marca"),
 
 	path('informes', informes.index, name="informes"),
 	path('informes/operativos', informes.operativos, name="informe_operativo"),

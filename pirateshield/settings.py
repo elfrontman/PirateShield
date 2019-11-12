@@ -26,7 +26,8 @@ SECRET_KEY = 'd3=t_l6#=vnu41qixi#1-ty7y5p7@ll#(hup4x+p(@3ty3c-e4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'ec2-34-238-115-63.compute-1.amazonaws.com'
+    #'ec2-34-238-115-63.compute-1.amazonaws.com'
+    '192.168.1.108', 'localhost'
 ]
 
 
@@ -83,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            #'read_default_file': 'mysql.cnf',
-            'read_default_file': '/etc/mysql/myconf.cnf',
+            'read_default_file': 'mysql.cnf',
+            #'read_default_file': '/etc/mysql/myconf.cnf',
         }
     }
 }
