@@ -1,5 +1,5 @@
 (function() {
-	var ip_chat = 'http://192.168.1.108:500';
+	var ip_chat = 'ec2-54-89-251-211.compute-1.amazonaws.com:500';
 	var  socket = io(ip_chat);
 
 	socket.emit('create', $("#token_chat").val())
