@@ -6,7 +6,6 @@ const  connect  =  mongoose.connect(url,
 		useNewUrlParser: true, 
 		useUnifiedTopology: true, 
 		server: {
-			poolsize:100 ,
 			socketOptions: {
 				socketTimeoutMS: 6000000	
 			}
