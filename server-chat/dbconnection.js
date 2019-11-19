@@ -1,7 +1,7 @@
 const  mongoose  = require("mongoose");
 mongoose.Promise  = require("bluebird");
 
-const  url  =  "mongodb+srv://elfrontman:Andres92@cluster0-rzedj.mongodb.net/test?retryWrites=true&w=majority/chat";
+const  url  =  "mongodb+srv://elfrontman:Andres92@cluster0-rzedj.mongodb.net/chat";
 //const  url  =  "mongodb://localhost:27017/chat";
 const  connect  =  mongoose.connect(url, 
 	{ 
