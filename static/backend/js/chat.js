@@ -1,5 +1,6 @@
 (function() {
-	var ip_chat = 'ec2-3-84-219-164.compute-1.amazonaws.com:500';
+	var ip_chat = 'http://ec2-3-84-219-164.compute-1.amazonaws.com:500';
+	//var ip_chat = '127.0.0.1:500';
 	var  socket = io(ip_chat);
 
 	socket.emit('create', $("#token_chat").val())
@@ -102,6 +103,8 @@
 	function getChat(){
 		$.ajax({
 			url: ip_chat + '/chat/'+$("#token_chat").val(),
+			crossDomain: true,
+			dataType: "json",
 			success: function(data){
 				console.log(data)
 
@@ -109,6 +112,8 @@
 					appendMessage(item);
 					moveScroll(false);
 				})
+			}, error: function(err){
+				console.log(err)
 			}
 		})
 	}

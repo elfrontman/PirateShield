@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'ec2-3-84-219-164.compute-1.amazonaws.com'
-    #'192.168.1.108', 'localhost'
+    '192.168.1.108', 
+    'localhost'
 ]
 
 
