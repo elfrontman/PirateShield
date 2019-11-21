@@ -1,0 +1,38 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-grid>
+			<ion-row align-items-center>
+				<ion-col size="2">
+					<ion-buttons routerLink="/login">
+						<ion-button>
+							<img class="icon-svg" src="./assets/images/back.svg">
+						</ion-button>
+					</ion-buttons>
+				</ion-col>
+				
+			</ion-row>
+		</ion-grid>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="content-login">
+		<ion-item text-wrap  no-padding no-margin no-lines>
+			<ion-row>
+				<ion-col no-padding no-margin>
+					<ion-item no-padding no-margin no-lines>
+						<ion-checkbox [(ngModel)]="agreed" ></ion-checkbox> 
+						<ion-label   text-wrap>
+						Para usar este sitio web debe acepta usted la politica de tratamiento de datos</ion-label>
+					</ion-item> 
+				</ion-col> 
+			</ion-row> 
+		</ion-item>
+		<a [href]="url_terms" target="_blank">Ver politica de tratamiento de datos</a>
+
+		<ion-button shape="round" expand="full" routerLink="/brands" [disabled]="!agreed">
+			Aceptar y continuar
+			<img src="./assets/images/arrow_login.svg" class="icon-svg">
+		</ion-button>
+	</div>
+	
+</ion-content>

@@ -16,6 +16,10 @@ export class MainServicesService {
 
   }
 
+  getFileURL(url){
+    return environment.STATIC_URL + '/files' + url
+  }
+
   service(url, data){
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',

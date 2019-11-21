@@ -8,7 +8,10 @@ const routes: Routes = [
   { path: 'brands', loadChildren: './brands/brands.module#BrandsPageModule' },
   { path: 'brand/:id', loadChildren: './brand/brand.module#BrandPageModule' },
   { path: 'product/:id', loadChildren: './image-product/image-product.module#ImageProductPageModule' },
-  { path: 'detail-image/:id_product/:id', loadChildren: './detail-image/detail-image.module#DetailImagePageModule' },  { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
+  { path: 'detail-image/:id_product/:id', loadChildren: './detail-image/detail-image.module#DetailImagePageModule' },
+  { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
+  { path: 'terminos', loadChildren: './terminos/terminos.module#TerminosPageModule' },
+
 
 
 ];

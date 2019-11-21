@@ -1,0 +1,47 @@
+.content-login{
+	width: 100%;
+	max-width: 320px;
+	position: absolute;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 45%);
+}
+
+.image-logo{
+	max-width: 70%;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+a{
+	display: block;
+    text-align: center;
+    padding: 1rem;
+}
+
+ion-header .icon-svg{
+	height: 22px;
+	margin-bottom: 5px;
+	position: static;
+}
+
+.icon-svg{
+	height: 16px;
+    position: absolute;
+    right: 18px;
+}
+ion-label{
+	line-height: 1.2 !important;
+    padding-left: 0.5rem;
+}
+
+ion-button{
+	position: relative;
+	height: 50px;
+	font-weight: bold;
+}
+
+ion-button ion-icon{
+	position: absolute;
+	right: 1rem;
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -21,6 +21,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    RouterModule,
   	BrowserModule, 
   	HttpClientModule, 
   	IonicModule.forRoot(), 
