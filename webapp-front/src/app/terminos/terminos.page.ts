@@ -8,6 +8,7 @@ import { MainServicesService } from './../main-services.service';
 export class TerminosPage implements OnInit {
 
 	url_terms: string;
+	agreed:boolean;
 	constructor(private _service: MainServicesService) { }
 
 	ngOnInit() {

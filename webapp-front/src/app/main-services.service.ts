@@ -17,7 +17,7 @@ export class MainServicesService {
   }
 
   getFileURL(url){
-    return environment.STATIC_URL + '/files' + url
+    return environment.STATIC_URL + '/files/' + url
   }
 
   service(url, data){
