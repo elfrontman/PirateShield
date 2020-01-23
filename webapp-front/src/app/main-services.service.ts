@@ -16,6 +16,13 @@ export class MainServicesService {
 
   }
 
+  getCookie(name) {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length == 2) 
+      return parts.pop().split(";").shift();
+  }
+
   getFileURL(url){
     return environment.STATIC_URL + '/files/' + url
   }
@@ -36,67 +43,70 @@ export class MainServicesService {
 
 
     return this.http.post(environment.API_URL + url, {'token': token}, {headers: this.headers})
-      .pipe(map(response => response))
+    .pipe(map(response => response))
   }
 
   getBrands(){
     const token = localStorage.getItem('token');
 
-  	return this.http.get(environment.API_URL + '/brands/?token='+token)	
-  		.pipe( map(response => response) )
+    return this.http.get(environment.API_URL + '/brands/?token='+token)	
+    .pipe( map(response => response) )
   }
 
   getBrandById(id_brand){
     const token = localStorage.getItem('token');
 
-  	return this.http.get(environment.API_URL + '/brands/' + id_brand +'/?token='+token)	
-  		.pipe( map(response => response) )	
+    return this.http.get(environment.API_URL + '/brands/' + id_brand +'/?token='+token)	
+    .pipe( map(response => response) )	
   }
 
   getProductsByBrand(id_brand){
     const token = localStorage.getItem('token');
 
-  	return this.http.get(environment.API_URL + '/productbybrand/?search=' + id_brand+'&token='+token)	
-  		.pipe( map(response => response) )	
+    return this.http.get(environment.API_URL + '/productbybrand/?search=' + id_brand+'&token='+token)	
+    .pipe( map(response => response) )	
   }
 
   getProduct(id_product){
     return this.http.get(environment.API_URL + '/product/' + id_product)  
-      .pipe( map(response => response) )  
+    .pipe( map(response => response) )  
   }
 
   getDetailMarkerProduct(id_marker){
     return this.http.get(environment.API_URL + '/markerproduct/' + id_marker)  
-      .pipe( map(response => response) )  
+    .pipe( map(response => response) )  
   }
 
 
   loginToken(token){
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
+
     })
 
     const formData = new FormData()
     formData.append('token', token);
 
     localStorage.setItem('token', token);
-  
+
     return this.http.post(environment.API_URL + '/login_app/', {'token': token}, {headers: this.headers})
-      .pipe(map(response => response))
+    .pipe(map(response => response))
   }
 
   setTokentChat(token_chat){
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'X-CSRFToken': this.getCookie('csrftoken')
     })
 
     const token = localStorage.getItem('token')
     
-  
+
     return this.http.post(environment.API_URL + '/token_chat/', {'token_chat': token_chat, 'token': token}, {headers: this.headers})
-      .pipe(map(response => response))
+    .pipe(map(response => response))
 
   }
 
@@ -104,6 +114,6 @@ export class MainServicesService {
     const token = localStorage.getItem('token_chat');
 
     return this.http.get(environment.SoketIoConfig.url + '/chat/'+token)  
-      .pipe( map(response => response) )
+    .pipe( map(response => response) )
   }
 }
