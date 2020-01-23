@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput
+from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput, CharField, Textarea
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
@@ -66,7 +66,7 @@ class DeleteImagenProduct(ModelForm):
 class DetailImageProductForm(ModelForm):
 	class Meta:
 		model = DetailImageProduct
-		fields = ['name', 'description', 'marker_x', 'marker_y', 'image_check', 'image_fail']
+		fields = ['name', 'description', 'marker_x', 'marker_y']
 		widgets = {'marker_x': HiddenInput(), 'marker_y': HiddenInput()}
 
 
@@ -140,16 +140,20 @@ class UserForm(ModelForm):
 
 class UserTerrenoForm(ModelForm):
 
+	name = CharField(label='Nombre del operativo')
+	description = CharField(label='Descripción del operativo', widget=Textarea)
 	activation_date = DateTimeField(label='Operativo valido desde:', widget=DateTimeInput(attrs={'type':'date'}))
 	expiration_date = DateTimeField(label='Operativo valido hasta:', widget=DateTimeInput(attrs={'type':'date'}))
 
 	class Meta:
 
 		model = User
-		fields = ['first_name', 'last_name', 'movil', 'activation_date', 'expiration_date']
+		fields = ['name', 'description', 'first_name', 'last_name', 'movil', 'activation_date', 'expiration_date']
 		
 
 		labels = {
+			"name": _("Nombre del operativo"),
+			"description": _("Descripción del operativo"),
 			"first_name" : _("Nombres completos"),
 			"last_name" : _("Apellidos completos"),
 			"movil" : _("Número de celular")
