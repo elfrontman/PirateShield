@@ -612,6 +612,7 @@ form .input-file input{
     list-style: none;
     border: 1px solid #ccc;
     min-height: 90%;
+    max-height: 400px;
     overflow: auto;
     margin: 0;
 }
