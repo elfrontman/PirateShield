@@ -38,6 +38,8 @@ def new(request):
 			operativo.user = new_user
 			operativo.expiration = request.POST['expiration_date']
 			operativo.activation = request.POST['activation_date']
+			operativo.name = request.POST['name']
+			operativo.description = request.POST['description']
 			operativo.token = get_random_string(length=6)
 			operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
 			operativo.productList = ','.join(request.POST.getlist('products[]'))

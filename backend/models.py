@@ -128,6 +128,8 @@ class Operativo(models.Model):
 	token_chat = models.CharField(max_length=250, blank=True)
 	user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 	expiration = models.DateTimeField()
+	name = models.CharField(max_length=250, blank=True, null=True)
+	description = models.TextField(blank=True, null=True)
 	first_login = models.DateTimeField(blank=True, null=True)
 	last_login = models.DateTimeField(blank=True, null=True)
 	is_active = models.BooleanField(default=True)
