@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'ec2-3-84-219-164.compute-1.amazonaws.com',
-    'localhost'
+    'localhost',
+    '190.60.205.188'
 ]
 
 
@@ -84,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': 'mysql.cnf',
-            #'read_default_file': '/etc/mysql/myconf.cnf',
+            #'read_default_file': 'mysql.cnf',
+            'read_default_file': '/etc/mysql/myconf.cnf',
         }
     }
 }
