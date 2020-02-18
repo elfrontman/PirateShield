@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
   
-  API_URL: 'http://ec2-3-84-219-164.compute-1.amazonaws.com:8080/backend',
-  STATIC_URL: 'http://ec2-3-84-219-164.compute-1.amazonaws.com:8080/static/backend',
+  API_URL: 'http://190.60.205.188/agatha/backend',
+  STATIC_URL: 'http://190.60.205.188/agatha/static/backend',
   SoketIoConfig: { 
-  	url: 'http://ec2-3-84-219-164.compute-1.amazonaws.com:500',
+  	url: 'http://190.60.205.188:500',
   	options: {}
   }
 };

@@ -26,6 +26,7 @@ SECRET_KEY = 'd3=t_l6#=vnu41qixi#1-ty7y5p7@ll#(hup4x+p(@3ty3c-e4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+
     'ec2-3-84-219-164.compute-1.amazonaws.com',
     'localhost',
     '190.60.205.188'
@@ -129,7 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS  = (BASE_DIR + '/static/',)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+#STATICFILES_DIRS  = (BASE_DIR + '/static/',)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + '/media'
