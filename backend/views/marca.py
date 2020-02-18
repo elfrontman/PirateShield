@@ -2,7 +2,7 @@ from django.template import loader
 from django.http import HttpResponse 
 from django.shortcuts import redirect, get_object_or_404
 
-from backend.models import Brand, Product
+from backend.models import Brand, Product, User
 from backend.forms import BrandForm, DeleteBrand
 
 from pprint import pprint
@@ -36,10 +36,21 @@ def brand_new(request):
 	if request.method == 'POST':
 		form = BrandForm(request.POST, request.FILES or None)
 
-
+		pprint('Aqui entra')
 	
 		if form.is_valid():
-			brand = form.save(commit=False)
+			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
+			new_user.first_name = request.POST['first_name']
+			new_user.last_name = request.POST['last_name']
+			new_user.movil = request.POST['movil']
+			new_user.email = request.POST['correo']
+			new_user.save()
+
+			pprint('el usuario')
+			pprint(new_user)
+
+			brand = form.save()
+			new_user.brand = brand
 			brand.save()
 
 			return redirect('marcas')
@@ -55,7 +66,10 @@ def brand_detail(request, pk):
 	template = loader.get_template('marcas/create_marca.html')
 	brand = get_object_or_404(Brand, pk=pk)
 
-
+	try:
+		user = User.objects.filter(brand=brand).first()
+	except User.DoesNotExist:
+		user  = None
 
 	if request.method == 'POST':
 		form = BrandForm(request.POST, request.FILES or None, instance=brand)
@@ -64,12 +78,37 @@ def brand_detail(request, pk):
 
 		if form.is_valid():
 			brand = form.save(commit=False)
+
+			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
+			new_user.first_name = request.POST['nombre']
+			new_user.last_name = request.POST['apellido']
+			new_user.movil = request.POST['celular']
+			new_user.email = request.POST['correo']
+			
+			
+			new_user.brand = brand
+			
 			brand.save()
+			new_user.save()
 
 			return redirect('marcas')
 
 	else:
-		form = BrandForm(instance=brand)
+		if user:
+			form = BrandForm(initial=
+				{
+					'nombre': user.first_name,
+					'apellido' : user.last_name,
+					'celular' : user.movil,
+					'correo' : user.email
+				},
+			instance=brand)
+		else:
+			form = BrandForm(instance=brand)
+		
+
+		pprint(form.__dict__)
+
 
 	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
 

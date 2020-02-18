@@ -1,13 +1,21 @@
-from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput, CharField, Textarea
+from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput, CharField, Textarea, EmailField
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo, ImageDetailCompare, OperativoBrand
 
 class BrandForm(ModelForm):
+
+
+	nombre = CharField(label='Nombres del contacto')
+	apellido = CharField(label='Apellidos del contacto')
+	correo = EmailField()
+	celular = CharField(label='Celular del contacto')
+
 	class Meta:
+
 		model = Brand
-		fields = ['name', 'logo', 'banner','description', 'brand_category_id']
+		fields = ['name', 'logo', 'banner','description', 'brand_category_id', 'nombre', 'apellido', 'correo','celular']
 
 		labels = {
 			"name" : _("Nombre de la marca"),
