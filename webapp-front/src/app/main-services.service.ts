@@ -86,6 +86,9 @@ export class MainServicesService {
 
     })
 
+    console.log(this.headers)
+
+
     const formData = new FormData()
     formData.append('token', token);
 
