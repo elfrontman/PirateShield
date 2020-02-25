@@ -10,7 +10,7 @@ import { MainServicesService } from './../main-services.service';
 })
 export class LoginPage implements OnInit {
 
-	token: string;
+	token: string = 'kAJXc4';
 	toast: any;
 
 	constructor(private router: Router, private mS: MainServicesService, public toastController: ToastController) { }
@@ -26,8 +26,6 @@ export class LoginPage implements OnInit {
 				this.router.navigateByUrl('/terminos');			
 				return;
 			}
-		}, (error) => {
-			this.showToast("");
 		})
 
 	}
