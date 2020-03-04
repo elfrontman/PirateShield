@@ -26,6 +26,7 @@ SECRET_KEY = 'd3=t_l6#=vnu41qixi#1-ty7y5p7@ll#(hup4x+p(@3ty3c-e4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '190.60.205.188',
 ]
 
@@ -83,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            #'read_default_file': 'mysql.cnf',
-            'read_default_file': '/etc/mysql/myconf_demo.cnf',
+            'read_default_file': 'mysql.cnf',
+            #'read_default_file': '/etc/mysql/myconf_demo.cnf',
         }
     }
 }
