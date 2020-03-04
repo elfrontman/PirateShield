@@ -39,6 +39,7 @@ def brand_new(request):
 		pprint('Aqui entra')
 	
 		if form.is_valid():
+			pprint(request)
 			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
 			new_user.first_name = request.POST['nombre']
 			new_user.last_name = request.POST['apellido']
