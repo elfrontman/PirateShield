@@ -19,6 +19,7 @@ export class BrandPage implements OnInit {
 			
 			this.service.getBrandById(params.id)
 			.subscribe( (data:any) => {
+				console.log(data);
 				this.brand = data;
 				this.getProducts();
 
