@@ -40,9 +40,9 @@ def brand_new(request):
 	
 		if form.is_valid():
 			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
-			new_user.first_name = request.POST['first_name']
-			new_user.last_name = request.POST['last_name']
-			new_user.movil = request.POST['movil']
+			new_user.first_name = request.POST['nombre']
+			new_user.last_name = request.POST['apellido']
+			new_user.movil = request.POST['celular']
 			new_user.email = request.POST['correo']
 			new_user.save()
 
