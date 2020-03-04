@@ -36,23 +36,20 @@ def brand_new(request):
 	if request.method == 'POST':
 		form = BrandForm(request.POST, request.FILES or None)
 
-		pprint('Aqui entra')
+		
 	
 		if form.is_valid():
-			pprint(request)
+			pprint(request.POST)
 			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
 			new_user.first_name = request.POST['nombre']
 			new_user.last_name = request.POST['apellido']
 			new_user.movil = request.POST['celular']
 			new_user.email = request.POST['correo']
-			new_user.save()
-
-			pprint('el usuario')
-			pprint(new_user)
-
+			
 			brand = form.save()
 			new_user.brand = brand
 			brand.save()
+			new_user.save()
 
 			return redirect('marcas')
 	else:
@@ -68,6 +65,7 @@ def brand_detail(request, pk):
 	brand = get_object_or_404(Brand, pk=pk)
 
 	try:
+		pprint(brand)
 		user = User.objects.filter(brand=brand).first()
 	except User.DoesNotExist:
 		user  = None
@@ -96,6 +94,7 @@ def brand_detail(request, pk):
 
 	else:
 		if user:
+			
 			form = BrandForm(initial=
 				{
 					'nombre': user.first_name,
@@ -108,7 +107,7 @@ def brand_detail(request, pk):
 			form = BrandForm(instance=brand)
 		
 
-		pprint(form.__dict__)
+		#pprint(form.__dict__)
 
 
 	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
@@ -119,10 +118,19 @@ def brand_delete(request, pk):
 	template = loader.get_template('marcas/delete_marca.html')
 	brand = get_object_or_404(Brand, pk=pk)
 
+	try:
+		user = User.objects.filter(brand=brand).first()
+	except User.DoesNotExist:
+		user  = None
+
 	if request.method == 'POST':
 		form = DeleteBrand(request.POST, instance=brand)
 
 		if form.is_valid():
+
+			if user:
+				user.delete()
+
 			brand.delete()
 			return redirect('marcas')
 	else:
