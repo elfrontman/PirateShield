@@ -77,6 +77,11 @@ export class MainServicesService {
     .pipe( map(response => response) )  
   }
 
+  getCategoriesBrand(){
+     return this.http.get(environment.API_URL + '/categories_brand/')  
+    .pipe( map(response => response) )   
+  }
+
 
   loginToken(token){
     this.headers = new HttpHeaders({
