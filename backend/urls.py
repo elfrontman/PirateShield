@@ -12,8 +12,8 @@ router.register(r'productbybrand', REST_view.ProductList)
 router.register(r'imageproduct', REST_view.ImageDetailProduct)
 router.register(r'detailproduct', REST_view.DetailImageProductViewSet)
 router.register(r'markerproduct', REST_view.DetailMarkerProduct)
-router.register(r'categories_brand', REST_view.CategoryBrandViewSet)
-router.register(r'categories_product', REST_view.CategoryProductViewSet)
+#router.register(r'categories_brand', REST_view.CategoryBrandViewSet)
+#router.register(r'categories_product', REST_view.CategoryProductViewSet)
 
 urlpatterns = [
 	path('', dashboard.index, name='index'),

@@ -13,170 +13,168 @@ from datetime import datetime
 from pprint import pprint
 from inspect import getmembers
 
+
 @login_required
 def index(request):
-	operativos = Operativo.objects.filter(is_active=True)
-	template = loader.get_template('operativos/list_operativos.html')
+    operativos = Operativo.objects.filter(is_active=True)
+    template = loader.get_template('operativos/list_operativos.html')
 
-	return HttpResponse(template.render({'operativos': operativos}, request))
+    return HttpResponse(template.render({'operativos': operativos}, request))
+
 
 def new(request):
-	template = loader.get_template('operativos/crear_operativo.html')
-	brands = Brand.objects.all();
-	
-	if request.method == 'POST':
-		form = UserTerrenoForm(request.POST)
-		
-		if form.is_valid():
-			new_user, created = User.objects.get_or_create(username=request.POST['movil'])
-			new_user.first_name = request.POST['first_name']
-			new_user.last_name = request.POST['last_name']
-			new_user.movil = request.POST['movil']
-			new_user.save()
+    template = loader.get_template('operativos/crear_operativo.html')
+    brands = Brand.objects.all()
 
-			operativo = Operativo()
-			operativo.user = new_user
-			operativo.expiration = request.POST['expiration_date']
-			operativo.activation = request.POST['activation_date']
-			operativo.name = request.POST['name']
-			operativo.description = request.POST['description']
-			operativo.token = get_random_string(length=6)
-			operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
-			operativo.productList = ','.join(request.POST.getlist('products[]'))
+    if request.method == 'POST':
+        form = UserTerrenoForm(request.POST)
 
-			activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
+        if form.is_valid():
+            new_user, created = User.objects.get_or_create(username=request.POST['movil'])
+            new_user.first_name = request.POST['first_name']
+            new_user.last_name = request.POST['last_name']
+            new_user.movil = request.POST['movil']
+            new_user.save()
 
-			pprint(activation_date.date())
-			pprint(datetime.now().date())
+            operativo = Operativo()
+            operativo.user = new_user
+            operativo.expiration = request.POST['expiration_date']
+            operativo.activation = request.POST['activation_date']
+            operativo.name = request.POST['name']
+            operativo.description = request.POST['description']
+            operativo.token = get_random_string(length=6)
+            operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
+            operativo.productList = ','.join(request.POST.getlist('products[]'))
 
-			if activation_date.date() == datetime.now().date():
-				operativo.is_ready = True
+            activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
 
-			operativo.save()
+            pprint(activation_date.date())
+            pprint(datetime.now().date())
 
-			return redirect('operativos')
-	else:
-		form = UserTerrenoForm()
-	
-	return HttpResponse(template.render({'form': form, 'brands' : brands}, request))
+            if activation_date.date() == datetime.now().date():
+                operativo.is_ready = True
+
+            operativo.save()
+
+            return redirect('operativos')
+    else:
+        form = UserTerrenoForm()
+
+    return HttpResponse(template.render({'form': form, 'brands' : brands}, request))
 
 def operativo_edit(request, pk):
-	template = loader.get_template('operativos/crear_operativo.html')
-	brands = Brand.objects.all();
-	products = Product.objects.all();
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/crear_operativo.html')
+    brands = Brand.objects.all();
+    products = Product.objects.all();
+    operativo = get_object_or_404(Operativo, pk=pk)
 
-	if request.method == 'POST':
-		form = UserTerrenoForm(request.POST, instance=operativo)
-		
-		if form.is_valid():
-			new_user, created = User.objects.get_or_create(username=request.POST['movil'])
-			new_user.first_name = request.POST['first_name']
-			new_user.last_name = request.POST['last_name']
-			new_user.movil = request.POST['movil']
-			new_user.save()
+    if request.method == 'POST':
+        form = UserTerrenoForm(request.POST, instance=operativo)
+        
+        if form.is_valid():
+            new_user, created = User.objects.get_or_create(username=request.POST['movil'])
+            new_user.first_name = request.POST['first_name']
+            new_user.last_name = request.POST['last_name']
+            new_user.movil = request.POST['movil']
+            new_user.save()
 
-			#operativo = Operativo()
-			operativo.user = new_user
-			operativo.expiration = request.POST['expiration_date']
-			operativo.activation = request.POST['activation_date']
-			operativo.name = request.POST['name']
-			operativo.description = request.POST['description']
-			operativo.token = get_random_string(length=6)
-			operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
-			operativo.productList = ','.join(request.POST.getlist('products[]'))
+            #operativo = Operativo()
+            operativo.user = new_user
+            operativo.expiration = request.POST['expiration_date']
+            operativo.activation = request.POST['activation_date']
+            operativo.name = request.POST['name']
+            operativo.description = request.POST['description']
+            operativo.token = get_random_string(length=6)
+            operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
+            operativo.productList = ','.join(request.POST.getlist('products[]'))
 
-			activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
+            activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
 
-			if activation_date.date() == datetime.now().date():
-				operativo.is_ready = True
+            if activation_date.date() == datetime.now().date():
+                operativo.is_ready = True
 
-			operativo.save()
+            operativo.save()
 
-			return redirect('operativos')
-	else:
-		
-		form = UserTerrenoForm(initial=
-			{
-				'name': operativo.name,
-				'description': operativo.description,
-				'first_name': operativo.user.first_name,
-				'last_name' : operativo.user.last_name,
-				'movil' : operativo.user.movil,
-				'activation_date': operativo.activation.strftime('%Y-%m-%d'),
-				'expiration_date': operativo.expiration.strftime('%Y-%m-%d')
-			})
+            return redirect('operativos')
+    else:
 
-		#if len(operativo.brandsList)
-			brandsList = list(map(int, operativo.brandsList.split(','))) 
+        form = UserTerrenoForm(initial=
+            {
+                'name': operativo.name,
+                'description': operativo.description,
+                'first_name': operativo.user.first_name,
+                'last_name': operativo.user.last_name,
+                'movil': operativo.user.movil,
+                'activation_date': operativo.activation.strftime('%Y-%m-%d'),
+                'expiration_date': operativo.expiration.strftime('%Y-%m-%d')
+            })
 
-		#if len(operativo.productList)
-			productList = list(map(int, operativo.productList.split(','))) 
-			
-		
+        if len(operativo.brandsList):
+            brandsList = list(map(int, operativo.brandsList.split(','))) 
 
-		
-	
-	return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
-	
+        if len(operativo.productList):
+            productList = list(map(int, operativo.productList.split(','))) 
+            
+        
+
+        
+    
+    return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
+    
 def invalidate(request, pk):
-	template = loader.get_template('operativos/invalidate_operativo.html')
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/invalidate_operativo.html')
+    operativo = get_object_or_404(Operativo, pk=pk)
 
-	if request.method == 'POST':
-		form = InactiveOperativo(request.POST, instance=operativo)
+    if request.method == 'POST':
+        form = InactiveOperativo(request.POST, instance=operativo)
 
-		if form.is_valid():
-			operativo.is_active = False
-			operativo.save()
-			return redirect('operativos')
-	else:
-		form = InactiveOperativo(instance=operativo)
+        if form.is_valid():
+            operativo.is_active = False
+            operativo.save()
+            return redirect('operativos')
+    else:
+        form = InactiveOperativo(instance=operativo)
 
-	return HttpResponse(template.render({}, request))
+    return HttpResponse(template.render({}, request))
 
 
 def activate(request, pk):
-	template = loader.get_template('operativos/activate_operativo.html')
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/activate_operativo.html')
+    operativo = get_object_or_404(Operativo, pk=pk)
 
-	if request.method == 'POST':
-		form = InactiveOperativo(request.POST, instance=operativo)
+    if request.method == 'POST':
+        form = InactiveOperativo(request.POST, instance=operativo)
 
-		if form.is_valid():
-			operativo.activation = datetime.now()
-			operativo.is_ready = True
-			operativo.save()
-			return redirect('operativos')
-	else:
-		form = InactiveOperativo(instance=operativo)
+        if form.is_valid():
+            operativo.activation = datetime.now()
+            operativo.is_ready = True
+            operativo.save()
+            return redirect('operativos')
+    else:
+        form = InactiveOperativo(instance=operativo)
 
-	return HttpResponse(template.render({}, request))
+    return HttpResponse(template.render({}, request))
 
 
 def chat(request, pk):
-	template = loader.get_template('operativos/chat.html')
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/chat.html')
+    operativo = get_object_or_404(Operativo, pk=pk)
 
 
-	return HttpResponse(template.render({'operativo': operativo}, request))
+    return HttpResponse(template.render({'operativo': operativo}, request))
 
 
 def chat_marca(request, pk):
-	template = loader.get_template('operativos/chat_marca.html')
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/chat_marca.html')
+    operativo = get_object_or_404(Operativo, pk=pk)
 
 
-	return HttpResponse(template.render({'operativo': operativo, 'extendind': 'layout/base.html'}, request))
+    return HttpResponse(template.render({'operativo': operativo, 'extendind': 'layout/base.html'}, request))
 
 
 def chat_ext_marca(request, pk):
-	template = loader.get_template('operativos/chat_marca.html')
-	operativo = get_object_or_404(Operativo, pk=pk)
+    template = loader.get_template('operativos/chat_marca.html')
+    operativo = get_object_or_404(Operativo, pk=pk)
 
 
-	return HttpResponse(template.render({'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))
-
-
-
-
+    return HttpResponse(template.render({'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))
