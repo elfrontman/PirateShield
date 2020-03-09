@@ -107,9 +107,11 @@ def operativo_edit(request, pk):
 				'expiration_date': operativo.expiration.strftime('%Y-%m-%d')
 			})
 
-		
-		brandsList = list(map(int, operativo.brandsList.split(','))) 
-		productList = list(map(int, operativo.productList.split(','))) 
+		if len(operativo.brandsList)
+			brandsList = list(map(int, operativo.brandsList.split(','))) 
+
+		if len(operativo.productList)
+			productList = list(map(int, operativo.productList.split(','))) 
 			
 		
 
