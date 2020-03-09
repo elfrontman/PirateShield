@@ -1,6 +1,6 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, Operativo
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, Operativo, CategoryProduct
 from rest_framework import viewsets, filters
-from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer, DetailMarkerProductSerializer
+from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer, DetailMarkerProductSerializer, CategoryProductSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
@@ -41,6 +41,11 @@ class BrandViewSet(viewsets.ModelViewSet):
 class CategoryBrandViewSet(viewsets.ModelViewSet):
 	queryset = CategoryBrand.objects.all()
 	serializer_class = CategoryBrandSerializer
+
+
+class CategoryProductViewSet(viewsets.ModelViewSet):
+	queryset = CategoryProduct.objects.all()
+	serializer_class = CategoryProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
