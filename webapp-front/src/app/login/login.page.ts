@@ -22,10 +22,14 @@ export class LoginPage implements OnInit {
 
 		this.mS.loginToken(this.token)
 		.subscribe( (data:any) => {
+
 			if(!data.error){
 				this.router.navigateByUrl('/terminos');			
 				return;
 			}
+		}, error => {
+			console.log(error)
+			this.showToast("");
 		})
 
 	}

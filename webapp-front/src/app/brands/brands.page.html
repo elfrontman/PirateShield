@@ -10,15 +10,14 @@
 			<ion-row>
 	    		<ion-col size="7">
 	    			<div class="content-input icon-input">
-	    				<ion-input placeholder="Buscar Marca"></ion-input>	
+	    				<ion-input placeholder="Buscar Marca" [(ngModel)]="filter_name" (change)="filterName()"></ion-input>	
 	    				<img src="assets/images/buscar.svg" alt="">
 	    			</div>
 	    		</ion-col>
 	    		<ion-col>
 	    			<div class="content-input">
-				    	<ion-select placeholder="Categorias" multiple="true" interface="popover">
-				      		<ion-select-option value="f">Female</ion-select-option>
-				      		<ion-select-option value="m">Male</ion-select-option>
+				    	<ion-select [(ngModel)]="filter_categories" (ngModelChange)="filterCategories()" placeholder="Categorias" multiple="true" interface="popover">
+				      		<ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
 				    	</ion-select>
 			    	</div>
 	      		</ion-col>
@@ -26,9 +25,10 @@
 	     </ion-grid>
      </div>
 
+	<div class="not-found-records" *ngIf="filter_brands && filter_brands.length <= 0">No hay registros disponibles</div>
 
     <ion-list>
-  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of brands" routerLink="/brand/{{brand.id}}" >
+  		 <ion-item class="orange-arrow" lines="full" *ngFor="let brand of filter_brands" routerLink="/brand/{{brand.id}}" >
           <ion-thumbnail slot="start">
             <img [src]="brand.logo">
           </ion-thumbnail >
