@@ -7,7 +7,7 @@
 <form  method="POST">
 	<h2>
 		{% if is_edit %}
-			Editar usuario
+			Editar operativo
 		{% else %}
 			Nuevo operativo
 		{% endif %}
@@ -25,11 +25,13 @@
 
 				{% for brand in brands %}
 					<li class="list-parent">
-					<input class="parent-select" name="brands[]" type="checkbox" value="{{brand.id}}"> {{ brand.name }}
+						
+					<input class="parent-select" name="brands[]" type="checkbox" value="{{brand.id}}" {% if brand.id in brandsList%} checked {% endif %}> {{ brand.name }}
 						<ul>
 						{% for product in brand.product_set.all %}
 							<li>
-								<input class="child-select" name="products[]" type="checkbox" value="{{product.id}}"> {{ product.name }}
+								
+								<input class="child-select" name="products[]" type="checkbox" {% if product.id in productList %} checked {% endif %} value="{{product.id}}"> {{ product.name }}
 							</li>
 						{%  endfor%}
 						</ul>
