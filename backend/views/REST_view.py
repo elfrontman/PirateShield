@@ -62,12 +62,13 @@ class ProductList(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		token = self.request.query_params.get('token')
+		search = self.request.query_params.get('search')
 
 		operativo = Operativo.objects.get(token=token)
 		productList = operativo.productList
 		
 		if productList:
-			brands = Product.objects.filter(id__in=productList.split(','))
+			brands = Product.objects.filter(id__in=productList.split(','), brand__id__in=search)
 			
 			return brands
 
