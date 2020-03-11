@@ -68,7 +68,7 @@ class ProductList(viewsets.ModelViewSet):
 		productList = operativo.productList
 		
 		if productList:
-			brands = Product.objects.filter(id__in=productList.split(','), brand__id__in=search)
+			brands = Product.objects.filter(id__in=productList.split(','), brand__id=search)
 			
 			return brands
 
