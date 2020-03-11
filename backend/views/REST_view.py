@@ -55,8 +55,8 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 class ProductList(viewsets.ModelViewSet):
 	list_display = ("brand")
-	search_fields = ['brand__id']
-	filter_backends = (filters.SearchFilter,)
+	#search_fields = ['brand__id']
+	#filter_backends = (filters.SearchFilter,)
 	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
 
