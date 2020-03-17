@@ -134,8 +134,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + '/media'
 
-LOGIN_REDIRECT_URL = '/backend/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/agatha/backend/'
+LOGOUT_REDIRECT_URL = '/agatha/accounts/login/'
 
 AUTH_USER_MODEL = 'backend.user'
 
