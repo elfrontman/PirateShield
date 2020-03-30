@@ -5,11 +5,18 @@
 
 	socket.emit('create', $("#token_chat").val())
 
-	socket.on('chat-token', function(token){
-		console.log(token)
-		$("#token_chat").val(token.token)
+	if($("#token_chat").val().length == 0){
+		socket.on('chat-token', function(token){
+			saveChatToket(token.token).then(function(){
+				$("#token_chat").val(token.token)
+				getChat();	
+			})
+			
+		})	
+	}else{
 		getChat();
-	})
+	}
+	
 
 	
 
@@ -109,8 +116,6 @@
 
 	function getChat(){
 
-
-
 		$.ajax({
 			url: ip_chat + '/chat/'+$("#token_chat").val(),
 			crossDomain: true,
@@ -126,5 +131,28 @@
 				console.log(err)
 			}
 		})
+	}
+
+
+	function saveChatToket(token_chat){
+		return new Promise(function(resolve, reject){
+			$.ajax({
+				url: ip_chat + '/token_chat/'+$("#token_chat").val(),
+				data: {'token_chat': token_chat, 'token': $('#token').val()},
+				crossDomain: true,
+				dataType: "json",
+				success: function(data){
+					if(data.created){
+						resolve(token_chat)
+					}else{
+						resolve(data.token)
+					}
+					
+				}, error: function(err){
+					reject(err);
+				}
+			})
+		})
+		
 	}
 })();
