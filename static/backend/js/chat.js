@@ -7,9 +7,11 @@
 
 	socket.on('chat-token', function(token){
 		console.log(token)
+		$("#token_chat").val(token.token)
+		getChat();
 	})
 
-	getChat();
+	
 
 	var is_brand = $('#is_brand').length > 0;
 
