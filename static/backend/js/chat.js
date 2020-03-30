@@ -140,9 +140,12 @@
 			$.ajax({
 				url: ip_service + '/token_chat/'+$("#token_chat").val(),
 				data: {'token_chat': token_chat, 'token': $('#token').val()},
-				crossDomain: true,
+				crossDomain: false,
 				type: 'post',
 				dataType: "json",
+				// beforeSend: function(request) {
+    // 				request.setRequestHeader("X-CSRFToken", csrftoken);
+  		// 		},
 				success: function(data){
 					if(data.created){
 						resolve(token_chat)
