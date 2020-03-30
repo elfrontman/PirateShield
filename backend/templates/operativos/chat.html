@@ -1,6 +1,7 @@
 {% extends "layout/base.html" %}
 {% block content %}
-
+	
+	{% csrf_token %}
 	<nav class="actions-bar grid-x">
 		<div class="cell small-12 medium-6">
 			<div class="title-actions-bar">Chat de operativo - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
