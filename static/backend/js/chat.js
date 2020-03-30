@@ -140,6 +140,7 @@
 				url: ip_chat + '/token_chat/'+$("#token_chat").val(),
 				data: {'token_chat': token_chat, 'token': $('#token').val()},
 				crossDomain: true,
+				type: 'post',
 				dataType: "json",
 				success: function(data){
 					if(data.created){
