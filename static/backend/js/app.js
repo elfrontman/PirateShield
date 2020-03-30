@@ -1,5 +1,7 @@
 $(document).foundation()
 
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -11,6 +13,8 @@ $.ajaxSetup({
         }
     }
 });
+
+
 
 $(document).ready(function(){
 	var input_file = $('[type=file]').parent('p')
