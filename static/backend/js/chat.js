@@ -1,5 +1,6 @@
 (function() {
 	var ip_chat = 'http://190.60.205.188:500';
+	var ip_service = 'http://190.60.205.188:8080/backend';
 	//var ip_chat = '127.0.0.1:500';
 	var  socket = io(ip_chat);
 
@@ -137,7 +138,7 @@
 	function saveChatToket(token_chat){
 		return new Promise(function(resolve, reject){
 			$.ajax({
-				url: ip_chat + '/token_chat/'+$("#token_chat").val(),
+				url: ip_service + '/token_chat/'+$("#token_chat").val(),
 				data: {'token_chat': token_chat, 'token': $('#token').val()},
 				crossDomain: true,
 				type: 'post',
