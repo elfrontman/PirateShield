@@ -4,6 +4,11 @@
 	var  socket = io(ip_chat);
 
 	socket.emit('create', $("#token_chat").val())
+
+	socket.on('chat-token', function(token){
+		console.log(token)
+	})
+
 	getChat();
 
 	var is_brand = $('#is_brand').length > 0;
@@ -101,6 +106,9 @@
 
 
 	function getChat(){
+
+
+
 		$.ajax({
 			url: ip_chat + '/chat/'+$("#token_chat").val(),
 			crossDomain: true,
