@@ -4,7 +4,7 @@ const http = require("http").Server(app)
 const io = require("socket.io")
 const port = 500
 const socket = io(http)
-const url_api = "ec2-3-84-219-164.compute-1.amazonaws.com"
+const url_api = "http://190.60.205.188:8080"
 //const url_api = "127.0.0.1"
 
 const  Chat  = require("./models/ChatSchema");
