@@ -5,15 +5,11 @@
 
 
 <form  method="POST" enctype="multipart/form-data">
-	<h2>
-		{% if is_edit %}
-			Editar Marca
-		{% else %}
-			Crear Marca
-		{% endif %}
-		
-	</h2>
 	{% csrf_token %}
+	<h2>
+		{{ title }}
+	</h2>
+	
 	{{ form.as_p }}
 	
 	<div class="grid-x">

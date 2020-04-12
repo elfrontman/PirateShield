@@ -1,6 +1,6 @@
 from django.template import loader
 from django.http import HttpResponse 
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 
 from backend.models import Brand, Product, User
 from backend.forms import BrandForm, DeleteBrand
@@ -8,46 +8,40 @@ from backend.forms import BrandForm, DeleteBrand
 from pprint import pprint
 
 def marcas(request):
-	brand_list = Brand.objects.all();
-	template = loader.get_template('marcas/view_marcas.html')
-
+	brand_list = Brand.objects.all()
 	context = {
 		'brand_list' : brand_list,
-
 	}
 
-	return HttpResponse(template.render(context, request))
-
+	return render(request,'marcas/view_marcas.html', context)
 
 def products_by_brand(request, pk):
 	product_list = Product.objects.filter(brand=pk)
-	template = loader.get_template('productos/view_productos.html')
 
 	context = {
 		'product_list': product_list,
 		'brand_pk': pk
 	}
 
-	return HttpResponse(template.render(context, request))
+	return render(request, 'productos/view_productos.html', context)
 
 def brand_new(request):
-	template = loader.get_template('marcas/create_marca.html')
-
+	
 	if request.method == 'POST':
-		form = BrandForm(request.POST, request.FILES or None)
-
-		
+		form = BrandForm(request.POST, request.FILES)
 	
 		if form.is_valid():
 			pprint(request.POST)
-			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
-			new_user.first_name = request.POST['nombre']
-			new_user.last_name = request.POST['apellido']
-			new_user.movil = request.POST['celular']
-			new_user.email = request.POST['correo']
+			
+			new_user = User.objects.create_user(username=request.POST['email'], email = request.POST['email'])
+			new_user.first_name = request.POST['first_name']
+			new_user.last_name = request.POST['last_name']
+			new_user.movil = request.POST['phone_number']
+			new_user.email = request.POST['email']
 			
 			brand = form.save()
-			new_user.brand = brand
+			new_user.brand_id = brand
+			
 			brand.save()
 			new_user.save()
 
@@ -55,64 +49,48 @@ def brand_new(request):
 	else:
 		form = BrandForm()
 	
-	return HttpResponse(template.render({'form': form}, request))
+	return render(request, 'marcas/create_marca.html', {'form': form, 'title': 'Nueva Marca'})
 
-
-
-def brand_detail(request, pk):
-
-	template = loader.get_template('marcas/create_marca.html')
-	brand = get_object_or_404(Brand, pk=pk)
+def brand_edit(request, pk):
+	brand = Brand.objects.get(pk=pk)
 
 	try:
-		pprint(brand)
-		user = User.objects.filter(brand=brand).first()
+		user = User.objects.get(brand=brand)
 	except User.DoesNotExist:
 		user  = None
 
 	if request.method == 'POST':
-		form = BrandForm(request.POST, request.FILES or None, instance=brand)
-		pprint(request.FILES)
+		form = BrandForm(request.POST, request.FILES, instance=brand)
 
+		user.first_name = request.POST['first_name']
+		user.last_name = request.POST['last_name']
+		user.movil = request.POST['phone_number']
+		user.username = request.POST['email']
+		user.email = request.POST['email']
+		
+		if user == request.POST['email']:
+				user.save()
+		else:
+			if form.is_valid():
+				user.save()
+		
+		brand.save()
 
-		if form.is_valid():
-			brand = form.save(commit=False)
-
-			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
-			new_user.first_name = request.POST['nombre']
-			new_user.last_name = request.POST['apellido']
-			new_user.movil = request.POST['celular']
-			new_user.email = request.POST['correo']
-			
-			
-			new_user.brand = brand
-			
-			brand.save()
-			new_user.save()
-
-			return redirect('marcas')
-
+		return redirect('marcas')
 	else:
-		if user:
-			
+		if user:	
 			form = BrandForm(initial=
 				{
-					'nombre': user.first_name,
-					'apellido' : user.last_name,
-					'celular' : user.movil,
-					'correo' : user.email
-				},
-			instance=brand)
+					'first_name': user.first_name,
+					'last_name' : user.last_name,
+					'email' : user.email,
+					'phone_number' : user.movil,
+				}, instance=brand)
 		else:
 			form = BrandForm(instance=brand)
-		
 
-		#pprint(form.__dict__)
-
-
-	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
-
-
+	return render(request,'marcas/create_marca.html', {'form': form, 'title': 'Edición de Marca'})
+	
 def brand_delete(request, pk):
 
 	template = loader.get_template('marcas/delete_marca.html')
