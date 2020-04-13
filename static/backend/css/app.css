@@ -668,3 +668,9 @@ form .input-file input{
 	margin: 0;
 	max-width: 100%;
 }
+
+.thumbnail-product figure img{
+	max-height: 200px;
+	width: 100%;
+	object-fit: cover;
+}

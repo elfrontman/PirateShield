@@ -6,7 +6,7 @@
 
 	socket.emit('create', $("#token_chat").val())
 
-	if($("#token_chat").val().length == 0){
+	if($("#token_chat").length > 0 && $("#token_chat").val().length == 0){
 		socket.on('chat-token', function(token){
 			saveChatToket(token.token).then(function(){
 				$("#token_chat").val(token.token)

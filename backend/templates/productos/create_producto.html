@@ -13,9 +13,9 @@
 				<h2>
 					{% if is_edit %}
 					Editar Producto {{form.name.value}}
-					<div class="thumbnail">
+					<div class="thumbnail thumbnail-product">
 						<figure>
-							<img src="/media/{{ form.image.value }}" alt="" style="height: 200px;">
+							<img src="/media/{{ form.image.value }}" alt="" >
 						</figure>
 					</div>
 					{% else %}
