@@ -16,6 +16,8 @@ class CategoryBrand(models.Model):
 
 class CategoryProduct(models.Model):
 	name = models.CharField(max_length=250)
+	created = models.DateTimeField(auto_now=True)
+	modified = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.name
@@ -31,6 +33,9 @@ class Brand(models.Model):
 	description = models.TextField()
 	brand_category_id = models.ForeignKey(CategoryBrand, on_delete=models.DO_NOTHING)
 
+	created = models.DateTimeField(auto_now=True)
+	modified = models.DateTimeField(auto_now=True)
+
 	def __str__(self):
 		return self.name
 
@@ -45,6 +50,10 @@ class Product(models.Model):
 	description = models.TextField()
 	image = models.ImageField(upload_to = 'clients/', default='clients/logo_default.jpg')
 	product_category = models.ForeignKey(CategoryProduct, on_delete=models.DO_NOTHING)
+
+	created = models.DateTimeField(auto_now=True)
+	modified = models.DateTimeField(auto_now=True)
+
 
 	def __str__(self):
 		return self.name
@@ -138,6 +147,8 @@ class Operativo(models.Model):
 	brandsList = models.CharField(max_length=250, blank=True, null=True)
 	productList = models.CharField(max_length=250, blank=True, null=True)
 	created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+	modified = models.DateTimeField(auto_now=True)
+
 
 
 class OperativoBrand(models.Model):

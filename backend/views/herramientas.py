@@ -10,23 +10,15 @@ from backend.forms import CategoryBrandForm, DeleteCategoryBrand, CategoryProduc
 
 @login_required
 def index(request):
-    return render(request, 'herramientas.html', {})
+    return render(request, 'herramientas.html')
 
 
 def categoria_marca(request):
-
     list = CategoryBrand.objects.all()
-    template = loader.get_template('marcas/list_category.html')
-
-    context = {
-        'list': list
-    }
-
-    return HttpResponse(template.render(context, request))
+    context = {'list': list}
+    return render(request,'marcas/list_category.html',context)    
 
 def create_categoria_marca(request):
-	template = loader.get_template('marcas/create_category.html')
-
 	if request.method == 'POST':
 		form = CategoryBrandForm(request.POST)
 	
@@ -38,8 +30,7 @@ def create_categoria_marca(request):
 	else:
 		form = CategoryBrandForm()
 	
-	return HttpResponse(template.render({'form': form}, request))
-
+	return render(request,'marcas/create_category.html', {'form': form})
 
 def categoria_marca_detail(request, pk):
 

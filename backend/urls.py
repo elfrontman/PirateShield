@@ -18,10 +18,10 @@ router.register(r'categories_product', REST_view.CategoryProductViewSet)
 urlpatterns = [
 	path('', dashboard.index, name='index'),
 	path('marcas/', marca.marcas, name='marcas'),
-	path('brand/new', marca.brand_new, name='brand_new'),
-	path('brand/<int:pk>', marca.brand_detail, name='brand_detail'),
-	path('brand/<int:pk>/delete/', marca.brand_delete, name='brand_delete'),
-	path('brand/<int:pk>/productos/', marca.products_by_brand, name='products_by_brand'),
+	path('marcas/nuevo', marca.brand_new, name='brand_new'),
+	path('marcas/editar/<int:pk>', marca.brand_edit, name='brand_edit'),
+	path('marcas/<int:pk>/eliminar/', marca.brand_delete, name='brand_delete'),
+	path('marcas/<int:pk>/productos/', marca.products_by_brand, name='products_by_brand'),
 
 	path('productos', producto.productos, name='productos'),
 
