@@ -89,9 +89,9 @@ class DetailImageProduct(models.Model):
 	description = models.TextField()
 	marker_x = models.FloatField()
 	marker_y = models.FloatField()
-	image_product = models.ForeignKey(ImageProduct, on_delete=models.DO_NOTHING)
 	image_check = models.ImageField(upload_to='products/details', default='products/details/image_default.jpg')
 	image_fail = models.ImageField(upload_to='products/details', default='products/details/image_default.jpg')
+	image_product = models.ForeignKey(ImageProduct, on_delete=models.CASCADE)
 
 	def get_image_product(self):
 		return mark_safe('<div class="select-point">'+self.image_product.image_tag()+'</div>') 
@@ -117,7 +117,7 @@ class ImageDetailCompare(models.Model):
 	image_check = models.ImageField(upload_to='products/details', blank=True)
 	image_fail = models.ImageField(upload_to='products/details', blank=True)
 	#type_image = models.CharField(max_length=15, choices=TYPE_CHOICES, default='')
-	detail_image = models.ForeignKey(DetailImageProduct, on_delete=models.DO_NOTHING, blank=True, null=True)
+	detail_image = models.ForeignKey(DetailImageProduct, on_delete=models.CASCADE, blank=True, null=True)
 
 
 

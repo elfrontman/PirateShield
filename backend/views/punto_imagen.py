@@ -87,8 +87,6 @@ def image_pointer(request, pk_product, pk_image_product, pk_mark):
 
 	return HttpResponse(template.render(context, request))
 
-
-
 def new_image(request, pk_product, pk_image_product, pk_mark):
 	template = loader.get_template('punto_imagen/create_compare_image.html')
 	image_product = get_object_or_404(ImageProduct, pk=pk_image_product)
