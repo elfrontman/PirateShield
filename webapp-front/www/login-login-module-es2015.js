@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\t<div class=\"content-login\">\n\t\t<img class=\"image-logo\" src=\"assets/images/logo.svg\"/>\n\n\t\t<ion-item>\n\t\t\t<ion-label position=\"stacked\">Token</ion-label>\n\t\t\t<ion-input [(ngModel)]=\"token\" #tokeninput autofocus=\"true\" readonly></ion-input>\n\t\t</ion-item>\n\n\t\t<ion-button shape=\"round\" expand=\"full\" (click)=\"login()\">\n\t\t\tEntrar\n\t\t\t<img src=\"./assets/images/arrow_login.svg\" class=\"icon-svg\">\n\t\t</ion-button>\n\t</div>\n\t\n</ion-content>\n"
+module.exports = "<ion-content>\n\t<div class=\"content-login\">\n\t\t<img class=\"image-logo\" src=\"assets/images/logo.svg\"/>\n\n\t\t<ion-item>\n\t\t\t<ion-label position=\"stacked\">Token</ion-label>\n\t\t\t<ion-input [(ngModel)]=\"token\" #tokeninput autofocus=\"true\"></ion-input>\n\t\t</ion-item>\n\n\t\t<ion-button shape=\"round\" expand=\"full\" (click)=\"login()\">\n\t\t\tEntrar\n\t\t\t<img src=\"./assets/images/arrow_login.svg\" class=\"icon-svg\">\n\t\t</ion-button>\n\t</div>\n\t\n</ion-content>\n"
 
 /***/ }),
 
@@ -66,7 +66,7 @@ LoginPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".content-login {\n  width: 100%;\n  max-width: 320px;\n  padding: 1rem 3rem;\n  position: absolute;\n  right: 50%;\n  bottom: 50%;\n  -webkit-transform: translate(50%, 45%);\n          transform: translate(50%, 45%);\n}\n\n.image-logo {\n  max-width: 70%;\n  margin: 0 auto 2rem;\n  display: block;\n}\n\n.icon-svg {\n  height: 16px;\n  position: absolute;\n  right: 18px;\n}\n\nion-item {\n  margin-bottom: 3rem;\n}\n\nion-button {\n  position: relative;\n  height: 50px;\n  font-weight: bold;\n}\n\nion-button ion-icon {\n  position: absolute;\n  right: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2RqYW5nby9BZ2F0aGFEZW1vL1BpcmF0ZVNoaWVsZC93ZWJhcHAtZnJvbnQvc3JjL2FwcC9sb2dpbi9sb2dpbi5wYWdlLnNjc3MiLCJzcmMvYXBwL2xvZ2luL2xvZ2luLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNDLFdBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDRyxVQUFBO0VBQ0EsV0FBQTtFQUNBLHNDQUFBO1VBQUEsOEJBQUE7QUNDSjs7QURFQTtFQUNDLGNBQUE7RUFDRyxtQkFBQTtFQUNBLGNBQUE7QUNDSjs7QURFQTtFQUNDLFlBQUE7RUFDRyxrQkFBQTtFQUNBLFdBQUE7QUNDSjs7QURFQTtFQUNDLG1CQUFBO0FDQ0Q7O0FERUE7RUFDQyxrQkFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtBQ0NEOztBREVBO0VBQ0Msa0JBQUE7RUFDQSxXQUFBO0FDQ0QiLCJmaWxlIjoic3JjL2FwcC9sb2dpbi9sb2dpbi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudC1sb2dpbntcblx0d2lkdGg6IDEwMCU7XG5cdG1heC13aWR0aDogMzIwcHg7XG5cdHBhZGRpbmc6IDFyZW0gM3JlbTtcblx0cG9zaXRpb246IGFic29sdXRlO1xuICAgIHJpZ2h0OiA1MCU7XG4gICAgYm90dG9tOiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoNTAlLCA0NSUpO1xufVxuXG4uaW1hZ2UtbG9nb3tcblx0bWF4LXdpZHRoOiA3MCU7XG4gICAgbWFyZ2luOiAwIGF1dG8gMnJlbTtcbiAgICBkaXNwbGF5OiBibG9jaztcbn1cblxuLmljb24tc3Zne1xuXHRoZWlnaHQ6IDE2cHg7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHJpZ2h0OiAxOHB4O1xufVxuXG5pb24taXRlbXtcblx0bWFyZ2luLWJvdHRvbTogM3JlbTtcbn1cblxuaW9uLWJ1dHRvbntcblx0cG9zaXRpb246IHJlbGF0aXZlO1xuXHRoZWlnaHQ6IDUwcHg7XG5cdGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG5pb24tYnV0dG9uIGlvbi1pY29ue1xuXHRwb3NpdGlvbjogYWJzb2x1dGU7XG5cdHJpZ2h0OiAxcmVtO1xufSIsIi5jb250ZW50LWxvZ2luIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1heC13aWR0aDogMzIwcHg7XG4gIHBhZGRpbmc6IDFyZW0gM3JlbTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogNTAlO1xuICBib3R0b206IDUwJTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoNTAlLCA0NSUpO1xufVxuXG4uaW1hZ2UtbG9nbyB7XG4gIG1heC13aWR0aDogNzAlO1xuICBtYXJnaW46IDAgYXV0byAycmVtO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLmljb24tc3ZnIHtcbiAgaGVpZ2h0OiAxNnB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAxOHB4O1xufVxuXG5pb24taXRlbSB7XG4gIG1hcmdpbi1ib3R0b206IDNyZW07XG59XG5cbmlvbi1idXR0b24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogNTBweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbmlvbi1idXR0b24gaW9uLWljb24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAxcmVtO1xufSJdfQ== */"
+module.exports = ".content-login {\n  width: 100%;\n  max-width: 320px;\n  padding: 1rem 3rem;\n  position: absolute;\n  right: 50%;\n  bottom: 50%;\n  -webkit-transform: translate(50%, 45%);\n          transform: translate(50%, 45%);\n}\n\n.image-logo {\n  max-width: 70%;\n  margin: 0 auto 2rem;\n  display: block;\n}\n\n.icon-svg {\n  height: 16px;\n  position: absolute;\n  right: 18px;\n}\n\nion-item {\n  margin-bottom: 3rem;\n}\n\nion-button {\n  position: relative;\n  height: 50px;\n  font-weight: bold;\n}\n\nion-button ion-icon {\n  position: absolute;\n  right: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9BcHBsaWNhdGlvbnMvTUFNUC9odGRvY3MvUGlyYXRlU2hpZWxkL3dlYmFwcC1mcm9udC9zcmMvYXBwL2xvZ2luL2xvZ2luLnBhZ2Uuc2NzcyIsInNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0MsV0FBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNHLFVBQUE7RUFDQSxXQUFBO0VBQ0Esc0NBQUE7VUFBQSw4QkFBQTtBQ0NKOztBREVBO0VBQ0MsY0FBQTtFQUNHLG1CQUFBO0VBQ0EsY0FBQTtBQ0NKOztBREVBO0VBQ0MsWUFBQTtFQUNHLGtCQUFBO0VBQ0EsV0FBQTtBQ0NKOztBREVBO0VBQ0MsbUJBQUE7QUNDRDs7QURFQTtFQUNDLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0FDQ0Q7O0FERUE7RUFDQyxrQkFBQTtFQUNBLFdBQUE7QUNDRCIsImZpbGUiOiJzcmMvYXBwL2xvZ2luL2xvZ2luLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250ZW50LWxvZ2lue1xuXHR3aWR0aDogMTAwJTtcblx0bWF4LXdpZHRoOiAzMjBweDtcblx0cGFkZGluZzogMXJlbSAzcmVtO1xuXHRwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IDUwJTtcbiAgICBib3R0b206IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSg1MCUsIDQ1JSk7XG59XG5cbi5pbWFnZS1sb2dve1xuXHRtYXgtd2lkdGg6IDcwJTtcbiAgICBtYXJnaW46IDAgYXV0byAycmVtO1xuICAgIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4uaWNvbi1zdmd7XG5cdGhlaWdodDogMTZweDtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IDE4cHg7XG59XG5cbmlvbi1pdGVte1xuXHRtYXJnaW4tYm90dG9tOiAzcmVtO1xufVxuXG5pb24tYnV0dG9ue1xuXHRwb3NpdGlvbjogcmVsYXRpdmU7XG5cdGhlaWdodDogNTBweDtcblx0Zm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbmlvbi1idXR0b24gaW9uLWljb257XG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcblx0cmlnaHQ6IDFyZW07XG59IiwiLmNvbnRlbnQtbG9naW4ge1xuICB3aWR0aDogMTAwJTtcbiAgbWF4LXdpZHRoOiAzMjBweDtcbiAgcGFkZGluZzogMXJlbSAzcmVtO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiA1MCU7XG4gIGJvdHRvbTogNTAlO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSg1MCUsIDQ1JSk7XG59XG5cbi5pbWFnZS1sb2dvIHtcbiAgbWF4LXdpZHRoOiA3MCU7XG4gIG1hcmdpbjogMCBhdXRvIDJyZW07XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4uaWNvbi1zdmcge1xuICBoZWlnaHQ6IDE2cHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDE4cHg7XG59XG5cbmlvbi1pdGVtIHtcbiAgbWFyZ2luLWJvdHRvbTogM3JlbTtcbn1cblxuaW9uLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiA1MHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuaW9uLWJ1dHRvbiBpb24taWNvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDFyZW07XG59Il19 */"
 
 /***/ }),
 
@@ -106,6 +106,9 @@ let LoginPage = class LoginPage {
                 this.router.navigateByUrl('/terminos');
                 return;
             }
+        }, error => {
+            console.log(error);
+            this.showToast("");
         });
     }
     showToast(message) {
@@ -139,6 +142,123 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _main_services_service__WEBPACK_IMPORTED_MODULE_4__["MainServicesService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
 ], LoginPage);
+
+
+
+/***/ }),
+
+/***/ "./src/app/main-services.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/main-services.service.ts ***!
+  \******************************************/
+/*! exports provided: MainServicesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainServicesService", function() { return MainServicesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+
+
+
+
+
+let MainServicesService = class MainServicesService {
+    constructor(http) {
+        this.http = http;
+    }
+    getCookie(name) {
+        let value = "; " + document.cookie;
+        let parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
+    }
+    getFileURL(url) {
+        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].STATIC_URL + '/files/' + url;
+    }
+    service(url, data) {
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        });
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('token', token);
+        for (let field of Object.keys(data)) {
+            formData.append(field, data[field]);
+        }
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + url, { 'token': token }, { headers: this.headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getBrands() {
+        const token = localStorage.getItem('token');
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/brands/?token=' + token)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getBrandById(id_brand) {
+        const token = localStorage.getItem('token');
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/brands/' + id_brand + '/?token=' + token)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getProductsByBrand(id_brand) {
+        const token = localStorage.getItem('token');
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/productbybrand/?search=' + id_brand + '&token=' + token)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getProduct(id_product) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/product/' + id_product)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getDetailMarkerProduct(id_marker) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/markerproduct/' + id_marker)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getCategoriesBrand() {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/categories_brand/')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    loginToken(token) {
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
+        });
+        console.log(this.headers);
+        const formData = new FormData();
+        formData.append('token', token);
+        localStorage.setItem('token', token);
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/login_app/', { 'token': token }, { headers: this.headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    setTokentChat(token_chat) {
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRFToken': this.getCookie('csrftoken')
+        });
+        const token = localStorage.getItem('token');
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/token_chat/', { 'token_chat': token_chat, 'token': token }, { headers: this.headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+    getChat(token_chat) {
+        const token = localStorage.getItem('token_chat');
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SoketIoConfig.url + '/chat/' + token)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => response));
+    }
+};
+MainServicesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+MainServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+], MainServicesService);
 
 
 

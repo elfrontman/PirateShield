@@ -387,121 +387,6 @@ module.exports = "<ion-footer >\n\t<ion-toolbar>\n\t\t<ion-tabs >\n\t\t\t<ion-ta
 
 /***/ }),
 
-/***/ "./src/app/main-services.service.ts":
-/*!******************************************!*\
-  !*** ./src/app/main-services.service.ts ***!
-  \******************************************/
-/*! exports provided: MainServicesService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainServicesService", function() { return MainServicesService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-
-
-
-
-
-var MainServicesService = /** @class */ (function () {
-    function MainServicesService(http) {
-        this.http = http;
-    }
-    MainServicesService.prototype.getCookie = function (name) {
-        var value = "; " + document.cookie;
-        var parts = value.split("; " + name + "=");
-        if (parts.length == 2)
-            return parts.pop().split(";").shift();
-    };
-    MainServicesService.prototype.getFileURL = function (url) {
-        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].STATIC_URL + '/files/' + url;
-    };
-    MainServicesService.prototype.service = function (url, data) {
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        });
-        var token = localStorage.getItem('token');
-        var formData = new FormData();
-        formData.append('token', token);
-        for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
-            var field = _a[_i];
-            formData.append(field, data[field]);
-        }
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + url, { 'token': token }, { headers: this.headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getBrands = function () {
-        var token = localStorage.getItem('token');
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/brands/?token=' + token)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getBrandById = function (id_brand) {
-        var token = localStorage.getItem('token');
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/brands/' + id_brand + '/?token=' + token)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getProductsByBrand = function (id_brand) {
-        var token = localStorage.getItem('token');
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/productbybrand/?search=' + id_brand + '&token=' + token)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getProduct = function (id_product) {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/product/' + id_product)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getDetailMarkerProduct = function (id_marker) {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/markerproduct/' + id_marker)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.loginToken = function (token) {
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRFToken': this.getCookie('csrftoken')
-        });
-        console.log(this.headers);
-        var formData = new FormData();
-        formData.append('token', token);
-        localStorage.setItem('token', token);
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/login_app/', { 'token': token }, { headers: this.headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.setTokentChat = function (token_chat) {
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRFToken': this.getCookie('csrftoken')
-        });
-        var token = localStorage.getItem('token');
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL + '/token_chat/', { 'token_chat': token_chat, 'token': token }, { headers: this.headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.prototype.getChat = function (token_chat) {
-        var token = localStorage.getItem('token_chat');
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SoketIoConfig.url + '/chat/' + token)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return response; }));
-    };
-    MainServicesService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-    ]; };
-    MainServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], MainServicesService);
-    return MainServicesService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/shared/footer/footer.component.scss":
 /*!*****************************************************!*\
   !*** ./src/app/shared/footer/footer.component.scss ***!
@@ -509,7 +394,7 @@ var MainServicesService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".icon-svg {\n  height: 22px;\n  margin-bottom: 5px;\n}\n\nspan {\n  font-weight: 500;\n  text-transform: capitalize;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2RqYW5nby9BZ2F0aGFEZW1vL1BpcmF0ZVNoaWVsZC93ZWJhcHAtZnJvbnQvc3JjL2FwcC9zaGFyZWQvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2hhcmVkL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQyxZQUFBO0VBQ0Esa0JBQUE7QUNDRDs7QURFQTtFQUNDLGdCQUFBO0VBQ0EsMEJBQUE7QUNDRCIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmljb24tc3Zne1xuXHRoZWlnaHQ6IDIycHg7XG5cdG1hcmdpbi1ib3R0b206IDVweDtcbn1cblxuc3Bhbntcblx0Zm9udC13ZWlnaHQ6IDUwMDtcblx0dGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG59IiwiLmljb24tc3ZnIHtcbiAgaGVpZ2h0OiAyMnB4O1xuICBtYXJnaW4tYm90dG9tOiA1cHg7XG59XG5cbnNwYW4ge1xuICBmb250LXdlaWdodDogNTAwO1xuICB0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTtcbn0iXX0= */"
+module.exports = ".icon-svg {\n  height: 22px;\n  margin-bottom: 5px;\n}\n\nspan {\n  font-weight: 500;\n  text-transform: capitalize;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9BcHBsaWNhdGlvbnMvTUFNUC9odGRvY3MvUGlyYXRlU2hpZWxkL3dlYmFwcC1mcm9udC9zcmMvYXBwL3NoYXJlZC9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9zaGFyZWQvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNDLFlBQUE7RUFDQSxrQkFBQTtBQ0NEOztBREVBO0VBQ0MsZ0JBQUE7RUFDQSwwQkFBQTtBQ0NEIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaWNvbi1zdmd7XG5cdGhlaWdodDogMjJweDtcblx0bWFyZ2luLWJvdHRvbTogNXB4O1xufVxuXG5zcGFue1xuXHRmb250LXdlaWdodDogNTAwO1xuXHR0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTtcbn0iLCIuaWNvbi1zdmcge1xuICBoZWlnaHQ6IDIycHg7XG4gIG1hcmdpbi1ib3R0b206IDVweDtcbn1cblxuc3BhbiB7XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xufSJdfQ== */"
 
 /***/ }),
 

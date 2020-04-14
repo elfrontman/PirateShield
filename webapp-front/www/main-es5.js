@@ -10,37 +10,39 @@
 var map = {
 	"./brand/brand.module": [
 		"./src/app/brand/brand.module.ts",
+		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"common",
 		"brand-brand-module"
 	],
 	"./brands/brands.module": [
 		"./src/app/brands/brands.module.ts",
+		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"common",
 		"brands-brands-module"
 	],
 	"./chat/chat.module": [
 		"./src/app/chat/chat.module.ts",
-		"common",
+		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"chat-chat-module"
 	],
 	"./detail-image/detail-image.module": [
 		"./src/app/detail-image/detail-image.module.ts",
+		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"common",
 		"detail-image-detail-image-module"
 	],
 	"./image-product/image-product.module": [
 		"./src/app/image-product/image-product.module.ts",
+		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"common",
 		"image-product-image-product-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
-		"common",
 		"login-login-module"
 	],
 	"./terminos/terminos.module": [
 		"./src/app/terminos/terminos.module.ts",
-		"common",
 		"terminos-terminos-module"
 	]
 };
@@ -632,12 +634,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm5/ngx-socket-io.js");
-
-
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 
 
 
@@ -653,22 +651,21 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
             entryComponents: [],
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(),
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"],
-                ngx_socket_io__WEBPACK_IMPORTED_MODULE_11__["SocketIoModule"].forRoot(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].SoketIoConfig)
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
             ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -747,19 +744,8 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/django/AgathaDemo/PirateShield/webapp-front/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/PirateShield/webapp-front/src/main.ts */"./src/main.ts");
 
-
-/***/ }),
-
-/***/ 1:
-/*!********************!*\
-  !*** ws (ignored) ***!
-  \********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
 
 /***/ })
 

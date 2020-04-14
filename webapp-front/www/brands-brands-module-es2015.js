@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title>BIENVENIDO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"filters\">\n\t\t<ion-grid>\n\t\t\t<ion-row>\n\t    \t\t<ion-col size=\"7\">\n\t    \t\t\t<div class=\"content-input icon-input\">\n\t    \t\t\t\t<ion-input placeholder=\"Buscar Marca\"></ion-input>\t\n\t    \t\t\t\t<img src=\"assets/images/buscar.svg\" alt=\"\">\n\t    \t\t\t</div>\n\t    \t\t</ion-col>\n\t    \t\t<ion-col>\n\t    \t\t\t<div class=\"content-input\">\n\t\t\t\t    \t<ion-select placeholder=\"Categorias\" multiple=\"true\" interface=\"popover\">\n\t\t\t\t      \t\t<ion-select-option value=\"f\">Female</ion-select-option>\n\t\t\t\t      \t\t<ion-select-option value=\"m\">Male</ion-select-option>\n\t\t\t\t    \t</ion-select>\n\t\t\t    \t</div>\n\t      \t\t</ion-col>\n\t      \t</ion-row>\n\t     </ion-grid>\n     </div>\n\n\n    <ion-list>\n  \t\t <ion-item class=\"orange-arrow\" lines=\"full\" *ngFor=\"let brand of brands\" routerLink=\"/brand/{{brand.id}}\" >\n          <ion-thumbnail slot=\"start\">\n            <img [src]=\"brand.logo\">\n          </ion-thumbnail >\n          <ion-label>\n            <h2>{{ brand.name }}</h2>\n            <h3>{{ brand.brand_category_id.name }}</h3>\n          </ion-label>\n\n          <img src=\"./assets/images/arrow_item.svg\" class=\"icon-svg\">\n        </ion-item>\n  \t</ion-list>\n\n</ion-content>\n\n<app-footer></app-footer>"
+module.exports = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title>BIENVENIDO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"filters\">\n\t\t<ion-grid>\n\t\t\t<ion-row>\n\t    \t\t<ion-col size=\"7\">\n\t    \t\t\t<div class=\"content-input icon-input\">\n\t    \t\t\t\t<ion-input placeholder=\"Buscar Marca\" [(ngModel)]=\"filter_name\" (change)=\"filterName()\"></ion-input>\t\n\t    \t\t\t\t<img src=\"assets/images/buscar.svg\" alt=\"\">\n\t    \t\t\t</div>\n\t    \t\t</ion-col>\n\t    \t\t<ion-col>\n\t    \t\t\t<div class=\"content-input\">\n\t\t\t\t    \t<ion-select [(ngModel)]=\"filter_categories\" (ngModelChange)=\"filterCategories()\" placeholder=\"Categorias\" multiple=\"true\" interface=\"popover\">\n\t\t\t\t      \t\t<ion-select-option *ngFor=\"let cat of categories\" [value]=\"cat.id\">{{ cat.name }}</ion-select-option>\n\t\t\t\t    \t</ion-select>\n\t\t\t    \t</div>\n\t      \t\t</ion-col>\n\t      \t</ion-row>\n\t     </ion-grid>\n     </div>\n\n\t<div class=\"not-found-records\" *ngIf=\"filter_brands && filter_brands.length <= 0\">No hay registros disponibles</div>\n\n    <ion-list>\n  \t\t <ion-item class=\"orange-arrow\" lines=\"full\" *ngFor=\"let brand of filter_brands\" routerLink=\"/brand/{{brand.id}}\" >\n          <ion-thumbnail slot=\"start\">\n            <img [src]=\"brand.logo\">\n          </ion-thumbnail >\n          <ion-label>\n            <h2>{{ brand.name }}</h2>\n            <h3>{{ brand.brand_category_id.name }}</h3>\n          </ion-label>\n\n          <img src=\"./assets/images/arrow_item.svg\" class=\"icon-svg\">\n        </ion-item>\n  \t</ion-list>\n\n</ion-content>\n\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ BrandsPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-thumbnail {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin: 0.5rem 1rem 0.5rem 0rem;\n}\n\nion-title {\n  text-align: center;\n  font-weight: bold;\n  font-size: 1rem;\n}\n\n.icon-svg {\n  height: 22px;\n}\n\n.filters {\n  margin-bottom: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2RqYW5nby9BZ2F0aGFEZW1vL1BpcmF0ZVNoaWVsZC93ZWJhcHAtZnJvbnQvc3JjL2FwcC9icmFuZHMvYnJhbmRzLnBhZ2Uuc2NzcyIsInNyYy9hcHAvYnJhbmRzL2JyYW5kcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQyxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0csZ0JBQUE7RUFDQSwrQkFBQTtBQ0NKOztBREdBO0VBQ0Msa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7QUNBRDs7QURHQTtFQUNDLFlBQUE7QUNBRDs7QURJQTtFQUNDLG1CQUFBO0FDREQiLCJmaWxlIjoic3JjL2FwcC9icmFuZHMvYnJhbmRzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi10aHVtYm5haWx7XG5cdHdpZHRoOiA4MHB4O1xuXHRoZWlnaHQ6IDgwcHg7XG5cdGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIG1hcmdpbjogMC41cmVtIDFyZW0gMC41cmVtIDByZW07XG59XG5cblxuaW9uLXRpdGxle1xuXHR0ZXh0LWFsaWduOiBjZW50ZXI7XG5cdGZvbnQtd2VpZ2h0OiBib2xkO1xuXHRmb250LXNpemU6IDFyZW07XG59XG5cbi5pY29uLXN2Z3tcblx0aGVpZ2h0OiAyMnB4O1xufVxuXG5cbi5maWx0ZXJze1xuXHRtYXJnaW4tYm90dG9tOiAxcmVtO1xufVxuXG4iLCJpb24tdGh1bWJuYWlsIHtcbiAgd2lkdGg6IDgwcHg7XG4gIGhlaWdodDogODBweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW46IDAuNXJlbSAxcmVtIDAuNXJlbSAwcmVtO1xufVxuXG5pb24tdGl0bGUge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBmb250LXNpemU6IDFyZW07XG59XG5cbi5pY29uLXN2ZyB7XG4gIGhlaWdodDogMjJweDtcbn1cblxuLmZpbHRlcnMge1xuICBtYXJnaW4tYm90dG9tOiAxcmVtO1xufSJdfQ== */"
+module.exports = "ion-thumbnail {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin: 0.5rem 1rem 0.5rem 0rem;\n}\n\nion-title {\n  text-align: center;\n  font-weight: bold;\n  font-size: 1rem;\n}\n\n.icon-svg {\n  height: 22px;\n}\n\n.filters {\n  margin-bottom: 1rem;\n}\n\n.not-found-records {\n  text-align: center;\n  color: #bdbdbd;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9BcHBsaWNhdGlvbnMvTUFNUC9odGRvY3MvUGlyYXRlU2hpZWxkL3dlYmFwcC1mcm9udC9zcmMvYXBwL2JyYW5kcy9icmFuZHMucGFnZS5zY3NzIiwic3JjL2FwcC9icmFuZHMvYnJhbmRzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNDLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDRyxnQkFBQTtFQUNBLCtCQUFBO0FDQ0o7O0FER0E7RUFDQyxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtBQ0FEOztBREdBO0VBQ0MsWUFBQTtBQ0FEOztBRElBO0VBQ0MsbUJBQUE7QUNERDs7QURJQTtFQUNDLGtCQUFBO0VBQ0csY0FBQTtBQ0RKIiwiZmlsZSI6InNyYy9hcHAvYnJhbmRzL2JyYW5kcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGh1bWJuYWlse1xuXHR3aWR0aDogODBweDtcblx0aGVpZ2h0OiA4MHB4O1xuXHRib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBtYXJnaW46IDAuNXJlbSAxcmVtIDAuNXJlbSAwcmVtO1xufVxuXG5cbmlvbi10aXRsZXtcblx0dGV4dC1hbGlnbjogY2VudGVyO1xuXHRmb250LXdlaWdodDogYm9sZDtcblx0Zm9udC1zaXplOiAxcmVtO1xufVxuXG4uaWNvbi1zdmd7XG5cdGhlaWdodDogMjJweDtcbn1cblxuXG4uZmlsdGVyc3tcblx0bWFyZ2luLWJvdHRvbTogMXJlbTtcbn1cblxuLm5vdC1mb3VuZC1yZWNvcmRze1xuXHR0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgY29sb3I6ICNiZGJkYmQ7XG59XG5cbiIsImlvbi10aHVtYm5haWwge1xuICB3aWR0aDogODBweDtcbiAgaGVpZ2h0OiA4MHB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIG1hcmdpbjogMC41cmVtIDFyZW0gMC41cmVtIDByZW07XG59XG5cbmlvbi10aXRsZSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbn1cblxuLmljb24tc3ZnIHtcbiAgaGVpZ2h0OiAyMnB4O1xufVxuXG4uZmlsdGVycyB7XG4gIG1hcmdpbi1ib3R0b206IDFyZW07XG59XG5cbi5ub3QtZm91bmQtcmVjb3JkcyB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgY29sb3I6ICNiZGJkYmQ7XG59Il19 */"
 
 /***/ }),
 
@@ -97,7 +97,23 @@ let BrandsPage = class BrandsPage {
     ngOnInit() {
         this.service.getBrands().subscribe((data) => {
             this.brands = data;
+            this.filter_brands = this.brands;
         });
+        this.service.getCategoriesBrand().subscribe((data) => {
+            this.categories = data;
+        });
+    }
+    filterCategories() {
+        this.filter_brands = this.brands;
+        if (this.filter_categories.length > 0) {
+            this.filter_brands = this.brands.filter(x => this.filter_categories.indexOf(x.brand_category_id.id) > -1);
+        }
+    }
+    filterName() {
+        this.filter_brands = this.brands;
+        if (this.filter_name.length > 0) {
+            this.filter_brands = this.brands.filter(x => this.filter_name.toLowerCase().indexOf(x.name.toLowerCase()) > -1);
+        }
     }
 };
 BrandsPage.ctorParameters = () => [

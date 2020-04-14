@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChatPage } from './chat.page';
+import { environment } from './../../environments/environment';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 const routes: Routes = [
   {
@@ -19,7 +22,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SocketIoModule.forRoot(environment.SoketIoConfig)
   ],
   declarations: [ChatPage]
 })

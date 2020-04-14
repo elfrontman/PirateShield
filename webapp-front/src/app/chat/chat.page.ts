@@ -25,7 +25,11 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	ngOnInit() {
 		this.socket.connect();
 
+		console.log('init', this.socket)
+
 		this.socket.fromEvent('chat-token').subscribe( (token:any) => {
+
+			console.log(token)
 			
 			this.service.setTokentChat(token.token)
 				.subscribe( (data:any) => {
