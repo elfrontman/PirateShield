@@ -13,7 +13,7 @@ import { environment } from './../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 
 @NgModule({
@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
   	HttpClientModule, 
   	IonicModule.forRoot(), 
   	AppRoutingModule,
+    SocketIoModule.forRoot(environment.SoketIoConfig)
     ],
   providers: [
     StatusBar,
