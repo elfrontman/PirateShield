@@ -48,8 +48,8 @@ def new(request):
 
             activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
 
-            pprint(activation_date.date())
-            pprint(datetime.now().date())
+            #pprint(activation_date.date())
+            #pprint(datetime.now().date())
 
             if activation_date.date() == datetime.now().date():
                 operativo.is_ready = True

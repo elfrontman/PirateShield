@@ -14,7 +14,7 @@ def new(request, pk):
 	if request.method == 'POST':
 		form = ImagenProductForm(request.POST, request.FILES)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -34,11 +34,9 @@ def detail(request, pk, pk_image_product):
 	template = loader.get_template('imagen_producto/create.html')
 	image_product = get_object_or_404(ImageProduct, pk=pk_image_product)
 	marks_product = image_product.detailimageproduct_set.all()
-	
-	pprint(image_product)
-	pprint(marks_product)
 
-
+	#pprint(image_product)
+	#pprint(marks_product)
 	if request.method == 'POST':
 		form = ImagenProductForm(request.POST, request.FILES, instance=image_product)
 

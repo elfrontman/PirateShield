@@ -31,7 +31,7 @@ def brand_new(request):
 		form = BrandForm(request.POST, request.FILES)
 	
 		if form.is_valid():
-			pprint(request.POST)
+			#pprint(request.POST)
 			
 			new_user = User.objects.create_user(username=request.POST['email'], email = request.POST['email'])
 			new_user.first_name = request.POST['first_name']

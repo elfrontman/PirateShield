@@ -83,17 +83,14 @@ WSGI_APPLICATION = 'pirateshield.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-
-   'default': {
+     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': 'mysql.cnf',
-            #'read_default_file': '/etc/mysql/myconf_demo.cnf',
+            #'read_default_file': 'mysql.cnf',
+            'read_default_file': '/etc/mysql/myconf_demo.cnf',
         }
-    }
-    
+    }  
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
