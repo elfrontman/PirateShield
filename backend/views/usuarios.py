@@ -8,7 +8,7 @@ from backend.forms import UserForm
 
 @login_required
 def index(request):
-	users = User.objects.all();
+	users = User.objects.all()
 
 	context = {
 		'users': users
@@ -16,7 +16,7 @@ def index(request):
 
 	print(users)
 	return render(request, 'usuarios/list_users.html', context)
-
+@login_required
 def create(request):
 	template = loader.get_template('usuarios/create_user.html')
 
@@ -32,7 +32,7 @@ def create(request):
 	
 	return HttpResponse(template.render({'form': form}, request))
 
-
+@login_required
 def detail(request, pk):
 	template = loader.get_template('usuarios/create_user.html')
 	user_detail = get_object_or_404(User, pk=pk)

@@ -2,6 +2,7 @@ env/
 mypirateenv/
 **/__pycache__/
 */settings.py
+pirateshield/settings.py
 *.pyc
 mysql.cnf
 media/**/*

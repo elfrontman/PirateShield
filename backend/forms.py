@@ -42,14 +42,13 @@ class DeleteBrand(forms.ModelForm):
 class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
-		fields = '__all__'
+		fields = {'name','reference','brand', 'image', 'product_category'}
 		widgets= {'brand': HiddenInput()}
 
 		labels = {
 			"name" : _("Nombre del producto"),
 			"reference" : _("Referencia"),
 			"image" : _("Imagen"),
-			"description": _("Descripción"),
 			"product_category" : _("Categoría"),
 		}
 
