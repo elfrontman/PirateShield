@@ -19,6 +19,8 @@ def index(request):
     operativos = Operativo.objects.filter(is_active=True)
     template = loader.get_template('operativos/list_operativos.html')
 
+    
+
     return HttpResponse(template.render({'operativos': operativos}, request))
 
 
@@ -155,24 +157,26 @@ def activate(request, pk):
 
 
 def chat(request, pk):
-    template = loader.get_template('operativos/chat.html')
+    template = loader.get_template('operativos/chat_general.html')
     operativo = get_object_or_404(Operativo, pk=pk)
 
+    ip_client = request.client_ip
 
-    return HttpResponse(template.render({'operativo': operativo}, request))
+    return HttpResponse(template.render({'operativo': operativo, 'ip_client':  ip_client}, request))
 
 
 def chat_marca(request, pk):
     template = loader.get_template('operativos/chat_marca.html')
     operativo = get_object_or_404(Operativo, pk=pk)
+    ip_client = request.client_ip
 
-
-    return HttpResponse(template.render({'operativo': operativo, 'extendind': 'layout/base.html'}, request))
+    return HttpResponse(template.render({'operativo': operativo, 'extendind': 'layout/base.html', 'ip_client': ip_client}, request))
 
 
 def chat_ext_marca(request, pk):
-    template = loader.get_template('operativos/chat_marca.html')
+    template = loader.get_template('operativos/chat_marca_ext.html')
     operativo = get_object_or_404(Operativo, pk=pk)
 
+    ip_client = request.client_ip
 
-    return HttpResponse(template.render({'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))
+    return HttpResponse(template.render({'ip_client':ip_client,'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))

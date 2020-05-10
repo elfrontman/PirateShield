@@ -1,12 +1,19 @@
+{% extends extendind %}
 {% block content %}
 
 	<nav class="actions-bar grid-x">
 		<div class="cell small-12 medium-6">
-			<div class="title-actions-bar">Chat de marca </div>
+			<div class="title-actions-bar">Chat de marca - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
 		</div>
+		{% if not is_brand%}
+			<div class="cell small-12 medium-6 actions-buttons">
+				<a class="button hollow small " href="{% url 'chat_operativo' pk=operativo.pk %}">Chat con operativo</a>
+				<a class="button hollow small alert" href="{% url 'operativos' %}">Regresar</a>
+			</div>
+		{% endif  %}
 	</nav>
 
-	<div class="content-view-chat">
+	<div class="content-view-chat full-view-chat">
 		
 		<div class="view-chat chat-marca">
 			
@@ -39,5 +46,7 @@
 			
 		</form>	
 	</div>
+	
+	
 
 {% endblock %}

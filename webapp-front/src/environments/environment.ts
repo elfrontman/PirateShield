@@ -4,14 +4,19 @@
 
 export const environment = {
   production: false,
-  //API_URL: 'http://127.0.0.1:8000/backend',
-  //API_URL: 'http://192.168.1.108:8000/backend',
-  API_URL: 'http://190.60.205.188:8080/backend',
-  STATIC_URL: 'http://190.60.205.188:8080/static/backend',
-  SoketIoConfig: { 
-  	url: 'http://190.60.205.188:500',
+  API_URL: 'http://192.168.0.16:8000/backend',
+
+   SoketIoConfig: { 
+  	url: 'http://192.168.0.16:500',
   	options: {}
   }
+
+  // API_URL: 'http://190.60.205.188:8080/backend',
+  // STATIC_URL: 'http://190.60.205.188:8080/static/backend',
+  // SoketIoConfig: { 
+  // 	url: 'http://190.60.205.188:500',
+  // 	options: {}
+  // }
 };
 
 /*

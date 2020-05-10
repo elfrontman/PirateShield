@@ -1,48 +1,38 @@
-{% extends "layout/base.html" %}
-{% block content %}
-	
-	{% csrf_token %}
-	<nav class="actions-bar grid-x">
-		<div class="cell small-12 medium-6">
-			<div class="title-actions-bar">Chat de operativo - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
-		</div>
-		<div class="cell small-12 medium-6 actions-buttons">
-			<a class="button hollow small " href="{% url 'chat_marca' pk=operativo.pk %}">Chat con marca</a>
-			<a class="button hollow small alert" href="{% url 'operativos' %}">Regresar</a>
-		</div>
-	</nav>
-
-	<div class="content-view-chat">
-		
-		<div class="view-chat">
-			
-		</div>
-
-		<form class="chat-form">
-			<input type="hidden" value="{{ operativo.token_chat }}" id="token_chat">
-			<input type="hidden" value="{{ operativo.token }}" id="token">
-
-			<div class="grid-x">
-				<div class="cell small-12 medium-8">
-					<input type="text" name="message" id="message">		
-				</div>
-				<div class="cell small-12 medium-2">
-					<input type="submit" value="enviar" class="button expanded">
-				</div>
-				<div class="cell small-12 medium-2">
-					<label class="button expanded alert">
-						imagen	
-						<input type="file" hidden id="filechooser">
-					</label>
-					
-					
-				</div>
-			</div>
-			
-			
-		</form>	
+{% csrf_token %}
+<nav class="actions-bar grid-x">
+	<div class="cell small-12 medium-6">
+		<div class="title-actions-bar">Chat de operativo</div>
 	</div>
-	
-	
+</nav>
 
-{% endblock %}
+<div class="content-view-chat">
+	
+	<div class="view-chat chat-operativo">
+		
+	</div>
+
+	<form class="chat-form chat-operativo">
+		<input type="hidden" value="{{ operativo.token_chat }}" id="token_chat">
+		<input type="hidden" value="{{ operativo.token }}" id="token">
+		<input type="hidden" value="{{ ip_client }}" id="ip_client">
+
+		<div class="grid-x">
+			<div class="cell small-12 medium-8">
+				<input type="text" name="message" id="message">		
+			</div>
+			<div class="cell small-12 medium-2">
+				<input type="submit" value="enviar" class="button expanded">
+			</div>
+			<div class="cell small-12 medium-2">
+				<label class="button expanded alert">
+					imagen	
+					<input type="file" hidden class="filechooser" id="filechooser">
+				</label>
+				
+				
+			</div>
+		</div>
+		
+		
+	</form>	
+</div>

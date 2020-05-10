@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
 
     'ec2-3-84-219-164.compute-1.amazonaws.com',
     'localhost',
+    '192.168.0.16',
     '190.60.205.188'
 ]
 
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipaddr.middleware.IPAddrMiddleware'
 ]
 
 ROOT_URLCONF = 'pirateshield.urls'
@@ -83,11 +85,11 @@ WSGI_APPLICATION = 'pirateshield.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            #'read_default_file': 'mysql.cnf',
-            'read_default_file': '/etc/mysql/myconf_demo.cnf',
+            'read_default_file': 'mysql.cnf',
+            #'read_default_file': '/etc/mysql/myconf_demo.cnf',
         }
     }  
 }

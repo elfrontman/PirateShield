@@ -628,7 +628,7 @@ form .input-file input{
 .content-view-chat{
 	position: relative;
 	background: white;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 270px);
     padding: 1rem;
 }
 
@@ -637,7 +637,7 @@ form .input-file input{
 }
 
 .content-view-chat  .view-chat{
-	height: 90%;
+	height: 95%;
 	overflow: auto;
 }
 
@@ -650,6 +650,13 @@ form .input-file input{
     clear: both;
     margin-bottom: 1rem;
     border: 1px solid #0081ed2e;
+}
+
+.content-view-chat .view-chat .message .user{
+	display: block;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 0.8rem;
 }
 
 .content-view-chat .view-chat .message .time{
@@ -673,4 +680,12 @@ form .input-file input{
 	max-height: 200px;
 	width: 100%;
 	object-fit: cover;
+}
+
+.grid-gitter .cell:first-child{
+	padding-right: 0.5rem;
+}
+
+.grid-gitter .cell:last-child{
+	padding-left: 0.5rem;
 }
