@@ -4,8 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from .models import Brand, User, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, Operativo, ImageDetailCompare, OperativoBrand
 
-from pprint import pprint
-
 class BrandForm(forms.ModelForm):
 	first_name = forms.CharField(label='Nombres del contacto', required=True)
 	last_name = forms.CharField(label='Apellidos del contacto', required=True)
@@ -125,7 +123,6 @@ class DeleteCategoryProduct(forms.ModelForm):
 	class Meta:
 		model = CategoryProduct
 		fields = []
-
 
 class UserForm(forms.ModelForm):
 

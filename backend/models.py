@@ -31,7 +31,7 @@ class Brand(models.Model):
 	logo = models.ImageField(upload_to = 'clients/', default='clients/logo_default.jpg')
 	banner = models.ImageField(upload_to = 'clients/', default='clients/logo_default.jpg')
 	description = models.TextField()
-	brand_category_id = models.ForeignKey(CategoryBrand, on_delete=models.DO_NOTHING)
+	brand_category_id = models.ForeignKey(CategoryBrand, on_delete=models.CASCADE)
 
 	created = models.DateTimeField(auto_now=True)
 	modified = models.DateTimeField(auto_now=True)
@@ -139,6 +139,7 @@ class Operativo(models.Model):
 	expiration = models.DateTimeField()
 	name = models.CharField(max_length=250, blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
+	connections = models.IntegerField(blank=True, null=True)
 	first_login = models.DateTimeField(blank=True, null=True)
 	last_login = models.DateTimeField(blank=True, null=True)
 	is_active = models.BooleanField(default=True)
@@ -148,8 +149,6 @@ class Operativo(models.Model):
 	productList = models.CharField(max_length=250, blank=True, null=True)
 	created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	modified = models.DateTimeField(auto_now=True)
-
-
 
 class OperativoBrand(models.Model):
 	operativo = models.ForeignKey(Operativo, on_delete=models.DO_NOTHING)

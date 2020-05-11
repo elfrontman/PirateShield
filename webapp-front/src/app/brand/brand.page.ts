@@ -22,8 +22,6 @@ export class BrandPage implements OnInit {
 				console.log(data);
 				this.brand = data;
 				this.getProducts();
-
-
 			})	
 		})
 	}

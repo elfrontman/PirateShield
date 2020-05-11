@@ -17,10 +17,11 @@ def marcas(request):
 
 def products_by_brand(request, pk):
 	product_list = Product.objects.filter(brand=pk)
-
+	brand = Brand.objects.get(pk=pk)
 	context = {
 		'product_list': product_list,
-		'brand_pk': pk
+		'brand_pk': pk,
+		'brand': brand,
 	}
 
 	return render(request, 'productos/view_productos.html', context)
