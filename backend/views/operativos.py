@@ -19,11 +19,9 @@ def index(request):
     operativos = Operativo.objects.filter(is_active=True)
     template = loader.get_template('operativos/list_operativos.html')
 
-    
-
     return HttpResponse(template.render({'operativos': operativos}, request))
 
-
+@login_required
 def new(request):
     template = loader.get_template('operativos/crear_operativo.html')
     brands = Brand.objects.all()
@@ -50,9 +48,6 @@ def new(request):
 
             activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
 
-            #pprint(activation_date.date())
-            #pprint(datetime.now().date())
-
             if activation_date.date() == datetime.now().date():
                 operativo.is_ready = True
 
@@ -64,10 +59,11 @@ def new(request):
 
     return HttpResponse(template.render({'form': form, 'brands' : brands}, request))
 
+@login_required
 def operativo_edit(request, pk):
     template = loader.get_template('operativos/crear_operativo.html')
-    brands = Brand.objects.all();
-    products = Product.objects.all();
+    brands = Brand.objects.all()
+    products = Product.objects.all()
     operativo = get_object_or_404(Operativo, pk=pk)
 
     if request.method == 'POST':
@@ -106,6 +102,7 @@ def operativo_edit(request, pk):
                 'first_name': operativo.user.first_name,
                 'last_name': operativo.user.last_name,
                 'movil': operativo.user.movil,
+                'connections': operativo.connections,
                 'activation_date': operativo.activation.strftime('%Y-%m-%d'),
                 'expiration_date': operativo.expiration.strftime('%Y-%m-%d')
             })

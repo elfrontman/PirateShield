@@ -151,6 +151,7 @@ class UserTerrenoForm(forms.ModelForm):
 
 	name = forms.CharField(label='Nombre del operativo')
 	description = forms.CharField(label='Descripción del operativo', widget=forms.Textarea)
+	connections = forms.IntegerField(label="Cant. dispositivos en operativo")
 	activation_date = forms.DateTimeField(label='Operativo valido desde:', widget=forms.DateTimeInput(attrs={'type':'date'}))
 	expiration_date = forms.DateTimeField(label='Operativo valido hasta:', widget=forms.DateTimeInput(attrs={'type':'date'}))
 

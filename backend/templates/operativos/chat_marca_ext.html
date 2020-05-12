@@ -3,7 +3,8 @@
 
 	<nav class="actions-bar grid-x">
 		<div class="cell small-12 medium-6">
-			<div class="title-actions-bar">Chat de marca - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
+			<div class="title-actions-bar">{{ operativo.name }}</div>
+			<div class="title-actions-bar">Chat Operativo - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
 		</div>
 		{% if not is_brand%}
 			<div class="cell small-12 medium-6 actions-buttons">
