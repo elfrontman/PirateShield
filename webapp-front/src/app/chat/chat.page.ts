@@ -63,7 +63,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	sendMessage(){
-		let msg = {message: this.message, token: this.tokenUser, type: 'String'}
+		let msg = {message: this.message, token: this.tokenUser, type: 'String', ip: this.service.getIpClient()}
 		this.socket.emit('send-message', msg)
 		this.messages.push(msg)
 		this.message = '';

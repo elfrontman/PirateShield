@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
 		.subscribe( (data:any) => {
 
 			if(!data.error){
+				this.mS.setIpClient(data.ip)
 				this.router.navigateByUrl('/terminos');			
 				return;
 			}
