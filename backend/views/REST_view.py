@@ -108,7 +108,7 @@ def login_app(request):
 		if operativo and operativo.is_active:
 			if operativo.is_ready:
 				user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
-				return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user}, status=HTTP_200_OK)
+				return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user, 'ip': request.client_ip}, status=HTTP_200_OK)
 			else:
 				operativo.is_active = False
 				operativo.save()
