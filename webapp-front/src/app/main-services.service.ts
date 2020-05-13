@@ -11,9 +11,18 @@ import {map} from 'rxjs/operators';
 export class MainServicesService {
 
   headers;
+  ip_client;
 
   constructor(private http: HttpClient) { 
 
+  }
+
+  getIpClient(){
+    return this.ip_client;
+  }
+
+  setIpClient(ip){
+    this.ip_client = ip;
   }
 
   getCookie(name) {

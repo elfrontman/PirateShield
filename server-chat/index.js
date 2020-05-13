@@ -53,6 +53,7 @@ socket.on("connection", socket =>{
 				 message: msg.message,
 				 sender: msg.token,
 				 isAdmin: msg.isAdmin,
+				 ip: msg.ip,
 				 type: "String"
 			})
 
@@ -70,6 +71,7 @@ socket.on("connection", socket =>{
 				 message: msg.message,
 				 sender: msg.token,
 				 isAdmin: msg.isAdmin,
+				 ip: msg.ip,
 				 type: "Image"
 			})
 
