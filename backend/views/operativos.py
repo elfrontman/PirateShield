@@ -82,6 +82,7 @@ def operativo_edit(request, pk):
             operativo.activation = request.POST['activation_date']
             operativo.name = request.POST['name']
             operativo.description = request.POST['description']
+            operativo.connections = ','.join(request.POST.getlist('connections'))
             operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
             operativo.productList = ','.join(request.POST.getlist('products[]'))
 
@@ -109,12 +110,6 @@ def operativo_edit(request, pk):
 
         brandsList = list(map(int, operativo.brandsList.split(','))) if len(operativo.brandsList) else []
         productList = list(map(int, operativo.productList.split(','))) if len(operativo.productList) else []
-
-        
-            
-        
-
-        
     
     return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
     

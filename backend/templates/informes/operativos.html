@@ -16,8 +16,10 @@
 			<th>Persona encargada</th>
 			<th>Creación</th>
 			<th>Activación</th>
+			<th>Cierre</th>
 			<th>Marcas</th>
 			<th>Productos</th>
+			<th></th>
 		</thead>
 
 		<tbody>
@@ -26,9 +28,10 @@
 					<td>{{ operativo.user.first_name }} {{ operativo.user.last_name }}</td>
 					<td>{{ operativo.created_at |date:"M d, Y" }}</td>
 					<td>{{ operativo.activation |date:"M d, Y"}}</td>
+					<td></td>
 					<td>{{ operativo.brands }}</td>
 					<td>{{ operativo.products }}</td>
-					
+					<td><a href="#" class="button tiny success expanded">Chat</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>
