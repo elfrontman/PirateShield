@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders'
 ]
 
@@ -88,10 +89,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            #'read_default_file': 'mysql.cnf',
-            'read_default_file': '/etc/mysql/myconf_demo.cnf',
+            'read_default_file': 'mysql.cnf',
+            #'read_default_file': '/etc/mysql/myconf_demo.cnf',
         }
-    }  
+    }
 }
 
 # Password validation
@@ -112,6 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

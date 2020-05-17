@@ -1,141 +1,229 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, Operativo, CategoryProduct
+from backend.models import (
+    User, Brand,
+    CategoryBrand, Product,
+    ImageProduct, DetailImageProduct,
+    Operativo, CategoryProduct,
+    OperativoConnection
+)
+
 from rest_framework import viewsets, filters
-from backend.serializers import UserSerializer, BrandSerializer, CategoryBrandSerializer, ProductSerializer, ImageProductSerializer, DetailImageProductSerializer, DetailMarkerProductSerializer, CategoryProductSerializer
+
+from backend.serializers import (
+    UserSerializer, BrandSerializer,
+    CategoryBrandSerializer, ProductSerializer,
+    ImageProductSerializer,
+    DetailImageProductSerializer,
+    DetailMarkerProductSerializer,
+    CategoryProductSerializer
+)
+
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+
 from rest_framework.status import (
     HTTP_200_OK,
     HTTP_401_UNAUTHORIZED
 )
 from django.http import JsonResponse
-from datetime import datetime
 from pprint import pprint
+from django.utils.crypto import get_random_string
+import jwt
 
 
 class UserViewSet(viewsets.ModelViewSet):
-	queryset = User.objects.all()
-	serializer_class  = UserSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-	queryset = Brand.objects.all()
-	serializer_class = BrandSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
 
-	def get_queryset(self):
-		token = self.request.query_params.get('token')
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
 
-		operativo = Operativo.objects.get(token=token)
-		brandsList = operativo.brandsList
-		
-		if brandsList:
-			brands = Brand.objects.filter(id__in=brandsList.split(','))
-			
-			return brands
+    def get_queryset(self):
+        token = self.request.query_params.get('token')
 
-		return None
-		
+        operativo = Operativo.objects.get(token=token)
+        brandsList = operativo.brandsList
+
+        if brandsList:
+            brands = Brand.objects.filter(id__in=brandsList.split(','))
+
+            return brands
+
+        return None
 
 
 class CategoryBrandViewSet(viewsets.ModelViewSet):
-	queryset = CategoryBrand.objects.all()
-	serializer_class = CategoryBrandSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    queryset = CategoryBrand.objects.all()
+    serializer_class = CategoryBrandSerializer
 
 
 class CategoryProductViewSet(viewsets.ModelViewSet):
-	queryset = CategoryProduct.objects.all()
-	serializer_class = CategoryProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    queryset = CategoryProduct.objects.all()
+    serializer_class = CategoryProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.all()
-	serializer_class = ProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 class ProductList(viewsets.ModelViewSet):
-	list_display = ("brand")
-	#search_fields = ['brand__id']
-	#filter_backends = (filters.SearchFilter,)
-	queryset = Product.objects.all()
-	serializer_class = ProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
 
-	def get_queryset(self):
-		token = self.request.query_params.get('token')
-		search = self.request.query_params.get('search')
+    list_display = ("brand")
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-		operativo = Operativo.objects.get(token=token)
-		productList = operativo.productList
-		
-		if productList:
-			brands = Product.objects.filter(id__in=productList.split(','), brand__id=search)
-			
-			return brands
+    def get_queryset(self):
+        token = self.request.query_params.get('token')
+        search = self.request.query_params.get('search')
 
-		return Product.objects.all()
+        operativo = Operativo.objects.get(token=token)
+        productList = operativo.productList
+
+        if productList:
+            brands = Product.objects.filter(
+                id__in=productList.split(','), brand__id=search)
+
+            return brands
+
+        return Product.objects.all()
+
 
 class ImageDetailProduct(viewsets.ModelViewSet):
-	queryset = ImageProduct.objects.all()
-	serializer_class = ImageProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    queryset = ImageProduct.objects.all()
+    serializer_class = ImageProductSerializer
 
 
 class DetailImageProductViewSet(viewsets.ModelViewSet):
-	filter_backends = (filters.SearchFilter,)
-	search_fields = ['image_product__id']
-	queryset = DetailImageProduct.objects.all()
-	serializer_class = 	DetailImageProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['image_product__id']
+    queryset = DetailImageProduct.objects.all()
+    serializer_class = DetailImageProductSerializer
+
 
 class DetailMarkerProduct(viewsets.ModelViewSet):
-	filter_backends = (filters.SearchFilter,)
-	search_fields = ['id']
-	queryset = DetailImageProduct.objects.all()
-	serializer_class = DetailMarkerProductSerializer
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
 
-
-
-
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id']
+    queryset = DetailImageProduct.objects.all()
+    serializer_class = DetailMarkerProductSerializer
 
 
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def login_app(request):
-	if request.method == 'POST':
+    if request.method == 'POST':
 
-		operativo = get_object_or_404(Operativo, token=request.data.get('token'))
+        operativo = get_object_or_404(Operativo,
+                                      token=request.data.get('token'))
 
+        if operativo and operativo.is_active:
+            if operativo.is_ready:
 
-		if operativo and operativo.is_active:
-			if operativo.is_ready:
-				user = { 'username': operativo.user.username, 'fullname': operativo.user.first_name + ' ' + operativo.user.last_name, 'avatar': operativo.user.image.url }
-				return JsonResponse({'login': 'true', 'msg': 'Active Session', 'user' : user, 'ip': request.client_ip}, status=HTTP_200_OK)
-			else:
-				operativo.is_active = False
-				operativo.save()
-				return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
+                username = 'user_token_' + request.data.get('token') + get_random_string(length=4)
+                password = get_random_string(length=12)
+                user_session = {
+                    'username': username,
+                    'password': password
+                }
 
-		else:
-			return JsonResponse({'error': 'true', 'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
+                user_session_token = jwt.encode(user_session, "SECRET", algorithm='HS256')
+
+                all_connection = OperativoConnection.objects.filter(
+                    operativo__token=request.data.get('token')).count()
+
+                if all_connection < operativo.connections:
+
+                    user_token = User()
+                    user_token.username = username
+                    user_token.password = password
+                    user_token.is_user_token = True
+
+                    user_token.save()
+
+                    connection = OperativoConnection()
+                    connection.name_user = request.data.get('user_name')
+                    connection.operativo = operativo
+                    connection.ip = request.client_ip
+                    connection.user = user_token
+
+                    connection.save()
+
+                    token = Token.objects.create(user=user_token)
+
+                    return JsonResponse({
+                        'login': 'true',
+                        'msg': 'Active Session',
+                        'user_name': request.data.get('user_name'),
+                        'user': user_session_token.decode('utf-8'),
+                        'session_id': token.key,
+                        'ip': request.client_ip}, status=HTTP_200_OK)
+                else:
+                    return JsonResponse({
+                        'error': 'true',
+                        'msg': 'Token invalido'},
+                        status=HTTP_401_UNAUTHORIZED)
+
+            else:
+                operativo.is_active = False
+                operativo.save()
+                return JsonResponse({
+                    'error': 'true',
+                    'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
+
+        else:
+            return JsonResponse({
+                'error': 'true',
+                'msg': 'Token invalido'},
+                status=HTTP_401_UNAUTHORIZED)
 
 
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def chat_token(request):
-	operativo = get_object_or_404(Operativo, token=request.data.get('token'))
+    operativo = get_object_or_404(Operativo, token=request.data.get('token'))
 
-	pprint(operativo.token_chat)
+    pprint(operativo.token_chat)
 
-	if not operativo.token_chat:
-		operativo.token_chat = request.data.get('token_chat')
-		operativo.save()
+    if not operativo.token_chat:
+        operativo.token_chat = request.data.get('token_chat')
+        operativo.save()
 
-		return JsonResponse({'created': True}, status=HTTP_200_OK)
+        return JsonResponse({'created': True}, status=HTTP_200_OK)
 
-	return JsonResponse({'created': False, 'token': operativo.token_chat}, status=HTTP_200_OK)
-
-		
-
-
-
-
+    return JsonResponse(
+        {'created': False,
+         'token': operativo.token_chat}, status=HTTP_200_OK)

@@ -12,6 +12,7 @@ export class MainServicesService {
 
   headers;
   ip_client;
+  session_id;
 
   constructor(private http: HttpClient) { 
 
@@ -23,6 +24,19 @@ export class MainServicesService {
 
   setIpClient(ip){
     this.ip_client = ip;
+  }
+
+  getSessionId(){
+    if(sessionStorage.getItem('session_id')){
+      this.session_id = sessionStorage.getItem('session_id');
+    }
+
+    return this.session_id;
+  }
+
+  setSessionId(session_id){
+    sessionStorage.setItem('session_id', session_id)
+    this.session_id = session_id;
   }
 
   getCookie(name) {
@@ -53,6 +67,17 @@ export class MainServicesService {
 
     return this.http.post(environment.API_URL + url, {'token': token}, {headers: this.headers})
     .pipe(map(response => response))
+  }
+
+  requestSecure(url, formData = {}){
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `token ${this.getSessionId()}`
+    })
+
+    return this.http.get(environment.API_URL + url, {headers: headers}).pipe( map(response => response) )   
   }
 
   getBrands(){
@@ -87,12 +112,12 @@ export class MainServicesService {
   }
 
   getCategoriesBrand(){
-     return this.http.get(environment.API_URL + '/categories_brand/')  
-    .pipe( map(response => response) )   
+    return this.http.get(environment.API_URL + '/categories_brand/')  
+    .pipe( map(response => response) )  
   }
 
 
-  loginToken(token){
+  loginToken(token, user_name){
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -100,15 +125,10 @@ export class MainServicesService {
 
     })
 
-    console.log(this.headers)
-
-
-    const formData = new FormData()
-    formData.append('token', token);
-
     localStorage.setItem('token', token);
+    localStorage.setItem('user_name', user_name);
 
-    return this.http.post(environment.API_URL + '/login_app/', {'token': token}, {headers: this.headers})
+    return this.http.post(environment.API_URL + '/login_app/', {'token': token, 'user_name': user_name}, {headers: this.headers})
     .pipe(map(response => response))
   }
 
