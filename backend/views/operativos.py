@@ -7,7 +7,7 @@ from django.utils.crypto import get_random_string
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
-from backend.models import User, Operativo, Brand, Product
+from backend.models import User, Operativo, Brand, Product, OperativoConnection
 from datetime import datetime
 
 from pprint import pprint
@@ -112,7 +112,8 @@ def operativo_edit(request, pk):
         productList = list(map(int, operativo.productList.split(','))) if len(operativo.productList) else []
     
     return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
-    
+
+
 def invalidate(request, pk):
     template = loader.get_template('operativos/invalidate_operativo.html')
     operativo = get_object_or_404(Operativo, pk=pk)
@@ -121,6 +122,16 @@ def invalidate(request, pk):
         form = InactiveOperativo(request.POST, instance=operativo)
 
         if form.is_valid():
+
+            all_connection = OperativoConnection.objects.filter(
+                operativo=operativo)
+
+            for conn in all_connection:
+                user = conn.user
+                conn.user.auth_token.delete()
+                conn.delete()
+                user.delete()
+
             operativo.is_active = False
             operativo.save()
             return redirect('operativos')

@@ -7,6 +7,7 @@ from backend.models import (
 )
 
 from rest_framework import viewsets, filters
+from rest_framework.views import APIView
 
 from backend.serializers import (
     UserSerializer, BrandSerializer,
@@ -24,6 +25,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 from rest_framework.status import (
     HTTP_200_OK,
@@ -193,21 +195,45 @@ def login_app(request):
                 else:
                     return JsonResponse({
                         'error': 'true',
-                        'msg': 'Token invalido'},
+                        'msg': 'Token invalido 3'},
                         status=HTTP_401_UNAUTHORIZED)
 
             else:
+                all_connection = OperativoConnection.objects.filter(
+                    operativo__token=request.data.get('token'))
+
+                for conn in all_connection:
+                    user = conn.user
+                    conn.user.auth_token.delete()
+                    conn.delete()
+                    user.delete()
+
                 operativo.is_active = False
                 operativo.save()
+
                 return JsonResponse({
                     'error': 'true',
-                    'msg': 'Token invalido'}, status=HTTP_401_UNAUTHORIZED)
+                    'msg': 'Token invalido 2'}, status=HTTP_401_UNAUTHORIZED)
 
         else:
             return JsonResponse({
                 'error': 'true',
-                'msg': 'Token invalido'},
+                'msg': 'Token invalido 1'},
                 status=HTTP_401_UNAUTHORIZED)
+
+
+class Logout(APIView):
+    def get(self, request, format=None):
+
+        request.user.auth_token.delete()
+
+        connection = OperativoConnection.objects.get(
+            user=request.user)
+
+        connection.delete()
+        request.user.delete()
+
+        return Response(status=HTTP_200_OK)
 
 
 @csrf_exempt

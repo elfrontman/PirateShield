@@ -120,10 +120,24 @@ ion-title{
 	background-image: url('./assets/images/back_arrow.svg');
 	background-size: 35px 35px;
     width: 35px;
+    left: -10px;
 }
 
 .swiper-button-next{
 	background-image: url('./assets/images/next_arrow.svg');
 	background-size: 35px 35px;
     width: 35px;
+    right: -10px;
+}
+
+.aling-button-right{
+	text-align: right;
+}
+
+.swiper-wrapper{
+	height: 90%;
+}
+
+.swiper-pagination{
+	bottom: 0 !important;
 }

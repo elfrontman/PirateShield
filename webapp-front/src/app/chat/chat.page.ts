@@ -13,6 +13,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 
 	message = '';
+	username;
 	messages:any = [];
 	tokenUser = '';
 
@@ -23,6 +24,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	ngOnInit() {
+		this.username = localStorage.getItem('user_name')
 		this.socket.connect();
 
 		console.log('init', this.socket)
@@ -63,7 +65,13 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	sendMessage(){
-		let msg = {message: this.message, token: this.tokenUser, type: 'String', ip: this.service.getIpClient()}
+		let msg = {
+			message: this.message, 
+			token: this.tokenUser, 
+			type: 'String',
+			ip: this.service.getIpClient(),
+			user_name: this.username
+		}
 		this.socket.emit('send-message', msg)
 		this.messages.push(msg)
 		this.message = '';
@@ -78,13 +86,12 @@ export class ChatPage implements OnInit, AfterViewChecked {
 			var msg = {
 				token: this.tokenUser,
 				message: evt.target.result,
-				type: 'Image'
+				type: 'Image',
+				user_name: this.username
 			}
-			console.log(msg)
 			this.socket.emit('send-file', msg)
 			this.messages.push(msg)
 		}
-		console.log(file_input.files[0])
 		reader.readAsDataURL(file_input.files[0]);
 		this.scrollBottom();
 	}

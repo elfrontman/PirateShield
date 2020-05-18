@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MainServicesService } from './../main-services.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class BrandsPage implements OnInit {
   filter_categories;
   filter_name;
 
-  constructor(private service: MainServicesService) { 
+  constructor(private service: MainServicesService, private router: Router) { 
     
   }
 
@@ -45,6 +46,13 @@ export class BrandsPage implements OnInit {
       this.filter_brands = this.brands.filter( x => this.filter_name.toLowerCase().indexOf(x.name.toLowerCase()) > -1);
     }
 
+  }
+
+  logout(){
+    this.service.logOut().subscribe( data => {
+      sessionStorage.removeItem('session_id')
+      this.router.navigate(['/login'])
+    });
   }
 
 }

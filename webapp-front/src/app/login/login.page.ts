@@ -21,8 +21,12 @@ export class LoginPage implements OnInit {
 
 	login(){
 
+
+
 		this.mS.loginToken(this.token, this.user_name)
 		.subscribe( (data:any) => {
+
+			console.log(data)
 
 			if(!data.error){
 				this.mS.setIpClient(data.ip)
@@ -31,6 +35,7 @@ export class LoginPage implements OnInit {
 				return;
 			}
 		}, error => {
+			console.log(error)
 			this.showToast("");
 		})
 

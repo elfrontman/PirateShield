@@ -52,6 +52,7 @@ socket.on("connection", socket =>{
 			let chatMessage = new Chat({
 				 message: msg.message,
 				 sender: msg.token,
+				 user_name: msg.user_name,
 				 isAdmin: msg.isAdmin,
 				 ip: msg.ip,
 				 type: "String"
@@ -72,6 +73,7 @@ socket.on("connection", socket =>{
 				 sender: msg.token,
 				 isAdmin: msg.isAdmin,
 				 ip: msg.ip,
+				 user_name: msg.user_name,
 				 type: "Image"
 			})
 

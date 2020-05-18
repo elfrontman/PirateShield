@@ -27,6 +27,7 @@ router.register(r'detailproduct', REST_view.DetailImageProductViewSet)
 router.register(r'markerproduct', REST_view.DetailMarkerProduct)
 router.register(r'categories_brand', REST_view.CategoryBrandViewSet)
 router.register(r'categories_product', REST_view.CategoryProductViewSet)
+#router.register(r'logout', REST_view.Logout, basename='Logout')
 
 urlpatterns = [
     path('', dashboard.index, name='index'),
@@ -85,8 +86,8 @@ urlpatterns = [
     path('', include(router.urls)),
 
     path('login_app/', REST_view.login_app, name="login_app"),
+    path('logout/', REST_view.Logout.as_view(), name="logout"),
     path('token_chat/', REST_view.chat_token, name="chat_token"),
-    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     path('auth/', ObtainAuthToken.as_view())
 
 

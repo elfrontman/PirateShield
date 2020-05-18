@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { MainServicesService } from './../main-services.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-image-product',
@@ -16,7 +16,7 @@ export class ImageProductPage implements OnInit {
 	loadModule;
 	prevUrl;
 
-	constructor(private service:MainServicesService, private router:ActivatedRoute) {
+	constructor(private service:MainServicesService, private route:ActivatedRoute, private router: Router) {
 		this.slideOpts = {
 			initialSlide: 0,
 			speed: 400,
@@ -25,7 +25,7 @@ export class ImageProductPage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.router.params.subscribe( params => {
+		this.route.params.subscribe( params => {
 			this.prevUrl = ['/brand', params.id]
 			this.service.getProduct(params.id)
 				.subscribe( data => {
@@ -41,6 +41,13 @@ export class ImageProductPage implements OnInit {
 
 	onPrevSlide(){
 		this.slides.slidePrev();
+	}
+
+	logout(){
+		this.service.logOut().subscribe( data => {
+			sessionStorage.removeItem('session_id')
+			this.router.navigate(['/login'])
+		});
 	}
 
 }

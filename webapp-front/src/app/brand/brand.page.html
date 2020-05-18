@@ -1,24 +1,16 @@
 <ion-header>
 	<ion-toolbar color="primary">
-		<ion-grid>
-			<ion-row align-items-center>
-				<ion-col size="2">
-					<ion-buttons routerLink="/brands">
-						<ion-button>
-							<img class="icon-svg" src="./assets/images/home.svg">
-						</ion-button>
-					</ion-buttons>
-				</ion-col>
-				<ion-col size="8">
-					<ion-title *ngIf="brand">{{brand.name}}</ion-title>			
-				</ion-col>
-				<ion-col size="2">
-					<ion-buttons >
-						
-					</ion-buttons>			
-				</ion-col>
-			</ion-row>
-		</ion-grid>
+		<ion-buttons routerLink="/brands"  slot="start">
+			<ion-button>
+				<img class="icon-svg" src="./assets/images/home.svg">
+			</ion-button>
+		</ion-buttons>
+		<ion-title *ngIf="brand">{{brand.name}}</ion-title>			
+		<ion-buttons slot="end">
+			<ion-button (click)="logout()"> 
+				<img class="icon-svg" src="./assets/images/user_logout.svg">
+			</ion-button>
+		</ion-buttons>		
 	</ion-toolbar>
 </ion-header>
 

@@ -28,6 +28,8 @@
  
       <ion-col size="9"  [ngClass]="message.isAdmin ? 'other-message' : 'my-message'" class="message" [attr.offset] = "message.isAdmin ? '' : 3">
       	
+        <div class="username" text-right>{{ message.user_name }}</div>
+
       	<div [ngSwitch]="message.type">
       		<span *ngSwitchCase="'String'">{{ message.message }}</span>	
       		<img *ngSwitchCase="'Image'" [src]="message.message"/>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  MainServicesService } from './../main-services.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-brand',
@@ -12,7 +12,7 @@ export class BrandPage implements OnInit {
 	productos = []
 	brand;
 
-	constructor(private service: MainServicesService, private route: ActivatedRoute) {}
+	constructor(private service: MainServicesService, private route: ActivatedRoute, private router:Router) {}
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
@@ -31,6 +31,14 @@ export class BrandPage implements OnInit {
 		.subscribe( (data:any) => {
 			this.productos = data;
 		})
+	}
+
+	
+	logout(){
+		this.service.logOut().subscribe( data => {
+			sessionStorage.removeItem('session_id')
+			this.router.navigate(['/login'])
+		});
 	}
 
 }

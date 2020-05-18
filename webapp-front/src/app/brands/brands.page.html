@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>BIENVENIDO</ion-title>
+	<ion-title>BIENVENIDO</ion-title>			
+	<ion-buttons routerLink="/brands" slot="end">
+		<ion-button (click)="logout()" > 
+			<img class="icon-svg" src="./assets/images/user_logout.svg">
+		</ion-button>
+	</ion-buttons>		
   </ion-toolbar>
 </ion-header>
 

@@ -118,18 +118,26 @@ export class MainServicesService {
 
 
   loginToken(token, user_name){
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRFToken': this.getCookie('csrftoken')
+    // this.headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    //   'X-CSRFToken': this.getCookie('csrftoken')
 
-    })
+    // })
+
+    console.log(this.getCookie('csrftoken'))
 
     localStorage.setItem('token', token);
     localStorage.setItem('user_name', user_name);
 
-    return this.http.post(environment.API_URL + '/login_app/', {'token': token, 'user_name': user_name}, {headers: this.headers})
+    return this.http.post(environment.API_URL + '/login_app/', {'token': token, 'user_name': user_name})
     .pipe(map(response => response))
+  }
+
+
+  logOut(){
+    return this.http.get(environment.API_URL + '/logout/')  
+    .pipe( map(response => response) )  
   }
 
   setTokentChat(token_chat){
@@ -142,7 +150,7 @@ export class MainServicesService {
     const token = localStorage.getItem('token')
     
 
-    return this.http.post(environment.API_URL + '/token_chat/', {'token_chat': token_chat, 'token': token}, {headers: this.headers})
+    return this.http.post(environment.API_URL + '/token_chat/', {'token_chat': token_chat, 'token': token})
     .pipe(map(response => response))
 
   }

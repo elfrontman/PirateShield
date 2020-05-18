@@ -43,26 +43,31 @@
 	$(".chat-form").submit(function(e) {
 		e.preventDefault(); // prevents page reloading
 
-		let token_chat, chat;
+		let token_chat, chat, user_name;
 		let message = $(this).find('[name="message"]').val()
 		
 		if($(this).hasClass('chat-marca')){
 			token_chat = $("#token_chat_marca").val()
 			chat = 'marca'
+			user_name = 'Cliente'
 		}
 
 		if($(this).hasClass('chat-operativo')){
 			token_chat = $("#token_chat").val()
 			chat = 'operativo'
+			user_name = 'Administador'
 		}
 
 		var msg = {
 			message:message, 
 			token: token_chat, 
 			isAdmin: !is_brand,
+			user_name: user_name,
 			type: 'String',
 			ip: $('#ip_client').val()
 		}
+
+		console.log(msg);
 
 		socket.emit("send-message", msg);
 		appendMessage(msg, chat)
@@ -77,22 +82,25 @@
 		var reader = new FileReader();
 
 
-		let token_chat, chat;
+		let token_chat, chat, user_name;
 		
 		if($(this).parents('form').hasClass('chat-marca')){
 			token_chat = $("#token_chat_marca").val()
 			chat = 'marca'
+			user_name = 'Cliente'
 		}
 
 		if($(this).parents('form').hasClass('chat-operativo')){
 			token_chat = $("#token_chat").val()
 			chat = 'operativo'
+			user_name = 'Administador'
 		}
 
 		reader.onload = function(evt){
 			var msg = {
 				message: evt.target.result, 
 				token: token_chat, 
+				user_name: user_name,
 				isAdmin: !is_brand,
 				type: 'Image',
 				ip: $('#ip_client').val()
@@ -130,7 +138,7 @@
 
 
 
-		message.append('<span class="user">'+msg.ip+'</span>');
+		message.append('<span class="user">'+msg.user_name+'</span>');
 		switch (msg.type) {
 			case "Image":
 				message.append('<img src="'+msg.message+'">');
