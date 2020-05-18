@@ -79,6 +79,9 @@ urlpatterns = [
     path('operativos/chat/<int:pk>', operativos.chat, name="chat_operativo"),
     path('operativos/brand_chat/<int:pk>', operativos.chat_marca, name="chat_marca"),
     path('externalchat/<int:pk>', operativos.chat_ext_marca, name="chat_ext_marca"),
+    path('operativos/connetions/<int:pk>', operativos.list_connections, name="connections"),
+    path('operativos/disconnect/<int:pk>/<int:tk>', operativos.disconnect_session, name="disconnect"),
+    
 
     path('informes', informes.index, name="informes"),
     path('informes/operativos', informes.operativos, name="informe_operativo"),

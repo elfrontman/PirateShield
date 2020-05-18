@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
@@ -183,3 +183,26 @@ def chat_ext_marca(request, pk):
     ip_client = request.client_ip
 
     return HttpResponse(template.render({'ip_client':ip_client,'operativo': operativo, 'is_brand': True ,'extendind': 'layout/base_single.html'}, request))
+
+@login_required
+def list_connections(request, pk):
+    operativo = get_object_or_404(Operativo, pk=pk)
+    sessions = OperativoConnection.objects.filter(operativo_id=pk)
+
+    context = {
+        'operativo': operativo,
+        'sessions': sessions,
+        'count': sessions.count(),
+    }
+
+    return render(request, 'operativos/list_connections.html', context)
+
+@login_required
+def disconnect_session(request, pk, tk):
+    session = OperativoConnection.objects.get(id = pk, operativo = tk)
+
+    user = session.user
+    session.delete()
+    user.delete()
+   
+    return redirect('connections', pk=tk)
