@@ -1,12 +1,14 @@
 from django.template import loader
 from django.http import HttpResponse 
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from backend.models import Brand, Product, User
 from backend.forms import BrandForm, DeleteBrand
 
 from pprint import pprint
 
+@login_required
 def marcas(request):
 	brand_list = Brand.objects.all()
 	context = {
@@ -15,6 +17,7 @@ def marcas(request):
 
 	return render(request,'marcas/view_marcas.html', context)
 
+@login_required
 def products_by_brand(request, pk):
 	product_list = Product.objects.filter(brand=pk)
 	brand = Brand.objects.get(pk=pk)
@@ -26,14 +29,13 @@ def products_by_brand(request, pk):
 
 	return render(request, 'productos/view_productos.html', context)
 
+@login_required
 def brand_new(request):
 	
 	if request.method == 'POST':
 		form = BrandForm(request.POST, request.FILES)
 	
 		if form.is_valid():
-			#pprint(request.POST)
-			
 			new_user = User.objects.create_user(username=request.POST['email'], email = request.POST['email'])
 			new_user.first_name = request.POST['first_name']
 			new_user.last_name = request.POST['last_name']
@@ -42,7 +44,7 @@ def brand_new(request):
 			
 			brand = form.save()
 			new_user.brand_id = brand
-			
+
 			brand.save()
 			new_user.save()
 
@@ -52,6 +54,7 @@ def brand_new(request):
 	
 	return render(request, 'marcas/create_marca.html', {'form': form, 'title': 'Nueva Marca'})
 
+@login_required
 def brand_edit(request, pk):
 	brand = Brand.objects.get(pk=pk)
 
@@ -62,7 +65,7 @@ def brand_edit(request, pk):
 
 	if request.method == 'POST':
 		form = BrandForm(request.POST, request.FILES, instance=brand)
-
+		
 		user.first_name = request.POST['first_name']
 		user.last_name = request.POST['last_name']
 		user.movil = request.POST['phone_number']
@@ -74,7 +77,7 @@ def brand_edit(request, pk):
 		else:
 			if form.is_valid():
 				user.save()
-		
+		user.save()
 		brand.save()
 
 		return redirect('marcas')
@@ -91,7 +94,8 @@ def brand_edit(request, pk):
 			form = BrandForm(instance=brand)
 
 	return render(request,'marcas/create_marca.html', {'form': form, 'title': 'Edición de Marca'})
-	
+
+@login_required	
 def brand_delete(request, pk):
 
 	template = loader.get_template('marcas/delete_marca.html')

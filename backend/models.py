@@ -125,7 +125,6 @@ class DetailImageProduct(models.Model):
     def __str__(self):
         return self.name
 
-
 class ImageDetailCompare(models.Model):
     TYPE_CHOICES = (
         ('1', 'Imagen Correcta'),
@@ -185,6 +184,7 @@ class OperativoBrand(models.Model):
 
 class OperativoConnection(models.Model):
     name_user = models.CharField(max_length=250, blank=True, null=True)
-    operativo = models.ForeignKey(Operativo, on_delete=models.DO_NOTHING)
     ip = models.CharField(max_length=250, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    is_active = models.BooleanField(default=False, null=False)
+    operativo = models.ForeignKey(Operativo, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, default = '0', blank=True, null=True)

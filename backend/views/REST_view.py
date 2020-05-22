@@ -180,6 +180,7 @@ def login_app(request):
                     connection.operativo = operativo
                     connection.ip = request.client_ip
                     connection.user = user_token
+                    connection.status = True
 
                     connection.save()
 
@@ -230,11 +231,12 @@ class Logout(APIView):
         connection = OperativoConnection.objects.get(
             user=request.user)
 
-        connection.delete()
+        connection.is_active = 0
+        connection.save()
+
         request.user.delete()
 
         return Response(status=HTTP_200_OK)
-
 
 @csrf_exempt
 @api_view(["POST"])

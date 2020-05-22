@@ -21,8 +21,8 @@
 				</figure>
 				<div class="info-row">
 					<h3>{{ brand.name }}</h3>		
-					<span>{{ brand.brand_category_id.name }}</span> 
-					<span>(Productos: {{ brand.product_set.all|length }})</span>
+					<span>{{ brand.category.name }}</span> 
+					<span><strong>Productos:</strong> {{ brand.product_set.all|length }}</span>
 				</div>	
 			</div>
 			<div class="cell auto content-buttons">

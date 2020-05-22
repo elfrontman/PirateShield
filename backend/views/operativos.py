@@ -4,10 +4,14 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
 from backend.models import User, Operativo, Brand, Product, OperativoConnection
+from backend.views import send_email
+
 from datetime import datetime
 
 from pprint import pprint
@@ -42,17 +46,38 @@ def new(request):
             operativo.activation = request.POST['activation_date']
             operativo.name = request.POST['name']
             operativo.description = request.POST['description']
+            operativo.connections = request.POST['connections']
             operativo.token = get_random_string(length=6)
             operativo.brandsList = ','.join(request.POST.getlist('brands[]'))
             operativo.productList = ','.join(request.POST.getlist('products[]'))
 
             activation_date = datetime.strptime(operativo.activation, '%Y-%m-%d')
+            
+            brands = request.POST.getlist('brands[]')
 
             if activation_date.date() == datetime.now().date():
                 operativo.is_ready = True
 
             operativo.save()
+#----------------
+            for id_brand in brands:
+                brand_email = User.objects.filter(brand_id=id_brand).values('email','first_name','last_name')
+                template ='email/create_operative.html'
+               
+                for bc in brand_email:
+                    contact = "{} {}".format(bc['first_name'], bc['last_name'])
+                    email = bc['email']
+                    print("Email enviado a {} al correo {}".format(contact, email))
+                
+                context = {
+                    'subject': 'Nuevo opertativo creado',
+                    'contact': contact,
+                    'host': settings.ALLOWED_HOSTS,
+                    'chat': operativo.id
+                }
 
+                send_email.send_email(template, context, [email])
+#------------
             return redirect('operativos')
     else:
         form = UserTerrenoForm()
@@ -92,6 +117,8 @@ def operativo_edit(request, pk):
                 operativo.is_ready = True
 
             operativo.save()
+
+            brands = request.POST.getlist('brands[]')
 
             return redirect('operativos')
     else:
@@ -187,7 +214,7 @@ def chat_ext_marca(request, pk):
 @login_required
 def list_connections(request, pk):
     operativo = get_object_or_404(Operativo, pk=pk)
-    sessions = OperativoConnection.objects.filter(operativo_id=pk)
+    sessions = OperativoConnection.objects.filter(operativo_id=pk, is_active=True)
 
     context = {
         'operativo': operativo,
@@ -202,7 +229,10 @@ def disconnect_session(request, pk, tk):
     session = OperativoConnection.objects.get(id = pk, operativo = tk)
 
     user = session.user
-    session.delete()
+    
+    session.is_active = 0
+    session.save()
+
     user.delete()
    
     return redirect('connections', pk=tk)
