@@ -150,3 +150,9 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 AUTH_USER_MODEL = 'backend.user'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'operativosagatha@gmail.com'
+EMAIL_HOST_PASSWORD = '@agatha123'
+EMAIL_USE_TLS = True
