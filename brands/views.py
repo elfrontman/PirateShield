@@ -1,21 +1,25 @@
+""" Brand Views """
+
 from django.template import loader
 from django.http import HttpResponse 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from backend.models import Brand, Product, User
-from backend.forms import BrandForm, DeleteBrand
+# Models
+from brands.models import Brand
+from backend.models import Product, User
 
-from pprint import pprint
+# Forms
+from brands.forms import BrandForm, DeleteBrand
 
 @login_required
-def marcas(request):
+def brands(request):
 	brand_list = Brand.objects.all()
 	context = {
 		'brand_list' : brand_list,
 	}
 
-	return render(request,'marcas/view_marcas.html', context)
+	return render(request,'brands/brands_list.html', context)
 
 @login_required
 def products_by_brand(request, pk):
@@ -48,11 +52,11 @@ def brand_new(request):
 			brand.save()
 			new_user.save()
 
-			return redirect('marcas')
+			return redirect('brands')
 	else:
 		form = BrandForm()
 	
-	return render(request, 'marcas/create_marca.html', {'form': form, 'title': 'Nueva Marca'})
+	return render(request, 'brands/brand_form.html', {'form': form, 'title': 'Nueva Marca'})
 
 @login_required
 def brand_edit(request, pk):
@@ -80,7 +84,7 @@ def brand_edit(request, pk):
 		user.save()
 		brand.save()
 
-		return redirect('marcas')
+		return redirect('brands')
 	else:
 		if user:	
 			form = BrandForm(initial=
@@ -93,12 +97,12 @@ def brand_edit(request, pk):
 		else:
 			form = BrandForm(instance=brand)
 
-	return render(request,'marcas/create_marca.html', {'form': form, 'title': 'Edición de Marca'})
+	return render(request,'brands/brand_form.html', {'form': form, 'title': 'Edición de Marca'})
 
 @login_required	
 def brand_delete(request, pk):
 
-	template = loader.get_template('marcas/delete_marca.html')
+	template = loader.get_template('brands/brand_delete.html')
 	brand = get_object_or_404(Brand, pk=pk)
 
 	try:
@@ -115,8 +119,66 @@ def brand_delete(request, pk):
 				user.delete()
 
 			brand.delete()
-			return redirect('marcas')
+			return redirect('brands')
 	else:
 		form = DeleteBrand(instance=brand)
 	
 	return HttpResponse(template.render({'form': form, 'brand':brand.name}, request))
+
+@login_required
+def brand_category(request):
+    brand_categories = CategoryBrand.objects.all()
+    context = {'brand_categories': brand_categories}
+    return render(request,'brands/list_category.html',context)    
+
+@login_required
+def new_brand_category(request):
+	if request.method == 'POST':
+		form = CategoryBrandForm(request.POST)
+	
+		if form.is_valid():
+			brand = form.save(commit=False)
+			brand.save()
+
+			return redirect('category_brand')
+	else:
+		form = CategoryBrandForm()
+	
+	return render(request,'brands/create_category.html', {'form': form})
+
+@login_required
+def detail_brand_category(request, pk):
+
+	template = loader.get_template('brands/create_category.html')
+	cat_brand = get_object_or_404(CategoryBrand, pk=pk)
+
+	if request.method == 'POST':
+		form = CategoryBrandForm(request.POST, instance=cat_brand)
+
+		if form.is_valid():
+			brand = form.save(commit=False)
+			brand.save()
+
+			return redirect('category_brand')
+
+	else:
+		form = CategoryBrandForm(instance=cat_brand)
+
+	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
+
+@login_required
+def delete_brand_category(request, pk):
+
+	template = loader.get_template('brands/delete_category.html')
+	cat_brand = get_object_or_404(CategoryBrand, pk=pk)
+
+	if request.method == 'POST':
+		form = DeleteCategoryBrand(request.POST, instance=cat_brand)
+
+		if form.is_valid():
+			cat_brand.delete()
+			return redirect('category_brand')
+	else:
+		form = DeleteCategoryBrand(instance=cat_brand)
+	
+	return HttpResponse(template.render({'form': form, 'brand':cat_brand.name}, request))

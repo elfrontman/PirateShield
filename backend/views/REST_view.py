@@ -1,10 +1,11 @@
 from backend.models import (
-    User, Brand,
-    CategoryBrand, Product,
+    User, Product,
     ImageProduct, DetailImageProduct,
     Operativo, CategoryProduct,
     OperativoConnection
 )
+
+from brands.models import Brand, CategoryBrand
 
 from rest_framework import viewsets, filters
 from rest_framework.views import APIView

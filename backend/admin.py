@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 
-from .models import CategoryBrand, CategoryProduct, Brand, Product, ImageProduct, DetailImageProduct, User, Operativo, ImageDetailCompare, OperativoConnection
+from .models import CategoryBrand, CategoryProduct, Product, ImageProduct, DetailImageProduct, User, Operativo, ImageDetailCompare, OperativoConnection
+from brands.models import Brand
 # Register your models here.
 
 class DetailImageProductAdmin(admin.ModelAdmin):
@@ -34,7 +35,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(CategoryBrand)
 admin.site.register(CategoryProduct)
-admin.site.register(Brand)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(DetailImageProduct, DetailImageProductAdmin)
 admin.site.register(User)

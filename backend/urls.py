@@ -1,15 +1,15 @@
+""" Agatha URLs models """
+
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import ObtainAuthToken
 
-
 from .views import (
-    marca,
     producto,
     dashboard,
     imagen_producto,
     punto_imagen,
-    herramientas,
+    tools,
     usuarios,
     operativos,
     REST_view,
@@ -31,12 +31,7 @@ router.register(r'categories_product', REST_view.CategoryProductViewSet)
 
 urlpatterns = [
     path('', dashboard.index, name='index'),
-    path('marcas/', marca.marcas, name='marcas'),
-    path('marcas/nuevo', marca.brand_new, name='brand_new'),
-    path('marcas/editar/<int:pk>', marca.brand_edit, name='brand_edit'),
-    path('marcas/<int:pk>/eliminar/', marca.brand_delete, name='brand_delete'),
-    path('marcas/<int:pk>/productos/', marca.products_by_brand, name='products_by_brand'),
-
+    
     path('productos', producto.productos, name='productos'),
 
     path('producto/<int:pk_brand>/new', producto.product_new, name='product_new'),
@@ -56,17 +51,8 @@ urlpatterns = [
     path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/<int:pk>', punto_imagen.image_detail, name="punto_detail_imagen_detail"),
     path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/delete/<int:pk>', punto_imagen.delete_detail, name="punto_detail_imagen_delete"),
 
-    path('herramientas/', herramientas.index, name="herramientas"),
-    path('herramientas/brand/categorias/', herramientas.categoria_marca, name="category_brand"),
-    path('herramientas/brand/categoria/new', herramientas.create_categoria_marca, name="new_category_brand"),
-    path('herramientas/brand/categoria/<int:pk>', herramientas.categoria_marca_detail, name="detail_category_brand"),
-    path('herramientas/brand/categoria/<int:pk>/delete', herramientas.categoria_marca_delete, name="categoria_marca_delete"),
-
-    path('herramientas/producto/categorias/', herramientas.categoria_producto, name="category_producto"),
-    path('herramientas/producto/categoria/new', herramientas.create_categoria_producto, name="new_category_producto"),
-    path('herramientas/producto/categoria/<int:pk>', herramientas.categoria_producto_detail, name="detail_category_producto"),
-    path('herramientas/producto/categoria/<int:pk>/delete', herramientas.categoria_producto_delete, name="categoria_producto_delete"),
-
+    path('herramientas/', tools.index, name="tools"),
+   
     path('usuarios/', usuarios.index, name="list_usuarios"),
     path('usuarios/new', usuarios.create, name="create_usuarios"),
     path('usuarios/<int:pk>', usuarios.detail, name="detail_usuarios"),
@@ -82,7 +68,6 @@ urlpatterns = [
     path('operativos/connetions/<int:pk>', operativos.list_connections, name="connections"),
     path('operativos/disconnect/<int:pk>/<int:tk>', operativos.disconnect_session, name="disconnect"),
     
-
     path('informes', informes.index, name="informes"),
     path('informes/operativos', informes.operativos, name="informe_operativo"),
 

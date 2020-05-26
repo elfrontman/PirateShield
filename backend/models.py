@@ -1,19 +1,11 @@
+
+# Django
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AbstractUser
 
-
-# Create your models here.
-
-class CategoryBrand(models.Model):
-    name = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Categorias de marca"
-
+# Models
+from brands.models import Brand, CategoryBrand
 
 class CategoryProduct(models.Model):
     name = models.CharField(max_length=250)
@@ -25,28 +17,6 @@ class CategoryProduct(models.Model):
 
     class Meta:
         verbose_name_plural = "Categorias de producto"
-
-
-class Brand(models.Model):
-    name = models.CharField(max_length=250)
-    logo = models.ImageField(
-        upload_to='clients/', default='clients/logo_default.jpg')
-
-    banner = models.ImageField(
-        upload_to='clients/', default='clients/logo_default.jpg')
-
-    description = models.TextField()
-    brand_category_id = models.ForeignKey(
-        CategoryBrand, on_delete=models.CASCADE)
-
-    created = models.DateTimeField(auto_now=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Marcas"
 
 
 class Product(models.Model):
@@ -149,7 +119,6 @@ class User(AbstractUser):
 
     movil = models.CharField(max_length=10, blank=True, null=True)
     is_user_token = models.BooleanField(default=False)
-
 
 class UserBrand(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)

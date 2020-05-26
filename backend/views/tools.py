@@ -4,71 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from backend.models import CategoryBrand, CategoryProduct
-from backend.forms import CategoryBrandForm, DeleteCategoryBrand, CategoryProductForm
+from backend.models import CategoryProduct
+from backend.forms import  CategoryProductForm
 
 
 @login_required
 def index(request):
-    return render(request, 'herramientas.html')
-
-
-def categoria_marca(request):
-    list = CategoryBrand.objects.all()
-    context = {'list': list}
-    return render(request,'marcas/list_category.html',context)    
-
-def create_categoria_marca(request):
-	if request.method == 'POST':
-		form = CategoryBrandForm(request.POST)
-	
-		if form.is_valid():
-			brand = form.save(commit=False)
-			brand.save()
-
-			return redirect('category_brand')
-	else:
-		form = CategoryBrandForm()
-	
-	return render(request,'marcas/create_category.html', {'form': form})
-
-def categoria_marca_detail(request, pk):
-
-	template = loader.get_template('marcas/create_category.html')
-	cat_brand = get_object_or_404(CategoryBrand, pk=pk)
-
-	if request.method == 'POST':
-		form = CategoryBrandForm(request.POST, instance=cat_brand)
-
-		if form.is_valid():
-			brand = form.save(commit=False)
-			brand.save()
-
-			return redirect('category_brand')
-
-	else:
-		form = CategoryBrandForm(instance=cat_brand)
-
-	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
-
-
-def categoria_marca_delete(request, pk):
-
-	template = loader.get_template('marcas/delete_category.html')
-	cat_brand = get_object_or_404(CategoryBrand, pk=pk)
-
-	if request.method == 'POST':
-		form = DeleteCategoryBrand(request.POST, instance=cat_brand)
-
-		if form.is_valid():
-			cat_brand.delete()
-			return redirect('category_brand')
-	else:
-		form = DeleteCategoryBrand(instance=cat_brand)
-	
-	return HttpResponse(template.render({'form': form, 'brand':cat_brand.name}, request))
-
-
+    return render(request, 'tools.html')
 
 def categoria_producto(request):
 

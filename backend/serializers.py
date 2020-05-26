@@ -1,7 +1,7 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
+from backend.models import User, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
+from brands.models import Brand, CategoryBrand
+
 from rest_framework import serializers
-
-
 
 class CategoryBrandSerializer(serializers.ModelSerializer):
 	class Meta:
