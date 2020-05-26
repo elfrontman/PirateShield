@@ -633,7 +633,7 @@ form .input-file input{
 }
 
 .content-view-chat.full-view-chat{
-	height: calc(100vh - 60px);
+	height: calc(100vh - 200px);
 }
 
 .content-view-chat  .view-chat{
