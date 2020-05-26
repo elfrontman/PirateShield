@@ -1,9 +1,13 @@
 (function() {
-	var ip_chat = 'http://190.60.205.188:500';
-	var ip_service = 'http://190.60.205.188:8080/backend';
+	// var ip_chat = 'http://190.60.205.188:500';
+	// var ip_service = 'http://190.60.205.188:8080/backend';
 	
 	// var ip_chat = 'http://192.168.0.16:500';
 	// var ip_service = 'http://192.168.0.16:8000/backend';
+
+	var ip_chat = 'http://localhost:500';
+	var ip_service = 'http://localhost:8000/backend';
+
 
 	var  socket = io(ip_chat);
 
@@ -45,6 +49,9 @@
 
 		let token_chat, chat, user_name;
 		let message = $(this).find('[name="message"]').val()
+
+		if(message.length <= 0)
+			return;
 		
 		if($(this).hasClass('chat-marca')){
 			token_chat = $("#token_chat_marca").val()
