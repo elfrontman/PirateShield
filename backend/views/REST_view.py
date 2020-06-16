@@ -3,7 +3,8 @@ from backend.models import (
     CategoryBrand, Product,
     ImageProduct, DetailImageProduct,
     Operativo, CategoryProduct,
-    OperativoConnection
+    OperativoConnection,
+    Operativo
 )
 
 from rest_framework import viewsets, filters
@@ -15,15 +16,16 @@ from backend.serializers import (
     ImageProductSerializer,
     DetailImageProductSerializer,
     DetailMarkerProductSerializer,
-    CategoryProductSerializer
+    CategoryProductSerializer,
+    OperativoSerializer
 )
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
@@ -36,6 +38,14 @@ from pprint import pprint
 from django.utils.crypto import get_random_string
 import jwt
 
+class OperativoViewSet(viewsets.ModelViewSet):
+    permission_classes = IsAuthenticated,
+    authentication_classes = SessionAuthentication,
+    
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id']
+    queryset = Operativo.objects.all()
+    serializer_class = OperativoSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
@@ -237,6 +247,8 @@ class Logout(APIView):
         request.user.delete()
 
         return Response(status=HTTP_200_OK)
+
+
 
 @csrf_exempt
 @api_view(["POST"])

@@ -625,11 +625,16 @@ form .input-file input{
 	margin-top: -1.2rem;
 }
 
+
 .content-view-chat{
 	position: relative;
 	background: white;
     height: calc(100vh - 270px);
     padding: 1rem;
+}
+
+.content-view-chat.chat_window{
+	padding: 0;
 }
 
 .content-view-chat.full-view-chat{

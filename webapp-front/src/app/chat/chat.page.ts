@@ -82,7 +82,9 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 		let reader = new FileReader();
 
-		reader.onload = (evt:any) =>{
+		console.log(file_input)
+
+		reader.onload = (evt:any) => {
 			var msg = {
 				token: this.tokenUser,
 				message: evt.target.result,
@@ -91,6 +93,8 @@ export class ChatPage implements OnInit, AfterViewChecked {
 			}
 			this.socket.emit('send-file', msg)
 			this.messages.push(msg)
+
+			console.log(msg)
 		}
 		reader.readAsDataURL(file_input.files[0]);
 		this.scrollBottom();

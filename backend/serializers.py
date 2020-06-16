@@ -1,6 +1,10 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare, Operativo
 from rest_framework import serializers
 
+class OperativoSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Operativo
+		fields = '__all__'
 
 
 class CategoryBrandSerializer(serializers.ModelSerializer):

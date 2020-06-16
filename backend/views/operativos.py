@@ -187,12 +187,12 @@ def activate(request, pk):
 
 
 def chat(request, pk):
-    template = loader.get_template('operativos/chat_general.html')
+    template = loader.get_template('operativos/chat_window.html')
     operativo = get_object_or_404(Operativo, pk=pk)
 
     ip_client = request.client_ip
 
-    return HttpResponse(template.render({'operativo': operativo, 'ip_client':  ip_client}, request))
+    return HttpResponse(template.render({'usuario': request.user,'operativo': operativo, 'ip_client':  ip_client}, request))
 
 
 def chat_marca(request, pk):

@@ -22,9 +22,37 @@ app.get('/', function(req, res){
   res.send('<h1>Running chat server</h1>');
 });
 
-app.get('/chat/:token', (req, res) => {
+app.get('/chat/:token/:user', (req, res) => {
+	
 	connect.then( db => {
-		Chat.find({sender:req.params.token}).then( chats =>{
+		Chat.aggregate([
+			{ "$match": { "operativo": req.params.token } },
+			{ "$sort": { "createdAt": -1 } },
+			{
+				$group: {
+					_id: {"chat_id":"$chat_id"},
+					message: {"$first": "$message"},
+					sender: {"$first": "$sender"},
+					type: {"$first": "$type"},
+					user_sender: {"$first": "$user_sender"},
+					user_receiver: {"$first": "$user_receiver"},
+					time: {"$first": "$createdAt"},
+
+				}
+			}
+		], (err, chats) => {
+			if (err) throw err;
+			res.json(chats.sort( (a, b) => b.time - a.time ));
+			
+		})
+		
+	})
+})
+
+app.get('/chat_all/:chat_id', (req, res) => {
+	
+	connect.then( db => {
+		Chat.find({chat_id:req.params.chat_id}).then( chats =>{
 			res.json(chats)	
 		})
 	})
@@ -44,18 +72,20 @@ socket.on("connection", socket =>{
 	})
 
 	socket.on("send-message", (msg) =>{
-		socket.broadcast.to(msg.token).emit("received", msg);
+		socket.broadcast.to(msg.chat_id).emit("received", msg);
 
 		connect.then( db => {
 			console.log("Connected DB Mongo")
 
 			let chatMessage = new Chat({
-				 message: msg.message,
-				 sender: msg.token,
-				 user_name: msg.user_name,
-				 isAdmin: msg.isAdmin,
-				 ip: msg.ip,
-				 type: "String"
+				message: msg.message,
+				sender: Number(msg.sender),
+				receiver: Number(msg.receiver),
+				type: msg.type,
+				user_sender: msg.user_sender,
+				user_receiver: msg.user_receiver,
+				chat_id: msg.chat_id,
+				operativo: msg.operativo,
 			})
 
 			chatMessage.save()
