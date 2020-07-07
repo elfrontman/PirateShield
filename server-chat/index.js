@@ -64,6 +64,7 @@ socket.on("connection", socket =>{
 	socket.emit("chat-token", {token: socket.id});
 
 	socket.on("create", (token) => {
+		console.log('created token client: ', token)
 		socket.join(token);
 	})
 
@@ -73,6 +74,7 @@ socket.on("connection", socket =>{
 
 	socket.on("send-message", (msg) =>{
 		socket.broadcast.to(msg.chat_id).emit("received", msg);
+		socket.broadcast.emit("update_admin", msg.chat_id);
 
 		connect.then( db => {
 			console.log("Connected DB Mongo")

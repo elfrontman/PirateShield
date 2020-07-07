@@ -10,7 +10,7 @@
 
 <div class="content-view-chat chat_window">
 	
-	<div id="chat_window" data-operativo="{{ operativo.id }}" data-user="{{ usuario.id }}"></div>	
+	<div id="chat_window" data-operativo="{{ operativo.id }}" data-user="{{ usuario.id }}" data-clientes='{% for cli in clientes %}{{ cli }},{% endfor %}'></div>	
 </div>
 
 {% endblock %}

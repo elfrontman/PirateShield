@@ -50,6 +50,11 @@
     height: calc(100% - 110px);
 }
 
+.side-chat ul.chat-vacio{
+	text-align: center;
+    font-size: 0.8rem;
+}
+
 .side-chat ul{
 	list-style: none;
 	margin: 0;

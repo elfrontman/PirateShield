@@ -16,6 +16,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	username;
 	messages:any = [];
 	tokenUser = '';
+	tokenOP;
 
 	constructor(private socket: Socket, private service: MainServicesService) { }
 
@@ -27,33 +28,17 @@ export class ChatPage implements OnInit, AfterViewChecked {
 		this.username = localStorage.getItem('user_name')
 		this.socket.connect();
 
-		console.log('init', this.socket)
-
 		this.socket.fromEvent('chat-token').subscribe( (token:any) => {
 
-			console.log(token)
-			
-			this.service.setTokentChat(token.token)
-				.subscribe( (data:any) => {
-					if(data.created){
-						localStorage.setItem('token_chat', token.token);
-					}else{
-						if(data.token)
-							localStorage.setItem('token_chat', data.token);	
-					}
+			this.tokenUser = this.service.getUserId()
+			this.tokenOP = localStorage.getItem('token')
+			this.socket.emit('create', this.tokenUser)
 
-
-
-					this.tokenUser = localStorage.getItem('token_chat')
-					this.socket.emit('create', this.tokenUser)
-
-					this.service.getChat(this.tokenUser)
-						.subscribe( data => {
-							console.log(data)
-							this.messages = data;
-							this.scrollBottom();
-						})
-
+			this.service.getChat(this.tokenUser)
+				.subscribe( data => {
+					console.log(data)
+					this.messages = data;
+					this.scrollBottom();
 				})
 		})
 
@@ -65,13 +50,20 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	sendMessage(){
-		let msg = {
-			message: this.message, 
-			token: this.tokenUser, 
-			type: 'String',
-			ip: this.service.getIpClient(),
-			user_name: this.username
+		const msg = {
+			message: this.message,
+			sender: Number(this.service.getUserId()),
+			receiver: 1,
+			type: "text",
+			user_sender: this.username,
+			user_receiver: "Admin",
+			chat_id: this.tokenUser,
+			operativo: this.tokenOP,
+			createdAt: new Date()
 		}
+
+		console.log(msg)
+
 		this.socket.emit('send-message', msg)
 		this.messages.push(msg)
 		this.message = '';

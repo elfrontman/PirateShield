@@ -11,11 +11,18 @@ class FormChatWindow extends React.Component{
 	handleSubmit = (event) => {
 		event.preventDefault();
 		this.props.onSubmitMessage(this.state.message);
+		this.setState({
+			message: ''
+		})
 
 	}
 
 	handleChange = (event) => {
 		this.setState({message: event.target.value});
+	}
+
+	handleChangeImage = (event) => {
+		this.props.onSubmitImage(event.target.files[0]);
 	}
 
 
@@ -35,7 +42,7 @@ class FormChatWindow extends React.Component{
 					<div className="cell small-12 medium-1">
 						<label className="button expanded alert">
 							<i className="fas fa-camera"></i>
-							<input type="file" hidden className="filechooser" />
+							<input type="file" hidden className="filechooser"   onChange={this.handleChangeImage}/>
 						</label>
 				</div>
 			</div>

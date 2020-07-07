@@ -17,7 +17,8 @@ from backend.serializers import (
     DetailImageProductSerializer,
     DetailMarkerProductSerializer,
     CategoryProductSerializer,
-    OperativoSerializer
+    OperativoSerializer,
+    OperativoConnectionSerializer
 )
 
 from django.views.decorators.csrf import csrf_exempt
@@ -28,6 +29,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from django.core import serializers
 
 from rest_framework.status import (
     HTTP_200_OK,
@@ -37,6 +39,15 @@ from django.http import JsonResponse
 from pprint import pprint
 from django.utils.crypto import get_random_string
 import jwt
+
+class OperativoSerializerViewSet(viewsets.ModelViewSet):
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication, SessionAuthentication
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['operativo__token']
+
+    queryset = OperativoConnection.objects.all()
+    serializer_class = OperativoConnectionSerializer
 
 class OperativoViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
@@ -201,7 +212,9 @@ def login_app(request):
                         'msg': 'Active Session',
                         'user_name': request.data.get('user_name'),
                         'user': user_session_token.decode('utf-8'),
+                        'user_id': user_token.id,
                         'session_id': token.key,
+                        'chat_id': connection.id,
                         'ip': request.client_ip}, status=HTTP_200_OK)
                 else:
                     return JsonResponse({
@@ -247,6 +260,8 @@ class Logout(APIView):
         request.user.delete()
 
         return Response(status=HTTP_200_OK)
+
+
 
 
 

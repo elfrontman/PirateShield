@@ -5,7 +5,8 @@ const e = React.createElement;
 class SideChatWindow extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = { message_selected: this.props.chatsList[0] };
+		const message_selected = this.props.message_selected ||  (this.props.chatsList[0] && this.props.chatsList[0]._id ?  this.props.chatsList[0] : null)
+		this.state = { message_selected: message_selected };
 	}
 
 	componentDidMount(){
@@ -14,7 +15,7 @@ class SideChatWindow extends React.Component{
 
 	connectSocket(){
 		for(const chat of this.props.chatsList){
-			const chat_id = chat._id.chat_id
+			const chat_id = chat.id
 			socket.emit('create', chat_id);	
 		}
 		
@@ -27,7 +28,15 @@ class SideChatWindow extends React.Component{
 
 	render(){
 
-		const chat_id =this.state.message_selected._id.chat_id
+		if(this.props.chatsList.length == 0){
+			return (
+				<div className="side-chat">
+					<ul className="chat-vacio">No hay chats para mostar</ul>
+				</div>
+			);
+		}
+
+		const chat_id =this.props.message_selected ? this.props.message_selected.user : null
 
 		const chats = [];
 		for(const [index, chat] of this.props.chatsList.entries()){
@@ -37,14 +46,24 @@ class SideChatWindow extends React.Component{
   				hour: 'numeric', minute: 'numeric', second: 'numeric', 
 			}
 
-			const date = new Intl.DateTimeFormat('es-CO', options).format(new Date(chat.time));
 
-			chats.push(
-				<li key={index} className={ chat._id.chat_id == chat_id ? 'open-chat' : ''} onClick={ () => this.selectMessage(chat)}>
-					<label>{chat.user_receiver}</label>
+			const date = chat.time ? new Intl.DateTimeFormat('es-CO', options).format(new Date(chat.time)) : '';
+
+			if(chat._id){
+				chats.push(
+				<li key={index} className={ chat.user== chat_id ? 'open-chat' : ''} onClick={ () => this.selectMessage(chat)}>
+					<label>{chat.name_user}</label>
 					<p>{chat.message.length > 50 ? chat.message.slice(0,50) + '...' : chat.message }</p>
 					<time>{date}</time>
+				</li>);	
+			}else{
+				chats.push(
+				<li key={index}  onClick={ () => this.selectMessage(chat)}>
+					<label>{chat.name_user}</label>
+					<p>...</p>
 				</li>);
+			}
+			
 		}
 
 		return (

@@ -1,14 +1,15 @@
 'use strict';
 
-let operativo_id, user_sender_id;
+let operativo_id, user_sender_id, conections;
 let socket = io(CHAT_API);
 
 
 if(document.querySelector('#chat_window')){
 	operativo_id = document.querySelector('#chat_window').dataset.operativo;
-	user_sender_id = document.querySelector('#chat_window').dataset.user;
+	user_sender_id = Number(document.querySelector('#chat_window').dataset.user);
+	conections = document.querySelector('#chat_window').dataset.clientes.split(',').filter(x => x.length > 0);
 }
-
+const scrollToBottom = () => document.querySelector('.box-chat').scrollTo(0,document.querySelector('.box-chat').scrollHeight);  
 const e = React.createElement;
 
 class ChatWindow extends React.Component{
@@ -29,13 +30,29 @@ class ChatWindow extends React.Component{
 	      .then(res => res.json())
 	      .then(
 	        (result) => {
-	          this.setState({
-	          	isLoaded: true,
-	          	chat_list: result,
-	          	receive_chat: result[0] || null
-	          })
 
-	          this.getChat( result[0]._id.chat_id);
+	        let chat_list = this.state.chat_list;
+
+	        chat_list.forEach( x => {
+	        	const obj = result.find( y => {
+	        		const sender = user_sender_id ==  Number(y.sender) ?  Number(y._id.chat_id) : y.sender
+	        		return sender == Number(x.user)
+	        	})
+	        	x = Object.assign(x, obj)
+	        })
+
+	        const _result = this.state.chat_list.find( x => x.user == result[0].sender)
+	        
+	        this.setState({
+	          isLoaded: true,
+	          chat_list: chat_list,
+	          receive_chat: _result ? this.state.chat_list[0] : {}
+	        })
+
+          	if(_result){
+          		this.getChat(this.state.chat_list[0].user);	
+          	}
+          		
 	        },
 	        (error) => { this.setState({ isLoaded: true,error });
 	        }
@@ -47,22 +64,79 @@ class ChatWindow extends React.Component{
 	      .then(res => res.json())
 	      .then(
 	        (result) => {
+
 	          this.setState({
 	          	isLoaded: true,
 	          	chats_messages: result,
 	          })
+
+	          
+
+	          scrollToBottom()
 	        },
 	        (error) => { this.setState({ isLoaded: true,error });
 	        }
 	      )
 	}
 
+	getConversations(token_operativo){
+		fetch(GLOBAL_API + "/operativoconnection/?search" + token_operativo)
+	      .then(res => res.json())
+	      .then(
+	        (result) => {
+	        	this.setState({
+	        		chat_list: result,
+	          	})
+
+	        	this.getTokenChat(token_operativo);
+			},
+	        (error) => { this.setState({ isLoaded: true,error });
+	        }
+	      )
+	}
+
 	handleSelectedChat = (chat_id) => {
+
+
 		this.setState({
 			receive_chat: chat_id
 		});
 
-		this.getChat(chat_id._id.chat_id);
+		this.getChat(chat_id.user);
+	}
+
+	handleFormSubmitImage = (image) => {
+
+		var reader = new FileReader();
+
+		reader.onload = (evt) => {
+			const msg = {
+				message: reader.result,
+				sender: Number(user_sender_id),
+				receiver: Number(this.state.receive_chat.sender),
+				type: "image",
+				user_sender: "Admin",
+				user_receiver: this.state.receive_chat.name_user,
+				chat_id: this.state.receive_chat._id.chat_id,
+				operativo: this.state.operativo.token,
+				createdAt: new Date()
+			}
+
+			socket.emit("send-message", msg);
+
+			let chats = this.state.chats_messages;
+			chats.push(msg);
+
+			setTimeout( () => {
+				scrollToBottom()	
+			}, 1)
+
+			this.setState({
+				chats_messages: chats
+			})
+		}
+
+		reader.readAsDataURL(image)
 	}
 
 	handleFormSubmit = (message) => {
@@ -73,7 +147,7 @@ class ChatWindow extends React.Component{
 			receiver: Number(this.state.receive_chat.sender),
 			type: "text",
 			user_sender: "Admin",
-			user_receiver: this.state.receive_chat.user_receiver,
+			user_receiver: this.state.receive_chat.name_user,
 			chat_id: this.state.receive_chat._id.chat_id,
 			operativo: this.state.operativo.token,
 			createdAt: new Date()
@@ -84,13 +158,18 @@ class ChatWindow extends React.Component{
 		let chats = this.state.chats_messages;
 		chats.push(msg);
 
+		setTimeout( () => {
+			scrollToBottom()	
+		}, 1)
+
 		this.setState({
-			chats_messages: chats,
-			receive_chat: msg
+			chats_messages: chats
 		})
+
+
 	}
 
-	componentDidMount() {
+	loadOperativo = () => {
 		fetch(GLOBAL_API + "/operativo/" + operativo_id)
 	      .then(res => res.json())
 	      .then(
@@ -107,12 +186,42 @@ class ChatWindow extends React.Component{
 
 	            }
 	          });
-
-	          this.getTokenChat(result.token);
+	          this.getConversations(result.token);
+	          
 	        },
 	        (error) => { this.setState({ isLoaded: true,error });
 	        }
 	      )
+	}
+
+	componentDidMount() {
+
+		socket.on('update_admin', (id) => {
+			const new_chat = this.state.chat_list.find(x => x.user == id)
+			if(!new_chat){
+				this.loadOperativo();
+			}else{
+				this.handleSelectedChat(new_chat)
+			}
+		})
+		
+		socket.on('received', (msg) => {
+
+
+			let chats = this.state.chats_messages;
+
+			chats.push(msg);
+
+			this.setState({
+				chats_messages: chats,
+			})
+
+			scrollToBottom()
+		})
+
+		this.loadOperativo();
+
+		
 	}
 
 	render(){
@@ -122,11 +231,12 @@ class ChatWindow extends React.Component{
 				<div className="window_chat">
 					<div className="side_chat">
 						<HeaderChatWindow chatInfo={this.state.operativo}/>
-						<SideChatWindow chatsList={this.state.chat_list} onSelectChat={this.handleSelectedChat}/>
+						<SideChatWindow chatsList={this.state.chat_list} message_selected={this.state.receive_chat} onSelectChat={this.handleSelectedChat}/>
 					</div>
 					<div className="view_chat">
-						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.user_receiver}/>
-						<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit}/>
+						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user }/>
+						<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit} onSubmitImage={this.handleFormSubmitImage}/>
+						
 		  			</div>
 	  			</div>
 			);
