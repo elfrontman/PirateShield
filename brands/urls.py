@@ -23,6 +23,11 @@ urlpatterns = [
         route='<int:pk>/eliminar/', 
         view= views.brand_delete, 
         name='delete'),
+    path(
+        route = 'products/<int:pk>',
+        view = views.products_by_brand,
+        name = 'products'
+    ),
 
     # URLs admin brands category 
     

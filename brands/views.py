@@ -31,7 +31,7 @@ def products_by_brand(request, pk):
 		'brand': brand,
 	}
 
-	return render(request, 'productos/view_productos.html', context)
+	return render(request, 'products/view_productos.html', context)
 
 @login_required
 def brand_new(request):
@@ -52,7 +52,7 @@ def brand_new(request):
 			brand.save()
 			new_user.save()
 
-			return redirect('brands')
+			return redirect('brands:list')
 	else:
 		form = BrandForm()
 	
