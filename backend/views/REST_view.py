@@ -185,7 +185,7 @@ def login_app(request):
                 user_session_token = jwt.encode(user_session, "SECRET", algorithm='HS256')
 
                 all_connection = OperativoConnection.objects.filter(
-                    operativo__token=request.data.get('token')).count()
+                    operativo__token=request.data.get('token'), is_active = True).count()
 
                 if all_connection < operativo.connections:
 
