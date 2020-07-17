@@ -213,15 +213,19 @@ def chat_ext_marca(request, pk):
 
 @login_required
 def list_connections(request, pk):
+    
     operativo = get_object_or_404(Operativo, pk=pk)
-    sessions = OperativoConnection.objects.filter(operativo_id=pk, is_active=True)
+    sessions = OperativoConnection.objects.filter(operativo=pk, is_active="True")
 
     context = {
         'operativo': operativo,
         'sessions': sessions,
         'count': sessions.count(),
     }
-
+    print("**"*60)
+    print(sessions.query)
+    print("**"*60)
+    
     return render(request, 'operativos/list_connections.html', context)
 
 @login_required

@@ -180,7 +180,7 @@ def login_app(request):
                     connection.operativo = operativo
                     connection.ip = request.client_ip
                     connection.user = user_token
-                    connection.status = True
+                    connection.status = 1
 
                     connection.save()
 
