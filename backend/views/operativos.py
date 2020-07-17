@@ -187,12 +187,14 @@ def activate(request, pk):
 
 
 def chat(request, pk):
-    template = loader.get_template('operativos/chat_general.html')
+    template = loader.get_template('operativos/chat_window.html')
     operativo = get_object_or_404(Operativo, pk=pk)
+    clientes = list(operativo.operativoconnection_set.all().values_list('id', flat=True))
+    pprint(clientes)
 
     ip_client = request.client_ip
 
-    return HttpResponse(template.render({'operativo': operativo, 'ip_client':  ip_client}, request))
+    return HttpResponse(template.render({'usuario': request.user,'operativo': operativo, 'clientes':clientes, 'ip_client':  ip_client}, request))
 
 
 def chat_marca(request, pk):

@@ -13,9 +13,35 @@ export class MainServicesService {
   headers;
   ip_client;
   session_id;
+  chat_id;
+  user_id;
 
   constructor(private http: HttpClient) { 
 
+  }
+
+  getChatId(){
+    if(!this.chat_id){
+      this.chat_id = sessionStorage.getItem('chat_id');
+    }
+    return this.chat_id;
+  }
+
+  setChatId(chat_id){
+    sessionStorage.setItem('chat_id', chat_id);
+    this.chat_id = chat_id
+  }
+
+  getUserId(){
+    if(!this.user_id){
+      this.user_id = sessionStorage.getItem('user_id');
+    }
+    return this.user_id;
+  }
+
+  setUserId(user_id){
+    sessionStorage.setItem('user_id', user_id);
+    this.user_id = user_id
   }
 
   getIpClient(){
@@ -156,9 +182,7 @@ export class MainServicesService {
   }
 
   getChat(token_chat){
-    const token = localStorage.getItem('token_chat');
-
-    return this.http.get(environment.SoketIoConfig.url + '/chat/'+token)  
+    return this.http.get(environment.SoketIoConfig.url + '/chat_all/'+token_chat)  
     .pipe( map(response => response) )
   }
 }

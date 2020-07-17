@@ -18,6 +18,8 @@ from .views import (
 
 
 router = routers.DefaultRouter()
+router.register(r'operativoconnection', REST_view.OperativoSerializerViewSet)
+router.register(r'operativo', REST_view.OperativoViewSet)
 router.register(r'users', REST_view.UserViewSet)
 router.register(r'brands', REST_view.BrandViewSet, basename='Brand')
 router.register(r'product', REST_view.ProductViewSet)

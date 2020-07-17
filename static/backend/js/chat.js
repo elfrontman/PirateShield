@@ -5,6 +5,10 @@
 	// var ip_chat = 'http://192.168.0.16:500';
 	// var ip_service = 'http://192.168.0.16:8000/backend';
 
+	// var ip_chat = 'http://localhost:500';
+	// var ip_service = 'http://localhost:8000/backend';
+
+
 	var  socket = io(ip_chat);
 
 	var _token_chat, _token_chat_marca;
@@ -45,6 +49,9 @@
 
 		let token_chat, chat, user_name;
 		let message = $(this).find('[name="message"]').val()
+
+		if(message.length <= 0)
+			return;
 		
 		if($(this).hasClass('chat-marca')){
 			token_chat = $("#token_chat_marca").val()

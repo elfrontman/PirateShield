@@ -5,6 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Agatha Demo 2020 - Administrador</title>
+	
+	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
 	<script src="{% static 'backend/js/socket.io.js' %}"></script>
 	<script src="https://kit.fontawesome.com/19738c4523.js"></script>
 	
@@ -13,6 +19,15 @@
 	<link rel="stylesheet" href="{% static 'backend/css/foundation.min.css' %}" />
 	
 	<link rel="stylesheet" href="{% static 'backend/css/app.css' %}" />
+	<link rel="stylesheet" href="{% static 'backend/react/chat_window/css/chat_window.css' %}" />
+
+	<script type="text/javascript">
+		// const 	GLOBAL_API = 'http://localhost:8000/backend';
+		// const 	CHAT_API = 'http://localhost:500';
+
+		const 	GLOBAL_API = 'http://190.60.205.188:8080/backend';
+		const 	CHAT_API = 'http://190.60.205.188:500';
+	</script>
 
 </head>
 <body>
