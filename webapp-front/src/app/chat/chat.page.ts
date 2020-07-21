@@ -77,19 +77,27 @@ export class ChatPage implements OnInit, AfterViewChecked {
 		console.log(file_input)
 
 		reader.onload = (evt:any) => {
-			var msg = {
-				token: this.tokenUser,
+
+			const msg = {
 				message: evt.target.result,
-				type: 'Image',
-				user_name: this.username
+				sender: Number(this.service.getUserId()),
+				receiver: 1,
+				type: 'image',
+				user_sender: this.username,
+				user_receiver: "Admin",
+				chat_id: this.tokenUser,
+				operativo: this.tokenOP,
+				createdAt: new Date()
 			}
-			this.socket.emit('send-file', msg)
+
+			this.socket.emit('send-message', msg)
 			this.messages.push(msg)
+			this.scrollBottom();
 
 			console.log(msg)
 		}
 		reader.readAsDataURL(file_input.files[0]);
-		this.scrollBottom();
+		
 	}
 
 	ionViewWillLeave(){

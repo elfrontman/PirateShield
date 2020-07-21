@@ -80,7 +80,8 @@ class ChatWindow extends React.Component{
 	}
 
 	getConversations(token_operativo){
-		fetch(GLOBAL_API + "/operativoconnection/?search" + token_operativo)
+		console.log(token_operativo)
+		fetch(GLOBAL_API + "/operativoconnection/?search=" + token_operativo)
 	      .then(res => res.json())
 	      .then(
 	        (result) => {
@@ -108,6 +109,8 @@ class ChatWindow extends React.Component{
 	handleFormSubmitImage = (image) => {
 
 		var reader = new FileReader();
+
+		console.log(this.state.receive_chat)
 
 		reader.onload = (evt) => {
 			const msg = {
