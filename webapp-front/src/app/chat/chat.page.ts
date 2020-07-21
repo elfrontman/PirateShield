@@ -78,8 +78,10 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 		reader.onload = (evt:any) => {
 
+			console.log(reader.result);
+
 			const msg = {
-				message: evt.target.result,
+				message: reader.result,
 				sender: Number(this.service.getUserId()),
 				receiver: 1,
 				type: 'image',
