@@ -73,7 +73,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 	sendImageMessage(file_input){
 
-		const compress = new CompressImage(file_input.files[0], 1024, null);
+		const compress = new CompressImage(file_input.files[0], 300, null);
 
 		compress.getImage().then( f => {
 			var reader = new FileReader();
