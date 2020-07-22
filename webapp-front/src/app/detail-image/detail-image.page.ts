@@ -35,13 +35,13 @@ export class DetailImagePage implements OnInit {
 
 			this.service.getProduct(params.id_product)
 			.subscribe( data => {
-				this.product = data
+				this.product = data[0]
 
 
 				this.service.getDetailMarkerProduct(params.id).subscribe( (data:any) => {
 
-					this.detail_images = data.detail_images;
-					this.description = data.description
+					this.detail_images = data[0].detail_images;
+					this.description = data[0].description
 					this.loadModule = true;
 
 				})

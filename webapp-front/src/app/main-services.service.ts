@@ -128,12 +128,12 @@ export class MainServicesService {
   }
 
   getProduct(id_product){
-    return this.http.get(environment.API_URL + '/product/' + id_product)  
+    return this.http.get(environment.API_URL + '/product/?search=' + id_product)  
     .pipe( map(response => response) )  
   }
 
   getDetailMarkerProduct(id_marker){
-    return this.http.get(environment.API_URL + '/markerproduct/' + id_marker)  
+    return this.http.get(environment.API_URL + '/markerproduct/?search=' + id_marker)  
     .pipe( map(response => response) )  
   }
 
