@@ -48,6 +48,19 @@ export class CompressImage{
 			tmpWidth = tmpImage.width,
 			tmpHeight = tmpImage.height;
 
+			if(tmpWidth > tmpHeight){
+
+				if(tmpWidth > MAX_WIDTH){
+					tmpHeight *= MAX_WIDTH / tmpWidth;
+					tmpWidth = MAX_WIDTH;
+				}
+			}else{
+				if(tmpHeight > MAX_HEIGHT){
+					tmpWidth *= MAX_HEIGHT / tmpHeight;
+					tmpHeight = MAX_HEIGHT;
+				}
+			}
+
 			var resizeCanvas = document.createElement('canvas');
 			resizeCanvas.width = tmpWidth;
 			resizeCanvas.height = tmpHeight;
