@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { MainServicesService } from '../main-services.service';
+import { CompressImage } from './CompressImage';
 
 @Component({
 	selector: 'app-chat',
@@ -72,33 +73,32 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 	sendImageMessage(file_input){
 
-		let reader = new FileReader();
+		const compress = new CompressImage(file_input.files[0], 1024, null);
 
-		console.log(file_input)
+		compress.getImage().then( f => {
+			var reader = new FileReader();
+			  reader.onloadend = (e) => {
 
-		reader.onload = (evt:any) => {
+				const msg = {
+					message: reader.result,
+					sender: Number(this.service.getUserId()),
+					receiver: 1,
+					type: 'image',
+					user_sender: this.username,
+					user_receiver: "Admin",
+					chat_id: this.tokenUser,
+					operativo: this.tokenOP,
+					createdAt: new Date()
+				}
 
-			console.log(reader.result);
+				this.socket.emit('send-message', msg)
+				this.messages.push(msg)
+				this.scrollBottom();
 
-			const msg = {
-				message: reader.result,
-				sender: Number(this.service.getUserId()),
-				receiver: 1,
-				type: 'image',
-				user_sender: this.username,
-				user_receiver: "Admin",
-				chat_id: this.tokenUser,
-				operativo: this.tokenOP,
-				createdAt: new Date()
-			}
+			  };
+			  reader.readAsDataURL(<Blob>f);
+			});
 
-			this.socket.emit('send-message', msg)
-			this.messages.push(msg)
-			this.scrollBottom();
-
-			console.log(msg)
-		}
-		reader.readAsDataURL(file_input.files[0]);
 		
 	}
 
