@@ -97,7 +97,7 @@ class CategoryBrandViewSet(viewsets.ModelViewSet):
 
 class CategoryProductViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = TokenAuthentication, SessionAuthentication
 
     queryset = CategoryProduct.objects.all()
     serializer_class = CategoryProductSerializer
@@ -105,7 +105,9 @@ class CategoryProductViewSet(viewsets.ModelViewSet):
 
 class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = TokenAuthentication, SessionAuthentication
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id']
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
