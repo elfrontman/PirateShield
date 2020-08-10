@@ -2,7 +2,8 @@ from backend.models import (
     User, Product,
     ImageProduct, DetailImageProduct,
     Operativo, CategoryProduct,
-    OperativoConnection
+    OperativoConnection,
+    Operativo
 )
 
 from brands.models import Brand, CategoryBrand
@@ -11,22 +12,28 @@ from rest_framework import viewsets, filters
 from rest_framework.views import APIView
 
 from backend.serializers import (
-    UserSerializer, BrandSerializer,
-    CategoryBrandSerializer, ProductSerializer,
+    ProductSerializer,
     ImageProductSerializer,
     DetailImageProductSerializer,
     DetailMarkerProductSerializer,
-    CategoryProductSerializer
+    CategoryProductSerializer,
+    OperativoSerializer,
+    OperativoConnectionSerializer
+)
+from brands.serializers import (
+    UserSerializer, CategoryBrandSerializer,
+    BrandSerializer
 )
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from django.core import serializers
 
 from rest_framework.status import (
     HTTP_200_OK,
@@ -37,6 +44,23 @@ from pprint import pprint
 from django.utils.crypto import get_random_string
 import jwt
 
+class OperativoSerializerViewSet(viewsets.ModelViewSet):
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication, SessionAuthentication
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['operativo__token']
+
+    queryset = OperativoConnection.objects.all()
+    serializer_class = OperativoConnectionSerializer
+
+class OperativoViewSet(viewsets.ModelViewSet):
+    permission_classes = IsAuthenticated,
+    authentication_classes = SessionAuthentication,
+    
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id']
+    queryset = Operativo.objects.all()
+    serializer_class = OperativoSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
@@ -44,7 +68,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class BrandViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
@@ -165,7 +188,7 @@ def login_app(request):
                 user_session_token = jwt.encode(user_session, "SECRET", algorithm='HS256')
 
                 all_connection = OperativoConnection.objects.filter(
-                    operativo__token=request.data.get('token')).count()
+                    operativo__token=request.data.get('token'), is_active = True).count()
 
                 if all_connection < operativo.connections:
 
@@ -181,7 +204,7 @@ def login_app(request):
                     connection.operativo = operativo
                     connection.ip = request.client_ip
                     connection.user = user_token
-                    connection.status = True
+                    connection.status = 1
 
                     connection.save()
 
@@ -192,7 +215,9 @@ def login_app(request):
                         'msg': 'Active Session',
                         'user_name': request.data.get('user_name'),
                         'user': user_session_token.decode('utf-8'),
+                        'user_id': user_token.id,
                         'session_id': token.key,
+                        'chat_id': connection.id,
                         'ip': request.client_ip}, status=HTTP_200_OK)
                 else:
                     return JsonResponse({
@@ -238,6 +263,10 @@ class Logout(APIView):
         request.user.delete()
 
         return Response(status=HTTP_200_OK)
+
+
+
+
 
 @csrf_exempt
 @api_view(["POST"])

@@ -5,7 +5,6 @@ from rest_framework import routers
 from rest_framework.authtoken.views import ObtainAuthToken
 
 from .views import (
-    producto,
     dashboard,
     imagen_producto,
     punto_imagen,
@@ -16,8 +15,9 @@ from .views import (
     informes
 )
 
-
 router = routers.DefaultRouter()
+router.register(r'operativoconnection', REST_view.OperativoSerializerViewSet)
+router.register(r'operativo', REST_view.OperativoViewSet)
 router.register(r'users', REST_view.UserViewSet)
 router.register(r'brands', REST_view.BrandViewSet, basename='Brand')
 router.register(r'product', REST_view.ProductViewSet)
@@ -31,9 +31,10 @@ router.register(r'categories_product', REST_view.CategoryProductViewSet)
 
 urlpatterns = [
     path('', dashboard.index, name='index'),
+    path('herramientas/', tools.index, name="tools"),
+    path('marcas/', include(('brands.urls', 'brands'), namespace= 'brand')),
+    path('productos/', include(('products.urls','products'), namespace= 'product')),
     
-    path('producto/<int:pk>/imagen/new', imagen_producto.new, name="image_producto_new"),
-    path('producto/<int:pk>/imagen/<int:pk_image_product>', imagen_producto.detail, name="image_producto_detail"),
     path('producto/<int:pk>/imagen/<int:pk_image_product>/delete/', imagen_producto.delete, name="image_producto_delete"),
 
     path('producto/<int:pk_product>/imagen/<int:pk_image_product>/punto/new', punto_imagen.new, name="punto_imagen_new"),
@@ -45,7 +46,6 @@ urlpatterns = [
     path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/<int:pk>', punto_imagen.image_detail, name="punto_detail_imagen_detail"),
     path('producto/<int:pk_product>/imagen/<int:pk_image_product>/detalle/<int:pk_mark>/delete/<int:pk>', punto_imagen.delete_detail, name="punto_detail_imagen_delete"),
 
-    path('herramientas/', tools.index, name="tools"),
    
     path('usuarios/', usuarios.index, name="list_usuarios"),
     path('usuarios/new', usuarios.create, name="create_usuarios"),
@@ -71,7 +71,4 @@ urlpatterns = [
     path('logout/', REST_view.Logout.as_view(), name="logout"),
     path('token_chat/', REST_view.chat_token, name="chat_token"),
     path('auth/', ObtainAuthToken.as_view())
-
-
-
 ]

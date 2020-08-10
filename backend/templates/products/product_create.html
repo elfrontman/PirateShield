@@ -8,9 +8,11 @@
 			{% csrf_token %}
 			<div class="media-object-section middle">
 
-				<h2>
+				<h2 style="text-align:center" >
 					{% if is_edit %}
-					Editar Producto {{form.name.value}}
+					<p >
+						Editar Producto {{form.name.value}}
+					</p>
 					<div class="thumbnail thumbnail-product">
 						<figure>
 							<img src="/media/{{ form.image.value }}" alt="" >
@@ -26,7 +28,7 @@
 				
 			<div class="grid-x">
 				<div class="cell small-12 medium-6">
-					<a href="{% url 'products_by_brand' pk=brand%}" class="button expanded alert">REGRESAR</a>
+					<a href="{% url 'brands:products' pk=brand%}" class="button expanded alert">REGRESAR</a>
 				</div>
 				<div class="cell small-12 medium-6">
 					<input type="submit" class="button expanded" value="GUARDAR">
@@ -36,7 +38,7 @@
 	</div>
 	{% if is_edit %}
 	<div class="cell small-12 medium-6 no-title-section">
-		<a href="{% url 'image_producto_new' product.pk %}" class="button expanded">AGREGAR IMAGEN DE PRODUCTO</a>
+		<a href="{% url 'products:images_product_new' product.pk %}" class="button expanded">AGREGAR IMAGEN DE PRODUCTO</a>
 		
 		<ul class="list-data internal-list">
 			{% for image in images %}
@@ -48,13 +50,12 @@
 						</figure>
 						<div class="info-row">
 							<span>{{ image.name }}</span>		
-							
 						</div>	
 					</div>
 					<div class="cell auto content-buttons">
 						<div class="small button-group">
-						  <a href="{% url 'image_producto_detail' pk=product.pk pk_image_product=image.pk %}" class="button tiny">Editar</a>
-						  <a href="{% url 'image_producto_delete' pk=product.pk pk_image_product=image.pk %}" class="button alert tiny">Eliminar</a>
+						  <a href="{% url 'product:product_image_detail' pk=product.pk pk_image_product=image.pk %}" class="button tiny">Editar</a>
+						  <a href="{% url 'product:product_image_delete' pk=product.pk pk_image_product=image.pk %}" class="button alert tiny">Eliminar</a>
 						</div>
 					</div>
 				</li>

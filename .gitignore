@@ -1,7 +1,7 @@
 .env/
 mypirateenv/
 **/__pycache__/
-*/settings.py
+**/settings.py
 *.pyc
 mysql.cnf
 media/**/*
@@ -9,3 +9,4 @@ media/**/*
 db.sqlite3
 .vscode/
 pirateshield/settings.py
+*/migrations

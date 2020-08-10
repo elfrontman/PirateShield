@@ -31,6 +31,8 @@ export class LoginPage implements OnInit {
 			if(!data.error){
 				this.mS.setIpClient(data.ip)
 				this.mS.setSessionId(data.session_id)
+				this.mS.setChatId(data.chat_id)
+				this.mS.setUserId(data.user_id)
 				this.router.navigateByUrl('/terminos');			
 				return;
 			}

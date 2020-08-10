@@ -31,7 +31,7 @@
 					{% endif %}
 					
 					<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button tiny alert expanded">Cerrar operativo</a>
-					<a href="{% url 'connections' pk=item.pk%}" class="button warning expanded">Conexiones</a>
+					<a href="{% url 'connections' pk=item.pk%}" class="button tiny warning expanded">Conexiones</a>
 					<a href="{% url 'chat_operativo' pk=item.pk %}" class="button tiny success expanded">Chat</a>
 					<a href="{% url 'detail_operativo' pk=item.pk %}" class="button tiny expanded">Editar</a>
 				</div>

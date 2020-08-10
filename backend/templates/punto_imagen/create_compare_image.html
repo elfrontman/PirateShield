@@ -1,8 +1,5 @@
 {% extends "layout/base.html" %}
-
-
 {% block content %}
-
 
 <form  method="POST" enctype="multipart/form-data">
 	<h2>
@@ -17,7 +14,7 @@
 	
 	<div class="grid-x">
 		<div class="cell small-12 medium-6">
-			<a href="{% url 'image_producto_detail' pk=product pk_image_product=image.pk %}" class="button expanded alert">REGRESAR</a>
+			<a href="{% url 'products:product_image_detail' pk=product pk_image_product=image.pk %}" class="button expanded alert">REGRESAR</a>
 		</div>
 		<div class="cell small-12 medium-6">
 			<input type="submit" class="button expanded" value="GUARDAR">

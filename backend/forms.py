@@ -17,22 +17,10 @@ class ProductForm(forms.ModelForm):
 			"product_category" : _("Categoría"),
 		}
 
-
 class DeleteProduct(forms.ModelForm):
 	class Meta:
 		model = Product
 		fields = []
-
-
-class ImagenProductForm(forms.ModelForm):
-	class Meta:
-		model = ImageProduct
-		fields = ['name', 'image']
-
-		labels = {
-			"name" : _("Descripción de la imágen"),
-			"image" : _("Imagen"),
-		}
 
 class DeleteImagenProduct(forms.ModelForm):
 	class Meta:
@@ -59,19 +47,6 @@ class ImageDetailCompareForm(forms.ModelForm):
 		fields = '__all__'
 		widgets= {'detail_image': HiddenInput()}
 		
-class CategoryProductForm(forms.ModelForm):
-	class Meta:
-		model = CategoryProduct
-		fields = ['name']
-
-		labels = {
-			"name" : _("Nombre de la Categoría"),
-		}
-
-class DeleteCategoryProduct(forms.ModelForm):
-	class Meta:
-		model = CategoryProduct
-		fields = []
 
 class UserForm(forms.ModelForm):
 

@@ -1,9 +1,8 @@
 from django.contrib import admin
 
-
-from .models import CategoryBrand, CategoryProduct, Product, ImageProduct, DetailImageProduct, User, Operativo, ImageDetailCompare, OperativoConnection
-from brands.models import Brand
-# Register your models here.
+from .models import User, Operativo, OperativoConnection
+from brands.models import Brand, CategoryBrand
+from products.models import Product, CategoryProduct, ImageProduct, DetailImageProduct, ImageDetailCompare
 
 class DetailImageProductAdmin(admin.ModelAdmin):
 	list_display = ('name',)

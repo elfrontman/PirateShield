@@ -2,10 +2,10 @@ from django.template import loader
 from django.http import HttpResponse 
 from django.shortcuts import redirect, get_object_or_404
 
-from backend.models import ImageProduct, DetailImageProduct, ImageDetailCompare
+from backend.models import ImageDetailCompare
 from backend.forms import DetailImageProductForm, DeleteDetailImageProduct, ImageDetailCompareForm
+from products.models import ImageProduct, DetailImageProduct
 
-from pprint import pprint
 from inspect import getmembers
 
 def new(request, pk_product, pk_image_product):
@@ -14,15 +14,13 @@ def new(request, pk_product, pk_image_product):
 
 	if request.method == 'POST':
 		form = DetailImageProductForm(request.POST, request.FILES)
-
-		pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
 			image.image_product = image_product
 			image.save()
 
-			return redirect('image_producto_detail', pk=pk_product, pk_image_product=pk_image_product)
+			return redirect('product:product_image_detail', pk=pk_product, pk_image_product=pk_image_product)
 	else:
 		form = DetailImageProductForm()
 	
@@ -38,14 +36,12 @@ def detail(request, pk, pk_image_product, pk_product):
 	if request.method == 'POST':
 		form = DetailImageProductForm(request.POST, request.FILES, instance=mark_image)
 
-		pprint(request.POST)
-	
 		if form.is_valid():
 			image = form.save(commit=False)
 			image.image_product = image_product
 			image.save()
 
-			return redirect('image_producto_detail', pk=pk_product, pk_image_product=pk_image_product)
+			return redirect('products:product_image_detail', pk=pk_product, pk_image_product=pk_image_product)
 	else:
 		form = DetailImageProductForm(instance=mark_image)
 	
@@ -94,7 +90,7 @@ def new_image(request, pk_product, pk_image_product, pk_mark):
 	if request.method == 'POST':
 		form = ImageDetailCompareForm(request.POST, request.FILES)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -116,7 +112,7 @@ def image_detail(request, pk, pk_mark, pk_image_product, pk_product):
 	if request.method == 'POST':
 		form = ImageDetailCompareForm(request.POST, request.FILES, instance=image_detail)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -130,11 +126,9 @@ def image_detail(request, pk, pk_mark, pk_image_product, pk_product):
 
 
 def delete_detail(request, pk, pk_mark, pk_image_product, pk_product):
-
 	template = loader.get_template('punto_imagen/delete_compare_image.html')
 	image_detail = get_object_or_404(ImageDetailCompare, pk=pk)
 	
-
 	if request.method == 'POST':
 		form = DeleteDetailImageProduct(request.POST, instance=image_detail)
 

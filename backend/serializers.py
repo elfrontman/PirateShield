@@ -1,11 +1,10 @@
-from backend.models import User, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
-from brands.models import Brand, CategoryBrand
-
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare, Operativo, OperativoConnection
+from brands.serializers import BrandSerializer
 from rest_framework import serializers
 
-class CategoryBrandSerializer(serializers.ModelSerializer):
+class OperativoSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = CategoryBrand
+		model = Operativo
 		fields = '__all__'
 
 class CategoryProductSerializer(serializers.ModelSerializer):
@@ -13,29 +12,10 @@ class CategoryProductSerializer(serializers.ModelSerializer):
 		model = CategoryProduct
 		fields = '__all__'
 
-class BrandSerializer(serializers.ModelSerializer):
-
-	brand_category_id = CategoryBrandSerializer(many=False, read_only=True)
-
-	class Meta:
-		model = Brand
-		fields = ['id', 'name','logo', 'banner','description', 'brand_category_id']
-
-
-class UserSerializer(serializers.ModelSerializer):
-	brand = BrandSerializer(many=False, read_only=True)
-
-	class Meta:
-		model = User
-		fields = ['url', 'username', 'email', 'brand']
-
-
 class ImageDetailCompareSerializer(serializers.ModelSerializer):
 	class Meta:
 		model =  ImageDetailCompare
 		fields = '__all__'
-
-
 
 class DetailImageProductSerializer(serializers.ModelSerializer):
 	
@@ -66,5 +46,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Product
+		fields = '__all__'
+
+class OperativoConnectionSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = OperativoConnection
 		fields = '__all__'
 

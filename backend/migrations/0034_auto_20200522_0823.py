@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='operativoconnection',
             name='user',
-            field=models.ForeignKey(blank=True, default='0', null=True, on_delete=django.db.models.deletion.SET_NULL, to='backend.User'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='backend.User'),
         ),
     ]

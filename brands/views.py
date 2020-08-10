@@ -6,19 +6,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 # Models
-from brands.models import Brand
+from brands.models import Brand, CategoryBrand
 from backend.models import Product, User
 
 # Forms
-from brands.forms import BrandForm, DeleteBrand
+from brands.forms import BrandForm, DeleteBrand, CategoryBrandForm, DeleteCategoryBrand
 
 @login_required
 def brands(request):
+	""" List brands """
 	brand_list = Brand.objects.all()
-	context = {
-		'brand_list' : brand_list,
-	}
-
+	context = {'brand_list' : brand_list,}
 	return render(request,'brands/brands_list.html', context)
 
 @login_required
@@ -30,7 +28,6 @@ def products_by_brand(request, pk):
 		'brand_pk': pk,
 		'brand': brand,
 	}
-
 	return render(request, 'products/view_productos.html', context)
 
 @login_required
@@ -84,7 +81,7 @@ def brand_edit(request, pk):
 		user.save()
 		brand.save()
 
-		return redirect('brands')
+		return redirect('brands:list')
 	else:
 		if user:	
 			form = BrandForm(initial=
@@ -119,7 +116,7 @@ def brand_delete(request, pk):
 				user.delete()
 
 			brand.delete()
-			return redirect('brands')
+			return redirect('brands:list')
 	else:
 		form = DeleteBrand(instance=brand)
 	
@@ -127,9 +124,9 @@ def brand_delete(request, pk):
 
 @login_required
 def brand_category(request):
-    brand_categories = CategoryBrand.objects.all()
-    context = {'brand_categories': brand_categories}
-    return render(request,'brands/list_category.html',context)    
+	brand_categories = CategoryBrand.objects.all()
+	context = {'brand_categories': brand_categories}
+	return render(request,'brands/list_category.html',context)
 
 @login_required
 def new_brand_category(request):
@@ -140,7 +137,7 @@ def new_brand_category(request):
 			brand = form.save(commit=False)
 			brand.save()
 
-			return redirect('category_brand')
+			return redirect('brand:brand_category')
 	else:
 		form = CategoryBrandForm()
 	
@@ -159,7 +156,7 @@ def detail_brand_category(request, pk):
 			brand = form.save(commit=False)
 			brand.save()
 
-			return redirect('category_brand')
+			return redirect('brand:brand_category')
 
 	else:
 		form = CategoryBrandForm(instance=cat_brand)
@@ -168,7 +165,6 @@ def detail_brand_category(request, pk):
 
 @login_required
 def delete_brand_category(request, pk):
-
 	template = loader.get_template('brands/delete_category.html')
 	cat_brand = get_object_or_404(CategoryBrand, pk=pk)
 
@@ -177,8 +173,10 @@ def delete_brand_category(request, pk):
 
 		if form.is_valid():
 			cat_brand.delete()
-			return redirect('category_brand')
+			return redirect('brand:brand_category')
 	else:
 		form = DeleteCategoryBrand(instance=cat_brand)
 	
+	print(cat_brand.name)
+
 	return HttpResponse(template.render({'form': form, 'brand':cat_brand.name}, request))

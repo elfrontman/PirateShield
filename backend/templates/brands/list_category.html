@@ -6,15 +6,14 @@
 			<div class="title-actions-bar">Categorias de Marca</div>
 		</div>
 		<div class="cell small-12 medium-6 actions-buttons">
-			<a class="button hollow small" href="{% url 'new_category_brand' %}">Crear categoria de marca</a>
+			<a class="button hollow small" href="{% url 'brand:new_brand_category' %}">Crear categoria de marca</a>
 		</div>
 	</nav>
 
-	{% if list %}
+	{% if brand_categories %}
 	<ul class="list-data single-list">
-		{% for item in list %}
+		{% for item in brand_categories %}
 		<li class="grid-x">
-			
 			<div class="cell small-8 medium-8">
 				<div class="info-row ">
 					<h3>{{ item.name }}</h3>		
@@ -24,8 +23,8 @@
 			</div>
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
-				  <a href="{% url 'detail_category_brand' pk=item.pk %}" class="button">Editar</a>
-				  <a href="{% url 'categoria_marca_delete' pk=item.pk %}" class="button alert">Eliminar</a>
+				  <a href="{% url 'brand:detail_brand_category' pk=item.pk %}" class="button">Editar</a>
+				  <a href="{% url 'brand:delete_brand_category' pk=item.pk %}" class="button alert">Eliminar</a>
 				</div>
 			</div>
 		</li>

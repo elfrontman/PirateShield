@@ -7,49 +7,47 @@ from brands import views
 
 urlpatterns = [
     # URLs admin brands
-    path(
+    path(#Lista de marcas
         route='', 
         view= views.brands, 
         name='list'),
-    path(
+    path(# Nueva marca
         route='nuevo', 
         view= views.brand_new, 
         name='new'),
-    path(
+    path(# Edicion de marca
         route='editar/<int:pk>', 
         view= views.brand_edit, 
         name='edit'),
-    path(
+    path(# delete marca
         route='<int:pk>/eliminar/', 
         view= views.brand_delete, 
         name='delete'),
-    path(
-        route = 'products/<int:pk>',
+    path(# productos marca
+        route = 'productos/<int:pk>',
         view = views.products_by_brand,
         name = 'products'
     ),
 
     # URLs admin brands category 
-    
     path(
-        route = 'marca/categorias/',
+        route = 'categorias',
         view = views.brand_category,
         name="brand_category"
     ),
     path(
-        route = 'marca/categoria/nueva/', 
+        route = 'nueva_categoria',
         view = views.new_brand_category, 
         name="new_brand_category"
     ),
     path(
-        route = 'marca/categoria/<int:pk>', 
+        route = 'categoria/<int:pk>', 
         view = views.detail_brand_category, 
         name="detail_brand_category"
     ),
     path(
-        route = 'marca/categoria/<int:pk>/eliminar', 
+        route = 'categoria/<int:pk>/eliminar', 
         view = views.delete_brand_category, 
         name="delete_brand_category"
     ),
-
 ]

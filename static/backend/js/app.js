@@ -20,7 +20,7 @@ $(document).ready(function(){
 	var input_file = $('[type=file]').parent('p')
 	input_file.addClass('input-file');
 
-	$('[type=file]:not(#filechooser)').change(function(){
+	$('[type=file]:not(.filechooser)').change(function(){
 		$(this).parent().append('<a>' + this.value + '</a>')
 	})
 

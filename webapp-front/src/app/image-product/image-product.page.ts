@@ -29,7 +29,7 @@ export class ImageProductPage implements OnInit {
 			this.prevUrl = ['/brand', params.id]
 			this.service.getProduct(params.id)
 				.subscribe( data => {
-					this.product = data
+					this.product = data[0]
 					this.loadModule = true;
 				})
 		})

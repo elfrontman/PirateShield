@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { MainServicesService } from '../main-services.service';
+import { CompressImage } from './CompressImage';
 
 @Component({
 	selector: 'app-chat',
@@ -16,6 +17,7 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	username;
 	messages:any = [];
 	tokenUser = '';
+	tokenOP;
 
 	constructor(private socket: Socket, private service: MainServicesService) { }
 
@@ -27,33 +29,17 @@ export class ChatPage implements OnInit, AfterViewChecked {
 		this.username = localStorage.getItem('user_name')
 		this.socket.connect();
 
-		console.log('init', this.socket)
-
 		this.socket.fromEvent('chat-token').subscribe( (token:any) => {
 
-			console.log(token)
-			
-			this.service.setTokentChat(token.token)
-				.subscribe( (data:any) => {
-					if(data.created){
-						localStorage.setItem('token_chat', token.token);
-					}else{
-						if(data.token)
-							localStorage.setItem('token_chat', data.token);	
-					}
+			this.tokenUser = this.service.getUserId()
+			this.tokenOP = localStorage.getItem('token')
+			this.socket.emit('create', this.tokenUser)
 
-
-
-					this.tokenUser = localStorage.getItem('token_chat')
-					this.socket.emit('create', this.tokenUser)
-
-					this.service.getChat(this.tokenUser)
-						.subscribe( data => {
-							console.log(data)
-							this.messages = data;
-							this.scrollBottom();
-						})
-
+			this.service.getChat(this.tokenUser)
+				.subscribe( data => {
+					console.log(data)
+					this.messages = data;
+					this.scrollBottom();
 				})
 		})
 
@@ -65,13 +51,20 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	sendMessage(){
-		let msg = {
-			message: this.message, 
-			token: this.tokenUser, 
-			type: 'String',
-			ip: this.service.getIpClient(),
-			user_name: this.username
+		const msg = {
+			message: this.message,
+			sender: Number(this.service.getUserId()),
+			receiver: 1,
+			type: "text",
+			user_sender: this.username,
+			user_receiver: "Admin",
+			chat_id: this.tokenUser,
+			operativo: this.tokenOP,
+			createdAt: new Date()
 		}
+
+		console.log(msg)
+
 		this.socket.emit('send-message', msg)
 		this.messages.push(msg)
 		this.message = '';
@@ -80,20 +73,33 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 	sendImageMessage(file_input){
 
-		let reader = new FileReader();
+		const compress = new CompressImage(file_input.files[0], 1024, null);
 
-		reader.onload = (evt:any) =>{
-			var msg = {
-				token: this.tokenUser,
-				message: evt.target.result,
-				type: 'Image',
-				user_name: this.username
-			}
-			this.socket.emit('send-file', msg)
-			this.messages.push(msg)
-		}
-		reader.readAsDataURL(file_input.files[0]);
-		this.scrollBottom();
+		compress.getImage().then( f => {
+			var reader = new FileReader();
+			  reader.onloadend = (e) => {
+
+				const msg = {
+					message: reader.result,
+					sender: Number(this.service.getUserId()),
+					receiver: 1,
+					type: 'image',
+					user_sender: this.username,
+					user_receiver: "Admin",
+					chat_id: this.tokenUser,
+					operativo: this.tokenOP,
+					createdAt: new Date()
+				}
+
+				this.socket.emit('send-message', msg)
+				this.messages.push(msg)
+				this.scrollBottom();
+
+			  };
+			  reader.readAsDataURL(<Blob>f);
+			});
+
+		
 	}
 
 	ionViewWillLeave(){

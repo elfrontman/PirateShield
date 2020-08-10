@@ -3,9 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 
 from backend.models import Product, ImageProduct
-from backend.forms import ImagenProductForm, DeleteImagenProduct
-
-from pprint import pprint
+from backend.forms import DeleteImagenProduct
 
 def new(request, pk):
 	template = loader.get_template('imagen_producto/create.html')
@@ -30,25 +28,6 @@ def new(request, pk):
 
 
 
-def detail(request, pk, pk_image_product):
-	template = loader.get_template('imagen_producto/create.html')
-	image_product = get_object_or_404(ImageProduct, pk=pk_image_product)
-	marks_product = image_product.detailimageproduct_set.all()
-
-	#pprint(image_product)
-	#pprint(marks_product)
-	if request.method == 'POST':
-		form = ImagenProductForm(request.POST, request.FILES, instance=image_product)
-
-		if form.is_valid():
-			image = form.save(commit=False)
-			image.save()
-
-			return redirect('product_detail', pk=pk)
-	else:
-		form = ImagenProductForm(instance=image_product)
-	
-	return HttpResponse(template.render({'form': form, 'is_edit':'True', 'marks': marks_product, 'product': pk,'image_product': image_product}, request))
 
 
 def delete(request, pk, pk_image_product):

@@ -1,6 +1,8 @@
 from django import forms
 from brands.models import Brand, CategoryBrand
 from backend.models import User
+from django.utils.translation import ugettext_lazy as _
+
 
 class BrandForm(forms.ModelForm):
 	first_name = forms.CharField(label='Nombres del contacto', required=True)
