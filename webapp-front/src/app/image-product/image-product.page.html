@@ -44,8 +44,8 @@
 			</ion-slide>
 		</ion-slides>
 
-	<div class="swiper-button-next" (click)="onNextSlide()"></div>
-	<div class="swiper-button-prev" (click)="onPrevSlide()"></div>
+	<div *ngIf="product.imageproduct_set.length > 1" class="swiper-button-next" (click)="onNextSlide()"></div>
+	<div *ngIf="product.imageproduct_set.length > 1" class="swiper-button-prev" (click)="onPrevSlide()"></div>
 	</div>
 	
 
