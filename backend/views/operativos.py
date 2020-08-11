@@ -217,7 +217,7 @@ def chat_ext_marca(request, pk):
 def list_connections(request, pk):
     
     operativo = get_object_or_404(Operativo, pk=pk)
-    sessions = OperativoConnection.objects.filter(operativo=pk, is_active="True")
+    sessions = OperativoConnection.objects.filter(operativo=pk, is_active=1)
 
     context = {
         'operativo': operativo,
