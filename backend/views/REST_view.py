@@ -67,8 +67,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-    permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    #permission_classes = IsAuthenticated,
+    #authentication_classes = TokenAuthentication,
 
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
@@ -81,6 +81,7 @@ class BrandViewSet(viewsets.ModelViewSet):
 
         if brandsList:
             brands = Brand.objects.filter(id__in=brandsList.split(','))
+            
 
             return brands
 

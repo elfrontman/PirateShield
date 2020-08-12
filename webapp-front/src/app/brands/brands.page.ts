@@ -37,14 +37,34 @@ export class BrandsPage implements OnInit {
     if(this.filter_categories.length > 0){
       this.filter_brands = this.brands.filter( x => this.filter_categories.indexOf(x.brand_category_id.id) > -1);
     }
-    
   }
 
-  filterName(){
+  filterName() {
     this.filter_brands = this.brands;
 
-    if(this.filter_name.length > 0){
-      this.filter_brands = this.brands.filter( x => this.filter_name.toLowerCase().indexOf(x.name.toLowerCase()) > -1);
+    if (this.filter_name.length > 0) {
+      this.filter_brands = this.brands.filter(x => {
+        const search = this.filter_name.toLowerCase();
+        const nameBrand = search.indexOf(x.name.toLowerCase()) > -1
+          || search.indexOf(x.description ? x.description.toLowerCase() : null) > -1;
+
+        if (nameBrand) {
+          return true;
+        }
+
+        const produts = x.products.filter(prd => {
+
+          const exist = prd.name.toLowerCase().indexOf(search) > -1
+          || (prd.reference ? prd.reference.toLowerCase().indexOf(search)  > -1 : false)
+              || (prd.description ? prd.description.toLowerCase().indexOf(search) > -1 : false);
+          
+
+          return exist;
+        });
+
+        return produts.length > 0;
+
+      });
     }
 
   }
