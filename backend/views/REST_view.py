@@ -67,8 +67,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    #authentication_classes = TokenAuthentication,
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication,
 
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
