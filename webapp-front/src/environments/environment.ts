@@ -7,7 +7,7 @@ export const environment = {
   // API_URL: 'http://localhost:8000/backend',
   // STATIC_URL: 'http://localhost/static/backend',
 
-  //  SoketIoConfig: { 
+  // SoketIoConfig: { 
   // 	url: 'http://localhost:500',
   // 	options: {}
   // }

@@ -81,6 +81,7 @@ class BrandViewSet(viewsets.ModelViewSet):
 
         if brandsList:
             brands = Brand.objects.filter(id__in=brandsList.split(','))
+            
 
             return brands
 

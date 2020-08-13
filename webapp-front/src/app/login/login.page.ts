@@ -10,7 +10,7 @@ import { MainServicesService } from './../main-services.service';
 })
 export class LoginPage implements OnInit {
 
-	token: string = 'kAJXc4';
+	token: string = '6mB4Gq';
 	user_name: string;
 	toast: any;
 
