@@ -13,7 +13,8 @@
 		{% endif %}
 	</h2>
 	{% csrf_token %}
-	{{ form.as_p }}
+	{{ form.as_p | safe }}
+	{{ form.media}}
 	
 	<div class="grid-x">
 		<div class="cell small-12 medium-6">
