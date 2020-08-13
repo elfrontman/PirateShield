@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import AbstractUser
-
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -132,7 +132,7 @@ class ImageDetailCompare(models.Model):
     )
 
     name = models.CharField(max_length=250, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
     image_check = models.ImageField(upload_to='products/details', blank=True)
     image_fail = models.ImageField(upload_to='products/details', blank=True)
     detail_image = models.ForeignKey(

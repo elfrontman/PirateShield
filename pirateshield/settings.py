@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +163,16 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'operativosagatha@gmail.com'
 EMAIL_HOST_PASSWORD = '@agatha123'
 EMAIL_USE_TLS = True
+
+#Config ckeditor
+CKEDITOR_UPLOAD_PATH = "details_products/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+    ]
+    },
+} 
