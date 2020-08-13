@@ -4,10 +4,12 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
 @NgModule({
   declarations: [
-  	FooterComponent
+    FooterComponent,
+    SanitizeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule
   ],
   exports: [
-  	FooterComponent
+    FooterComponent,
+    SanitizeHtmlPipe
   ]
 })
 export class SharedModule { }
