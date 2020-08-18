@@ -90,7 +90,7 @@ class BrandViewSet(viewsets.ModelViewSet):
 
 class CategoryBrandViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = TokenAuthentication, SessionAuthentication
 
     queryset = CategoryBrand.objects.all()
     serializer_class = CategoryBrandSerializer
