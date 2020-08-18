@@ -190,7 +190,7 @@ def login_app(request):
                 all_connection = OperativoConnection.objects.filter(
                     operativo__token=request.data.get('token'), is_active = True).count()
 
-                if operativo.connections and (all_connection < operativo.connections):
+                if all_connection < operativo.connections:
 
                     user_token = User()
                     user_token.username = username
