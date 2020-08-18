@@ -60,7 +60,7 @@ class OperativoViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = TokenAuthentication, SessionAuthentication
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -68,7 +68,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class BrandViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = TokenAuthentication, SessionAuthentication
 
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
