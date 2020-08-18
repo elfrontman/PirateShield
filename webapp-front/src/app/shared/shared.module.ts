@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { SquaredMarkerDirective } from './squared-marker.directive';
 
 @NgModule({
   declarations: [
     FooterComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    SquaredMarkerDirective
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
   ],
   exports: [
     FooterComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    SquaredMarkerDirective
   ]
 })
 export class SharedModule { }
