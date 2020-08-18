@@ -1,0 +1,31 @@
+{% extends "layout/base.html" %}
+{% block content %}
+	
+	<nav class="actions-bar grid-x">
+		<div class="cell small-12 medium-6">
+			<div class="title-actions-bar">Conexiones Operativo {{operativo.name}} Token:{{operativo.token}}</div>
+		</div>
+	</nav>
+
+	<p class="callout warning">Se están usando {{count}} conexiones de {{operativo.connections}}</p>
+
+	{% if sessions %}
+	<ul class="list-data single-list">
+		{% for session in sessions %}
+		<li class="grid-x">
+			<div class="cell small-10 medium-10">
+				<div class="info-row ">
+					<h3>Nombre: {{ session.name_user }}</h3>		
+					<span><strong>IP: </strong>{{ session.ip }}</span> 
+				</div>	
+			</div>
+			<div class="cell auto content-buttons">
+				<div class="small button-group">
+					<a href="{% url 'disconnect' pk=session.id tk=operativo.id %}" class="button tiny alert expanded">Desconectar</a>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}

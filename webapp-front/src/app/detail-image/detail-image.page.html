@@ -33,6 +33,7 @@
 						<img class="icon-svg" src="./assets/images/fail.svg">
 						<img [src]="slide.image_fail">
 					</div>	
+					<p class="description left-desctiption" [innerHtml]="slide.description | safeHtml"></p>
 				</div>
 				
 			</ion-slide>

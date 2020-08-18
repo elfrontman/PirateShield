@@ -9,6 +9,7 @@ def index(request):
 	template = loader.get_template('informes/index.html')
 	return HttpResponse(template.render({}, request))
 
+@login_required
 def operativos(request):
 	operativos = Operativo.objects.all()
 	template = loader.get_template('informes/operativos.html')
@@ -26,8 +27,6 @@ def operativos(request):
 			op.brands = op.brands[:-2]
 		else:
 			op.brands = "Sin marcas"
-
-
 
 		if op.productList:
 			products = Product.objects.filter(id__in=op.productList.split(','))

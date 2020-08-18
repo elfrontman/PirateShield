@@ -10,7 +10,8 @@ import { MainServicesService } from './../main-services.service';
 })
 export class LoginPage implements OnInit {
 
-	token: string;
+	token: string = '6mB4Gq';
+	user_name: string;
 	toast: any;
 
 	constructor(private router: Router, private mS: MainServicesService, public toastController: ToastController) { }
@@ -20,20 +21,29 @@ export class LoginPage implements OnInit {
 
 	login(){
 
-		this.mS.loginToken(this.token)
+
+
+		this.mS.loginToken(this.token, this.user_name)
 		.subscribe( (data:any) => {
+
+			console.log(data)
+
 			if(!data.error){
+				this.mS.setIpClient(data.ip)
+				this.mS.setSessionId(data.session_id)
+				this.mS.setChatId(data.chat_id)
+				this.mS.setUserId(data.user_id)
 				this.router.navigateByUrl('/terminos');			
 				return;
 			}
-		}, (error) => {
+		}, error => {
+			console.log(error)
 			this.showToast("");
 		})
 
 	}
 
 	showToast(message) {
-		console.log('la tost')
 		this.toast = this.toastController.create({
 			message: 'Token invalido',
 			duration: 6000,
@@ -42,7 +52,6 @@ export class LoginPage implements OnInit {
 	      	animated:true,
 	      	cssClass:"error-toast"
 		}).then((toastData)=>{
-			console.log(toastData);
 			toastData.present();
 		});
 	}

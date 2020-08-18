@@ -3,16 +3,16 @@
 
 {% block content %}
 
-
 <form  method="POST" enctype="multipart/form-data">
 	<h2>
 		{% if is_edit %}
 			Editar Categoría
 		{% else %}
-			Crear Categoría
+			Crear Categoría para marcas
 		{% endif %}
 		
 	</h2>
+
 	{% csrf_token %}
 	{{ form.as_p }}
 	

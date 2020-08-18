@@ -1,61 +1,63 @@
-from django.forms import ModelForm, DateTimeField, DateInput, SelectDateWidget, DateTimeInput, CharField, Textarea, EmailField
+from django import forms
 from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, User, Operativo, ImageDetailCompare, OperativoBrand
+from .models import Brand, User, Product, ImageProduct, DetailImageProduct, CategoryBrand, CategoryProduct, Operativo, ImageDetailCompare, OperativoBrand
 
-class BrandForm(ModelForm):
-
-
-	nombre = CharField(label='Nombres del contacto')
-	apellido = CharField(label='Apellidos del contacto')
-	correo = EmailField()
-	celular = CharField(label='Celular del contacto')
+class BrandForm(forms.ModelForm):
+	first_name = forms.CharField(label='Nombres del contacto', required=True)
+	last_name = forms.CharField(label='Apellidos del contacto', required=True)
+	email = forms.EmailField( required=True)
+	phone_number = forms.CharField(label='Celular del contacto', required=True, max_length=20)
 
 	class Meta:
-
 		model = Brand
-		fields = ['name', 'logo', 'banner','description', 'brand_category_id', 'nombre', 'apellido', 'correo','celular']
+		fields = ['name', 'logo', 'banner','description', 'brand_category_id', 'first_name', 'last_name', 'email','phone_number']
 
 		labels = {
-			"name" : _("Nombre de la marca"),
-			"logo" : _("Logo de la marca"),
-			"banner": _("Imagen de banner"),
-			"description": _("Descripción"),
-			"brand_category_id" : _("Categoría"),
+			"name" : "Nombre de la marca",
+			"logo" : "Logo de la marca",
+			"banner": "Imagen de banner",
+			"description": "Descripción",
+			"brand_category_id" : "Categoría",
 		}
 
-
+	def clean_email(self):
+		""" User email must be unique """
+		email = self.cleaned_data['email']
+		qu = User.objects.filter(email=email)
 		
+		if qu.exists():
+			raise forms.ValidationError('El email ya se encuentra registrado.')
+		return email
 
-class DeleteBrand(ModelForm):
+class DeleteBrand(forms.ModelForm):
 	class Meta:
 		model = Brand
 		fields = []
 
 
-class ProductForm(ModelForm):
+class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
-		fields = '__all__'
+		fields = {'name','reference','brand', 'image', 'product_category'}
 		widgets= {'brand': HiddenInput()}
 
 		labels = {
 			"name" : _("Nombre del producto"),
 			"reference" : _("Referencia"),
 			"image" : _("Imagen"),
-			"description": _("Descripción"),
 			"product_category" : _("Categoría"),
 		}
 
 
-class DeleteProduct(ModelForm):
+class DeleteProduct(forms.ModelForm):
 	class Meta:
 		model = Product
 		fields = []
 
 
-class ImagenProductForm(ModelForm):
+class ImagenProductForm(forms.ModelForm):
 	class Meta:
 		model = ImageProduct
 		fields = ['name', 'image']
@@ -65,26 +67,26 @@ class ImagenProductForm(ModelForm):
 			"image" : _("Imagen"),
 		}
 
-class DeleteImagenProduct(ModelForm):
+class DeleteImagenProduct(forms.ModelForm):
 	class Meta:
 		model = ImageProduct
 		fields = []
 
 
-class DetailImageProductForm(ModelForm):
+class DetailImageProductForm(forms.ModelForm):
 	class Meta:
 		model = DetailImageProduct
 		fields = ['name', 'description', 'marker_x', 'marker_y']
 		widgets = {'marker_x': HiddenInput(), 'marker_y': HiddenInput()}
 
 
-class DeleteDetailImageProduct(ModelForm):
+class DeleteDetailImageProduct(forms.ModelForm):
 	class Meta:
 		model = DetailImageProduct
 		fields = []
 
 
-class ImageDetailCompareForm(ModelForm):
+class ImageDetailCompareForm(forms.ModelForm):
 	class Meta:
 		model = ImageDetailCompare
 		fields = '__all__'
@@ -92,23 +94,23 @@ class ImageDetailCompareForm(ModelForm):
 		
 
 
-class CategoryBrandForm(ModelForm):
+class CategoryBrandForm(forms.ModelForm):
 	class Meta:
 		model = CategoryBrand
 		fields = ['name']
 
 		labels = {
-			"name" : _("Nombre de la Categoría"),
+			"name" : "Nombre de la Categoría",
 		}
 
 
-class DeleteCategoryBrand(ModelForm):
+class DeleteCategoryBrand(forms.ModelForm):
 	class Meta:
 		model = CategoryBrand
 		fields = []
 
 
-class CategoryProductForm(ModelForm):
+class CategoryProductForm(forms.ModelForm):
 	class Meta:
 		model = CategoryProduct
 		fields = ['name']
@@ -117,13 +119,12 @@ class CategoryProductForm(ModelForm):
 			"name" : _("Nombre de la Categoría"),
 		}
 
-class DeleteCategoryProduct(ModelForm):
+class DeleteCategoryProduct(forms.ModelForm):
 	class Meta:
 		model = CategoryProduct
 		fields = []
 
-
-class UserForm(ModelForm):
+class UserForm(forms.ModelForm):
 
 	class Meta:
 		model = User
@@ -146,12 +147,13 @@ class UserForm(ModelForm):
         }
 
 
-class UserTerrenoForm(ModelForm):
+class UserTerrenoForm(forms.ModelForm):
 
-	name = CharField(label='Nombre del operativo')
-	description = CharField(label='Descripción del operativo', widget=Textarea)
-	activation_date = DateTimeField(label='Operativo valido desde:', widget=DateTimeInput(attrs={'type':'date'}))
-	expiration_date = DateTimeField(label='Operativo valido hasta:', widget=DateTimeInput(attrs={'type':'date'}))
+	name = forms.CharField(label='Nombre del operativo')
+	description = forms.CharField(label='Descripción del operativo', widget=forms.Textarea)
+	connections = forms.IntegerField(label="Cant. dispositivos en operativo")
+	activation_date = forms.DateTimeField(label='Operativo valido desde:', widget=forms.DateTimeInput(attrs={'type':'date'}))
+	expiration_date = forms.DateTimeField(label='Operativo valido hasta:', widget=forms.DateTimeInput(attrs={'type':'date'}))
 
 	class Meta:
 
@@ -168,13 +170,13 @@ class UserTerrenoForm(ModelForm):
 		}
 
 
-class InactiveOperativo(ModelForm):
+class InactiveOperativo(forms.ModelForm):
 	class Meta:
 		model = Operativo
 		fields = []
 
 
-class OperativoBrandForm(ModelForm):
+class OperativoBrandForm(forms.ModelForm):
 	class Meta:
 		model = OperativoBrand
 		fields = '__all__'

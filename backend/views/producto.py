@@ -58,7 +58,7 @@ def product_detail(request, pk):
 	else:
 		form = ProductForm(instance=product)
 
-	pprint(product.imageproduct_set.all())
+	#pprint(product.imageproduct_set.all())
 
 	return HttpResponse(template.render({'form': form, 'is_edit': 'True', 'images': product.imageproduct_set.all(), 'product': product, 'brand': product.brand.pk}, request))
 

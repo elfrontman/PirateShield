@@ -6,12 +6,24 @@ const  chatSchema  =  new Schema(
             type: String
         },
         sender: {
-            type: String
+            type: Number
         },
-        isAdmin: {
-            type: Boolean
+        receiver:{
+          type: Number  
         },
         type: {
+            type: String
+        }, 
+        user_sender: {
+            type: String
+        },
+        user_receiver: {
+            type: String
+        },
+        chat_id: {
+            type: String
+        },
+        operativo: {
             type: String
         }
 

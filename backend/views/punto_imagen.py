@@ -15,7 +15,7 @@ def new(request, pk_product, pk_image_product):
 	if request.method == 'POST':
 		form = DetailImageProductForm(request.POST, request.FILES)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -38,7 +38,7 @@ def detail(request, pk, pk_image_product, pk_product):
 	if request.method == 'POST':
 		form = DetailImageProductForm(request.POST, request.FILES, instance=mark_image)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -87,8 +87,6 @@ def image_pointer(request, pk_product, pk_image_product, pk_mark):
 
 	return HttpResponse(template.render(context, request))
 
-
-
 def new_image(request, pk_product, pk_image_product, pk_mark):
 	template = loader.get_template('punto_imagen/create_compare_image.html')
 	image_product = get_object_or_404(ImageProduct, pk=pk_image_product)
@@ -96,7 +94,7 @@ def new_image(request, pk_product, pk_image_product, pk_mark):
 	if request.method == 'POST':
 		form = ImageDetailCompareForm(request.POST, request.FILES)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)
@@ -118,7 +116,7 @@ def image_detail(request, pk, pk_mark, pk_image_product, pk_product):
 	if request.method == 'POST':
 		form = ImageDetailCompareForm(request.POST, request.FILES, instance=image_detail)
 
-		pprint(request.POST)
+		#pprint(request.POST)
 	
 		if form.is_valid():
 			image = form.save(commit=False)

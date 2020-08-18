@@ -26,7 +26,11 @@ SECRET_KEY = 'd3=t_l6#=vnu41qixi#1-ty7y5p7@ll#(hup4x+p(@3ty3c-e4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '190.60.205.188',
+
+    'ec2-3-84-219-164.compute-1.amazonaws.com',
+    'localhost',
+    '192.168.0.16',
+    '190.60.205.188'
 ]
 
 
@@ -41,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders'
+    'rest_framework.authtoken',
+    'corsheaders',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipaddr.middleware.IPAddrMiddleware'
 ]
 
 ROOT_URLCONF = 'pirateshield.urls'
@@ -83,12 +90,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            #'read_default_file': 'mysql.cnf',
-            'read_default_file': '/etc/mysql/myconf.cnf',
+            'read_default_file': 'mysql.cnf',
+            #'read_default_file': '/etc/mysql/myconf_demo.cnf',
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -108,11 +114,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Bogota'
 
@@ -127,9 +144,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-#STATICFILES_DIRS  = (BASE_DIR + '/static/',)
+STATICFILES_DIRS  = (BASE_DIR + '/static/',)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + '/media'
@@ -140,3 +157,22 @@ LOGOUT_REDIRECT_URL = '/agatha/accounts/login/'
 AUTH_USER_MODEL = 'backend.user'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'operativosagatha@gmail.com'
+EMAIL_HOST_PASSWORD = '@agatha123'
+EMAIL_USE_TLS = True
+
+#Config ckeditor
+CKEDITOR_UPLOAD_PATH = "details_products/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+    ]
+    },
+} 

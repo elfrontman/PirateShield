@@ -1,26 +1,20 @@
-{% extends extendind %}
 {% block content %}
 
 	<nav class="actions-bar grid-x">
 		<div class="cell small-12 medium-6">
-			<div class="title-actions-bar">Chat de marca - {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
+			<div class="title-actions-bar">Chat de cliente </div>
 		</div>
-		{% if not is_brand%}
-			<div class="cell small-12 medium-6 actions-buttons">
-				<a class="button hollow small " href="{% url 'chat_operativo' pk=operativo.pk %}">Chat con operativo</a>
-				<a class="button hollow small alert" href="{% url 'operativos' %}">Regresar</a>
-			</div>
-		{% endif  %}
 	</nav>
 
-	<div class="content-view-chat full-view-chat">
+	<div class="content-view-chat">
 		
-		<div class="view-chat">
+		<div class="view-chat chat-marca">
 			
 		</div>
 
-		<form class="chat-form">
-			<input type="hidden" value="{{ operativo.token }}" id="token_chat">
+		<form class="chat-form chat-marca">
+			<input type="hidden" value="{{ operativo.token }}" id="token_chat_marca">
+			<input type="hidden" value="{{ ip_client }}" id="ip_client">
 
 			<div class="grid-x">
 				<div class="cell small-12 medium-8">
@@ -35,7 +29,7 @@
 				<div class="cell small-12 medium-2">
 					<label class="button expanded alert">
 						imagen	
-						<input type="file" hidden id="filechooser">
+						<input type="file" hidden class="filechooser" >
 					</label>
 					
 					
@@ -45,7 +39,5 @@
 			
 		</form>	
 	</div>
-	
-	
 
 {% endblock %}

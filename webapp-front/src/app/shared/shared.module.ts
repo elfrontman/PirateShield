@@ -4,10 +4,14 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { SquaredMarkerDirective } from './squared-marker.directive';
 
 @NgModule({
   declarations: [
-  	FooterComponent
+    FooterComponent,
+    SanitizeHtmlPipe,
+    SquaredMarkerDirective
   ],
   imports: [
     CommonModule,
@@ -15,7 +19,9 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule
   ],
   exports: [
-  	FooterComponent
+    FooterComponent,
+    SanitizeHtmlPipe,
+    SquaredMarkerDirective
   ]
 })
 export class SharedModule { }

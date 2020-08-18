@@ -1,6 +1,16 @@
-from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare
+from backend.models import User, Brand, CategoryBrand, Product, ImageProduct, DetailImageProduct, CategoryProduct, ImageDetailCompare, Operativo, OperativoConnection
 from rest_framework import serializers
 
+class ProductSingleSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Product
+		fields = '__all__'
+
+
+class OperativoSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Operativo
+		fields = '__all__'
 
 
 class CategoryBrandSerializer(serializers.ModelSerializer):
@@ -16,10 +26,11 @@ class CategoryProductSerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
 
 	brand_category_id = CategoryBrandSerializer(many=False, read_only=True)
+	products = ProductSingleSerializer(many=True, read_only=True)
 
 	class Meta:
 		model = Brand
-		fields = ['id', 'name','logo', 'banner','description', 'brand_category_id']
+		fields = ['id', 'name', 'logo', 'banner', 'description', 'brand_category_id', 'products']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -59,6 +70,10 @@ class ImageProductSerializer(serializers.ModelSerializer):
 		fields = ['id','name', 'image', 'product', 'detail']
 
 
+
+
+
+		
 class ProductSerializer(serializers.ModelSerializer):
 	brand = BrandSerializer(many=False)
 	product_category = CategoryProductSerializer(many=False)
@@ -66,5 +81,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Product
+		fields = '__all__'
+
+class OperativoConnectionSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = OperativoConnection
 		fields = '__all__'
 

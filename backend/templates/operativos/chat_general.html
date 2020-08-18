@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+<nav class="actions-bar grid-x">
+		<div class="cell small-12 medium-6">
+			<div class="title-actions-bar">Chat del operativo {{operativo.name}} --  {{ operativo.user.first_name }} {{ operativo.user.last_name }}</div>
+		</div>
+		{% if not is_brand%}
+			<div class="cell small-12 medium-6 actions-buttons">
+				<a class="button hollow small alert" href="{% url 'operativos' %}">Regresar</a>
+			</div>
+		{% endif  %}
+	</nav>
+
+{% csrf_token %}
+<div class="grid-x grid-gitter">
+	<div class="cell small-12 medium-6">
+		{% include 'operativos/chat.html' %}
+	</div>
+	<div class="cell small-12 medium-6">
+		{% include 'operativos/chat_marca.html' %}
+	</div>
+</div>
+
+{% endblock %}

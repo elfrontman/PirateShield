@@ -1,7 +1,11 @@
-env/
+.env/
 mypirateenv/
 **/__pycache__/
+*/settings.py
 *.pyc
 mysql.cnf
 media/**/*
 .DS_Store
+db.sqlite3
+.vscode/
+pirateshield/settings.py

@@ -1,69 +1,104 @@
 from django.template import loader
 from django.http import HttpResponse 
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from backend.models import Brand, Product, User
 from backend.forms import BrandForm, DeleteBrand
 
 from pprint import pprint
 
+@login_required
 def marcas(request):
-	brand_list = Brand.objects.all();
-	template = loader.get_template('marcas/view_marcas.html')
-
+	brand_list = Brand.objects.all()
 	context = {
 		'brand_list' : brand_list,
-
 	}
 
-	return HttpResponse(template.render(context, request))
+	return render(request,'marcas/view_marcas.html', context)
 
-
+@login_required
 def products_by_brand(request, pk):
 	product_list = Product.objects.filter(brand=pk)
-	template = loader.get_template('productos/view_productos.html')
-
+	brand = Brand.objects.get(pk=pk)
 	context = {
 		'product_list': product_list,
-		'brand_pk': pk
+		'brand_pk': pk,
+		'brand': brand,
 	}
 
-	return HttpResponse(template.render(context, request))
+	return render(request, 'productos/view_productos.html', context)
 
+@login_required
 def brand_new(request):
-	template = loader.get_template('marcas/create_marca.html')
-
+	
 	if request.method == 'POST':
-		form = BrandForm(request.POST, request.FILES or None)
-
-		pprint('Aqui entra')
+		form = BrandForm(request.POST, request.FILES)
 	
 		if form.is_valid():
-			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
+			new_user = User.objects.create_user(username=request.POST['email'], email = request.POST['email'])
 			new_user.first_name = request.POST['first_name']
 			new_user.last_name = request.POST['last_name']
-			new_user.movil = request.POST['movil']
-			new_user.email = request.POST['correo']
-			new_user.save()
-
-			pprint('el usuario')
-			pprint(new_user)
-
+			new_user.movil = request.POST['phone_number']
+			new_user.email = request.POST['email']
+			
 			brand = form.save()
-			new_user.brand = brand
+			new_user.brand_id = brand
+
 			brand.save()
+			new_user.save()
 
 			return redirect('marcas')
 	else:
 		form = BrandForm()
 	
-	return HttpResponse(template.render({'form': form}, request))
+	return render(request, 'marcas/create_marca.html', {'form': form, 'title': 'Nueva Marca'})
 
+@login_required
+def brand_edit(request, pk):
+	brand = Brand.objects.get(pk=pk)
 
+	try:
+		user = User.objects.get(brand=brand)
+	except User.DoesNotExist:
+		user  = None
 
-def brand_detail(request, pk):
+	if request.method == 'POST':
+		form = BrandForm(request.POST, request.FILES, instance=brand)
+		
+		user.first_name = request.POST['first_name']
+		user.last_name = request.POST['last_name']
+		user.movil = request.POST['phone_number']
+		user.username = request.POST['email']
+		user.email = request.POST['email']
+		
+		if user == request.POST['email']:
+				user.save()
+		else:
+			if form.is_valid():
+				user.save()
+		user.save()
+		brand.save()
 
-	template = loader.get_template('marcas/create_marca.html')
+		return redirect('marcas')
+	else:
+		if user:	
+			form = BrandForm(initial=
+				{
+					'first_name': user.first_name,
+					'last_name' : user.last_name,
+					'email' : user.email,
+					'phone_number' : user.movil,
+				}, instance=brand)
+		else:
+			form = BrandForm(instance=brand)
+
+	return render(request,'marcas/create_marca.html', {'form': form, 'title': 'Edición de Marca'})
+
+@login_required	
+def brand_delete(request, pk):
+
+	template = loader.get_template('marcas/delete_marca.html')
 	brand = get_object_or_404(Brand, pk=pk)
 
 	try:
@@ -72,56 +107,13 @@ def brand_detail(request, pk):
 		user  = None
 
 	if request.method == 'POST':
-		form = BrandForm(request.POST, request.FILES or None, instance=brand)
-		pprint(request.FILES)
-
-
-		if form.is_valid():
-			brand = form.save(commit=False)
-
-			new_user, created = User.objects.get_or_create(username=request.POST['correo'])
-			new_user.first_name = request.POST['nombre']
-			new_user.last_name = request.POST['apellido']
-			new_user.movil = request.POST['celular']
-			new_user.email = request.POST['correo']
-			
-			
-			new_user.brand = brand
-			
-			brand.save()
-			new_user.save()
-
-			return redirect('marcas')
-
-	else:
-		if user:
-			form = BrandForm(initial=
-				{
-					'nombre': user.first_name,
-					'apellido' : user.last_name,
-					'celular' : user.movil,
-					'correo' : user.email
-				},
-			instance=brand)
-		else:
-			form = BrandForm(instance=brand)
-		
-
-		pprint(form.__dict__)
-
-
-	return HttpResponse(template.render({'form': form, 'is_edit': 'True'}, request))
-
-
-def brand_delete(request, pk):
-
-	template = loader.get_template('marcas/delete_marca.html')
-	brand = get_object_or_404(Brand, pk=pk)
-
-	if request.method == 'POST':
 		form = DeleteBrand(request.POST, instance=brand)
 
 		if form.is_valid():
+
+			if user:
+				user.delete()
+
 			brand.delete()
 			return redirect('marcas')
 	else:

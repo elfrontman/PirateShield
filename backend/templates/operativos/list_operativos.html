@@ -21,6 +21,7 @@
 					<span><strong>Token: {{ item.token }}</strong></span> {%if item.is_ready%}<span class="label success"><strong>Operativo Activo</strong></span> {% endif %} <br>
 					<span><strong>Activo desde:</strong> {{ item.activation |date:"M d, Y" }}</span> - 
 					<span><strong>Valido hasta:</strong> {{ item.expiration |date:"M d, Y"  }}</span>
+					<span><strong>Cantidad dispositivos:</strong> {{ item.connections  }}</span>
 				</div>	
 			</div>
 			<div class="cell auto content-buttons">
@@ -29,8 +30,10 @@
 						<a href="{% url 'activate_operativo' pk=item.pk %}" class="button tiny expanded">Activar operativo</a>
 					{% endif %}
 					
-					<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button tiny alert expanded">Terminar operativo</a>
+					<a href="{% url 'invalidate_operativo' pk=item.pk %}" class="button tiny alert expanded">Cerrar operativo</a>
+					<a href="{% url 'connections' pk=item.pk%}" class="button tiny warning expanded">Conexiones</a>
 					<a href="{% url 'chat_operativo' pk=item.pk %}" class="button tiny success expanded">Chat</a>
+					<a href="{% url 'detail_operativo' pk=item.pk %}" class="button tiny expanded">Editar</a>
 				</div>
 			</div>
 		</li>

@@ -21,9 +21,21 @@
   font-size: small;
 }
 
-.other-message .time{
+.username{
+  display: block;
+  text-align: left !important;
+  font-weight: bold;
+  font-style: italic;
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.other-message .time, .other-message .username{
   color: #333;
 }
+
+
 
 .message-input {
   margin-top: 0px;
