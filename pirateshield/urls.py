@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.urls import include, path
 
 urlpatterns = [
+    path('', lambda req: redirect('/backend/')),
 	path('backend/', include('backend.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
