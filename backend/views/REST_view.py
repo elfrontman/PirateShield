@@ -46,7 +46,7 @@ class OperativoSerializerViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ['operativo__token']
 
-    queryset = OperativoConnection.objects.all()
+    queryset = OperativoConnection.objects.filter( is_active = True).
     serializer_class = OperativoConnectionSerializer
 
 class OperativoViewSet(viewsets.ModelViewSet):
