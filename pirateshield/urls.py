@@ -19,9 +19,9 @@ from django.conf.urls.static import static
 from django.urls import include, path
 
 urlpatterns = [
-	path('backend/', include('backend.urls')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
+	path('agatha/backend/', include('backend.urls')),
+    path('agatha/admin/', admin.site.urls),
+    path('agatha/accounts/', include('django.contrib.auth.urls')),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
