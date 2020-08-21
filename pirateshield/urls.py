@@ -20,7 +20,7 @@ from django.urls import include, path
 from django.shortcuts import redirect
 
 urlpatterns = [
-    path('', lambda req: redirect('agatha/backend/')),
+    path('', lambda req: redirect('/agatha/backend/')),
 	path('backend/', include('backend.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
