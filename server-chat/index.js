@@ -4,7 +4,6 @@ const http = require("http").Server(app)
 const io = require("socket.io")
 const port = 500
 const socket = io(http)
-//const url_api = "190.60.205.188"
 const url_api = "0.0.0.0"
 
 const  Chat  = require("./models/ChatSchema");
