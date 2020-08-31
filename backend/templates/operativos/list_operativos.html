@@ -5,7 +5,17 @@
 		<div class="cell small-12 medium-6">
 			<div class="title-actions-bar">Operativos</div>
 		</div>
+		
 		<div class="cell small-12 medium-6 actions-buttons">
+			<form method="post" name="form_filter" id="form_filter">
+				{% csrf_token %}
+				<select name="filter_ops" id="filter_ops">
+					<option value="">Todos</option>
+					<option {% if value_filter == '1' %} selected {% endif %} value="1">Vigentes</option>
+					<option {% if value_filter == '2' %} selected {% endif %} value="2">Por activar</option>
+					<option {% if value_filter == '3' %} selected {% endif %} value="3">Cerrados</option>
+				</select>
+			</form>
 			<a class="button hollow small" href="{% url 'new_operativo' %}">Nuevo operativo</a>
 		</div>
 	</nav>
@@ -26,7 +36,7 @@
 			</div>
 			<div class="cell auto content-buttons">
 				<div class="small button-group">
-					{% if not item.is_ready %}
+					{% if not item.is_ready  %}
 						<a href="{% url 'activate_operativo' pk=item.pk %}" class="button tiny expanded">Activar operativo</a>
 					{% endif %}
 					

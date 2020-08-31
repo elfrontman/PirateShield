@@ -430,6 +430,20 @@ aside{
 	margin-bottom: 0;
 }
 
+.actions-bar form{
+	display: inline-block;
+	padding: 0;
+}
+
+.actions-bar select{
+	margin-bottom: 0;
+    max-width: 150px;
+    height: 34px;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 1.5rem;
+}
+
 .actions-bar .title-actions-bar{
 	font-size: 1.3rem;
 	font-weight: bold;

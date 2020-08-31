@@ -11,6 +11,7 @@ from pprint import pprint
 @login_required
 def marcas(request):
 	brand_list = Brand.objects.all()
+
 	context = {
 		'brand_list' : brand_list,
 	}

@@ -248,7 +248,7 @@ def login_app(request):
                 'msg': 'Token invalido 1'},
                 status=HTTP_401_UNAUTHORIZED)
 
-
+@permission_classes((IsAuthenticated,))
 class Logout(APIView):
     def get(self, request, format=None):
 

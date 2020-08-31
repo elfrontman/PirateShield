@@ -83,6 +83,10 @@ $(document).ready(function(){
 		return true;
 
 	})
+
+	$('#filter_ops').change(function (event) {
+		$('#form_filter').submit();
+	})
 });
 
 

@@ -20,10 +20,24 @@ from inspect import getmembers
 
 @login_required
 def index(request):
-    operativos = Operativo.objects.filter(is_active=True)
+    operativos = operativos = Operativo.objects.filter(is_ready=True)
     template = loader.get_template('operativos/list_operativos.html')
 
-    return HttpResponse(template.render({'operativos': operativos}, request))
+    value_filter = '1'
+
+    if request.method == 'POST':
+        value_filter = request.POST['filter_ops']
+        if value_filter == '':
+            operativos = Operativo.objects.all()
+        if value_filter == '1':
+            operativos = Operativo.objects.filter(is_ready=True)
+        if value_filter == '2':
+            operativos = Operativo.objects.filter(is_active=True, is_ready=False)
+        if value_filter == '3':
+            operativos = Operativo.objects.filter(is_active=False)
+
+
+    return HttpResponse(template.render({'operativos': operativos, 'value_filter': value_filter}, request))
 
 @login_required
 def new(request):
