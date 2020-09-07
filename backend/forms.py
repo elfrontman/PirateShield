@@ -173,7 +173,11 @@ class UserTerrenoForm(forms.ModelForm):
 class InactiveOperativo(forms.ModelForm):
 	class Meta:
 		model = Operativo
-		fields = []
+		fields = ['close_observation']
+
+		labels = {
+			"close_observation": _("Observación"),
+		}
 
 
 class OperativoBrandForm(forms.ModelForm):

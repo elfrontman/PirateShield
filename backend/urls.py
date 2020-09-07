@@ -75,6 +75,7 @@ urlpatterns = [
 
     path('operativos/', operativos.index, name="operativos"),
     path('operativos/new', operativos.new, name="new_operativo"),
+    path('operativos/view/<int:pk>', operativos.view, name="view_operativo"),
     path('operativos/<int:pk>', operativos.operativo_edit, name="detail_operativo"),
     path('operativos/invalidate/<int:pk>', operativos.invalidate, name="invalidate_operativo"),
     path('operativos/activate/<int:pk>', operativos.activate, name="activate_operativo"),

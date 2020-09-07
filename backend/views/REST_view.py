@@ -188,8 +188,32 @@ def login_app(request):
                 user_session_token = jwt.encode(user_session, "SECRET", algorithm='HS256')
 
                 all_connection = OperativoConnection.objects.filter(
-                    operativo__token=request.data.get('token'), is_active = True).count()
+                    operativo__token=request.data.get('token'), is_active=True).count()
 
+                user_connection = None
+
+                if OperativoConnection.objects.filter(name_user=request.data.get('user_name'), operativo__token=request.data.get('token')).exists():
+                    user_connection = OperativoConnection.objects.get(name_user=request.data.get('user_name'), operativo__token=request.data.get('token'))
+                
+
+                if user_connection:
+                    pprint(user_connection.__dict__)
+                    user_connection.ip = request.client_ip
+                    token = Token.objects.get(user=user_connection.user)
+
+                    if not token:
+                        token = Token.objects.create(user=user_connection.user)
+
+                    return JsonResponse({
+                        'login': 'true',
+                        'msg': 'Active Session',
+                        'user_name': request.data.get('user_name'),
+                        'user': user_session_token.decode('utf-8'),
+                        'user_id': user_connection.user.id,
+                        'session_id': token.key,
+                        'chat_id': user_connection.id,
+                        'ip': request.client_ip}, status=HTTP_200_OK)
+                
                 if all_connection < operativo.connections:
 
                     user_token = User()

@@ -1,0 +1,79 @@
+{% extends "layout/base.html" %}
+
+
+{% block content %}
+
+
+<form  method="POST">
+	<h2>Ver operativo</h2>
+	{% csrf_token %}
+	
+	<div class="grid-x grid-padding-x">
+		<div class="cell small-12 medium-6 cell-boxes">
+            <div class="cell small-12 medium-12">
+                <label>Nombre del operativo</label>
+                {{ operativo.name  | default:"--"}}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Descripción del operativo</label>
+                {{ operativo.description  | default:"--"}}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Nombres completos</label>
+                {{ operativo.user.first_name | default:"--" }}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Apellidos completos</label>
+                {{ operativo.user.last_name | default:"--" }}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Número de celular</label>
+                {{ operativo.user.movil | default:"--" }}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Operativo valido desde</label>
+                {{ operativo.activation | default:"--" }}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Operativo valido hasta</label>
+                {{ operativo.expiration | default:"--" }}
+            </div>
+            <div class="cell small-12 medium-12">
+                <label>Cant. dispositivos en operativo</label>
+                {{ operativo.connections | default:"--" }}
+            </div>
+			
+		</div>
+		<div class="cell small-12 medium-6">
+			<h4>Marcas</h4>
+			<ul class="list-check">
+
+				{% for brand in brands %}
+					<li class="list-parent">
+						
+					    {{ brand.name }}
+						<ul>
+						{% for product in brand.products.all %}
+							<li>{{ product.name }}</li>
+						{%  endfor%}
+						</ul>
+					</li>
+				{% endfor %}
+			</ul>
+			
+		</div>
+	</div>
+
+	
+	
+	
+	<br>
+	<div class="grid-x">
+		<div class="cell small-12 medium-6">
+			<a href="{% url 'operativos' %}" class="button expanded alert">REGRESAR</a>
+		</div>
+	</div>
+	
+	
+</form>
+{% endblock %}

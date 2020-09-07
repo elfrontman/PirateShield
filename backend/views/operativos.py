@@ -39,6 +39,8 @@ def index(request):
 
     return HttpResponse(template.render({'operativos': operativos, 'value_filter': value_filter}, request))
 
+
+
 @login_required
 def new(request):
     template = loader.get_template('operativos/crear_operativo.html')
@@ -154,6 +156,17 @@ def operativo_edit(request, pk):
     
     return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
 
+def view(request, pk):
+    template = loader.get_template('operativos/ver_operativo.html')
+    brands = Brand.objects.all()
+    operativo = get_object_or_404(Operativo, pk=pk)
+
+    brandsList = list(map(int, operativo.brandsList.split(','))) if len(operativo.brandsList) else []
+    productList = list(map(int, operativo.productList.split(','))) if len(operativo.productList) else []
+
+    return HttpResponse(template.render({'operativo': operativo, 'brands' : brands, 'brandsList': brandsList, 'productList': productList}, request))
+
+
 
 def invalidate(request, pk):
     template = loader.get_template('operativos/invalidate_operativo.html')
@@ -169,17 +182,19 @@ def invalidate(request, pk):
 
             for conn in all_connection:
                 user = conn.user
-                conn.user.auth_token.delete()
-                conn.delete()
-                user.delete()
+                if user:
+                    conn.user.auth_token.delete()
+                    conn.delete()
+                    user.delete()
 
             operativo.is_active = False
+            operativo.is_ready = False
             operativo.save()
             return redirect('operativos')
     else:
         form = InactiveOperativo(instance=operativo)
 
-    return HttpResponse(template.render({}, request))
+    return HttpResponse(template.render({'form': form}, request))
 
 
 def activate(request, pk):
