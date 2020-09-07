@@ -199,10 +199,10 @@ def login_app(request):
                 if user_connection:
                     pprint(user_connection.__dict__)
                     user_connection.ip = request.client_ip
-                    #token = Token.objects.get(user=user_connection.user)
-
-                    #if not token:
+                    user_connection.is_active = True;
                     token = Token.objects.create(user=user_connection.user)
+
+                    user_connection.save();
 
                     return JsonResponse({
                         'login': 'true',
