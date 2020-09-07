@@ -284,7 +284,7 @@ class Logout(APIView):
         connection.is_active = 0
         connection.save()
 
-        request.user.delete()
+        #request.user.delete()
 
         return Response(status=HTTP_200_OK)
 
