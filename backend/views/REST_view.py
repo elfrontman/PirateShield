@@ -232,6 +232,7 @@ def login_app(request):
                     connection.ip = request.client_ip
                     connection.user = user_token
                     connection.status = 1
+                    connection.is_active = True;
 
                     connection.save()
 
