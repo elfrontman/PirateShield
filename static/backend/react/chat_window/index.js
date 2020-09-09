@@ -42,7 +42,8 @@ class ChatWindow extends React.Component{
 	        	x = Object.assign(x, obj)
 	        })
 
-	        const _result = this.state.chat_list.find( x => x.user == result[0].sender)
+		
+				  const _result = result.length > 0 ? this.state.chat_list.find(x => x.user == result[0].sender) : null;
 	        
 	        this.setState({
 	          isLoaded: true,
