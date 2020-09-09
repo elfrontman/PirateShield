@@ -19,7 +19,8 @@ class ChatWindow extends React.Component{
 			isLoaded: false,
 			receive_chat: null,
 			chat_list: [],
-			chats_messages: []
+			chats_messages: [],
+			showForward: false
 		}
 	}
 
@@ -106,7 +107,7 @@ class ChatWindow extends React.Component{
 		this.getChat(chat_id.user);
 	}
 
-	handleFormSubmitImage = (image) => {
+	handleFormSubmitImage = (image, user = null) => {
 
 		var reader = new FileReader();
 
@@ -116,11 +117,11 @@ class ChatWindow extends React.Component{
 			const msg = {
 				message: reader.result,
 				sender: Number(user_sender_id),
-				receiver: Number(this.state.receive_chat.sender),
+				receiver:  user ? user.sender : Number(this.state.receive_chat.sender),
 				type: "image",
 				user_sender: "Admin",
-				user_receiver: this.state.receive_chat.name_user,
-				chat_id: this.state.receive_chat._id.chat_id,
+				user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
+				chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
 				operativo: this.state.operativo.token,
 				createdAt: new Date()
 			}
@@ -141,33 +142,39 @@ class ChatWindow extends React.Component{
 
 		reader.readAsDataURL(image)
 	}
-
-	handleFormSubmit = (message) => {
-
+ 
+	handleFormSubmit = (message, user = null) => {
+		console.log(user)
 		const msg = {
 			message: message,
 			sender: Number(user_sender_id),
-			receiver: Number(this.state.receive_chat.sender),
-			type: "text",
+			receiver: user ? user.sender : Number(this.state.receive_chat.sender),
+			type: user ? user.type : "text",
 			user_sender: "Admin",
-			user_receiver: this.state.receive_chat.name_user,
-			chat_id: this.state.receive_chat._id.chat_id,
+			user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
+			chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
 			operativo: this.state.operativo.token,
 			createdAt: new Date()
 		}
 
+		console.log(msg)
+
 		socket.emit("send-message", msg);
 
-		let chats = this.state.chats_messages;
-		chats.push(msg);
+		if (!user) {
+			let chats = this.state.chats_messages;
+			chats.push(msg);
 
-		setTimeout( () => {
-			scrollToBottom()	
-		}, 1)
+			setTimeout( () => {
+				scrollToBottom()	
+			}, 1)
 
-		this.setState({
-			chats_messages: chats
-		})
+			this.setState({
+				chats_messages: chats
+			})	
+		}
+
+		
 
 
 	}
@@ -227,17 +234,43 @@ class ChatWindow extends React.Component{
 		
 	}
 
+	handleForwardMessage = (message) => {
+		this.setState({
+			forwardMessage: message,
+			showForward: true
+		})
+	}
+
+	handleSubmitForwardMessage = (message, user, type) => {
+		this.handleFormSubmit(message, user);
+		this.handleCloseForwardMessage();
+	}
+
+	handleCloseForwardMessage = () => {
+		this.setState({
+			forwardMessage: null,
+			showForward: false
+		})
+	}
+
 	render(){
 
 		if(this.state.isLoaded){
 			return (
 				<div className="window_chat">
+					{
+						(this.state.showForward) &&
+							<ForwardChatWindow message_selected={this.state.receive_chat} chatsList={this.state.chat_list} message={this.state.forwardMessage} onSendMessage={this.handleSubmitForwardMessage} onCloseModal={this.handleCloseForwardMessage}></ForwardChatWindow>
+					}
+						
+								
 					<div className="side_chat">
 						<HeaderChatWindow chatInfo={this.state.operativo}/>
 						<SideChatWindow chatsList={this.state.chat_list} message_selected={this.state.receive_chat} onSelectChat={this.handleSelectedChat}/>
 					</div>
 					<div className="view_chat">
-						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user }/>
+						
+						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user} forwardMessage={this.handleForwardMessage}/>
 						<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit} onSubmitImage={this.handleFormSubmitImage}/>
 						
 		  			</div>

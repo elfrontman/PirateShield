@@ -1,3 +1,8 @@
+<app-modal-image
+  *ngIf="modalImage"
+  [image]="imageSelected"
+  (close)="modalImage=false; imageSelected=null"
+  ></app-modal-image>
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-grid>
@@ -32,7 +37,7 @@
 
       	<div [ngSwitch]="message.type">
       		<span *ngSwitchCase="'text'">{{ message.message }}</span>	
-      		<img *ngSwitchCase="'image'" [src]="message.message"/>
+      		<img *ngSwitchCase="'image'" [src]="message.message" (click)="showImage(message.message)"/>
       	</div>
         
         <div class="time" text-right>{{ message.createdAt | date:'short' }}</div>

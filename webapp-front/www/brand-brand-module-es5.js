@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-grid>\n\t\t\t<ion-row align-items-center>\n\t\t\t\t<ion-col size=\"2\">\n\t\t\t\t\t<ion-buttons routerLink=\"/brands\">\n\t\t\t\t\t\t<ion-button>\n\t\t\t\t\t\t\t<img class=\"icon-svg\" src=\"./assets/images/home.svg\">\n\t\t\t\t\t\t</ion-button>\n\t\t\t\t\t</ion-buttons>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"8\">\n\t\t\t\t\t<ion-title *ngIf=\"brand\">{{brand.name}}</ion-title>\t\t\t\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"2\">\n\t\t\t\t\t<ion-buttons >\n\t\t\t\t\t\t\n\t\t\t\t\t</ion-buttons>\t\t\t\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-grid>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"banner-section\" *ngIf=\"brand\">\n\t\t<div class=\"banner\">\n\t\t\t<img [src]=\"brand.banner\" alt=\"\">\n\t\t</div>\n\t\t<div class=\"content-banner\">\n\t\t\t<ion-grid>\n\t\t\t\t<ion-row align-items-center>\n\t\t\t\t\t<ion-col size=\"4\">\n\t\t\t\t\t\t<div class=\"logo\">\n\t\t\t\t\t\t\t<img [src]=\"brand.logo\" alt=\"\">\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"8\">\n\t\t\t\t\t\t<div class=\"title\">\n\t\t\t\t\t\t\t<h2>{{brand.name}}</h2>\n\t\t\t\t\t\t\t<h3>{{brand.brand_category_id.name}}</h3>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</ion-row>\n\t\t\t</ion-grid>\n\t\t</div>\n\t</div>\n\n\t<!--<div class=\"filters\">\n\t\t<ion-grid>\n\t\t\t<ion-row >\n\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t<div class=\"content-input icon-input\">\n\t    \t\t\t\t<ion-input placeholder=\"Buscar Marca\"></ion-input>\t\n\t    \t\t\t\t<img src=\"assets/images/buscar.svg\" alt=\"\">\n\t    \t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col>\n\t\t\t\t\t<div class=\"content-input\">\n\t\t\t\t\t\t<ion-select placeholder=\"Categorias\" multiple=\"true\" interface=\"popover\">\n\t\t\t\t\t\t\t<ion-select-option value=\"f\">Female</ion-select-option>\n\t\t\t\t\t\t\t<ion-select-option value=\"m\">Male</ion-select-option>\n\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-grid>\n\t</div>-->\n\n\t<div class=\"list-products\">\n\t\t<ion-grid>\n\t\t\t<ion-row>\n\t\t\t\t<ion-col size-lg=\"2\" size-md=\"3\" size=\"6\" *ngFor=\"let product of productos\">\n\t\t\t\t\t<div class=\"product\" routerLink=\"/product/{{product.id}}\">\n\t\t\t\t\t\t<figure><img [src]=\"product.image\"></figure>\n\t\t\t\t\t\t<strong>{{ product.name }}</strong>\n\t\t\t\t\t\t<small>{{ product.reference }}</small>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-grid>\n\t</div>\n\n</ion-content>\n\n<app-footer></app-footer>\n"
+module.exports = "<ion-header>\n\t<ion-toolbar color=\"primary\">\n\t\t<ion-buttons routerLink=\"/brands\"  slot=\"start\">\n\t\t\t<ion-button>\n\t\t\t\t<img class=\"icon-svg\" src=\"./assets/images/home.svg\">\n\t\t\t</ion-button>\n\t\t</ion-buttons>\n\t\t<ion-title *ngIf=\"brand\">{{brand.name}}</ion-title>\t\t\t\n\t\t<ion-buttons slot=\"end\">\n\t\t\t<ion-button (click)=\"logout()\"> \n\t\t\t\t<img class=\"icon-svg\" src=\"./assets/images/user_logout.svg\">\n\t\t\t</ion-button>\n\t\t</ion-buttons>\t\t\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"banner-section\" *ngIf=\"brand\">\n\t\t<div class=\"banner\">\n\t\t\t<img [src]=\"brand.banner\" alt=\"\">\n\t\t</div>\n\t\t<div class=\"content-banner\">\n\t\t\t<ion-grid>\n\t\t\t\t<ion-row align-items-center>\n\t\t\t\t\t<ion-col size=\"4\">\n\t\t\t\t\t\t<div class=\"logo\">\n\t\t\t\t\t\t\t<img [src]=\"brand.logo\" alt=\"\">\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"8\">\n\t\t\t\t\t\t<div class=\"title\">\n\t\t\t\t\t\t\t<h2>{{brand.name}}</h2>\n\t\t\t\t\t\t\t<h3>{{brand.brand_category_id.name}}</h3>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</ion-row>\n\t\t\t</ion-grid>\n\t\t</div>\n\t</div>\n\n\t<!--<div class=\"filters\">\n\t\t<ion-grid>\n\t\t\t<ion-row >\n\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t<div class=\"content-input icon-input\">\n\t    \t\t\t\t<ion-input placeholder=\"Buscar Marca\"></ion-input>\t\n\t    \t\t\t\t<img src=\"assets/images/buscar.svg\" alt=\"\">\n\t    \t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col>\n\t\t\t\t\t<div class=\"content-input\">\n\t\t\t\t\t\t<ion-select placeholder=\"Categorias\" multiple=\"true\" interface=\"popover\">\n\t\t\t\t\t\t\t<ion-select-option value=\"f\">Female</ion-select-option>\n\t\t\t\t\t\t\t<ion-select-option value=\"m\">Male</ion-select-option>\n\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-grid>\n\t</div>-->\n\n\t<div class=\"list-products\">\n\t\t<ion-grid>\n\t\t\t<ion-row>\n\t\t\t\t<ion-col size-lg=\"2\" size-md=\"3\" size=\"6\" *ngFor=\"let product of productos\">\n\t\t\t\t\t<div class=\"product\" routerLink=\"/product/{{product.id}}\">\n\t\t\t\t\t\t<figure><img [src]=\"product.image\"></figure>\n\t\t\t\t\t\t<strong>{{ product.name }}</strong>\n\t\t\t\t\t\t<small>{{ product.reference }}</small>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-grid>\n\t</div>\n\n</ion-content>\n\n<app-footer></app-footer>\n"
 
 /***/ }),
 
@@ -95,9 +95,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BrandPage = /** @class */ (function () {
-    function BrandPage(service, route) {
+    function BrandPage(service, route, router) {
         this.service = service;
         this.route = route;
+        this.router = router;
         this.productos = [];
     }
     BrandPage.prototype.ngOnInit = function () {
@@ -118,9 +119,17 @@ var BrandPage = /** @class */ (function () {
             _this.productos = data;
         });
     };
+    BrandPage.prototype.logout = function () {
+        var _this = this;
+        this.service.logOut().subscribe(function (data) {
+            sessionStorage.removeItem('session_id');
+            _this.router.navigate(['/login']);
+        });
+    };
     BrandPage.ctorParameters = function () { return [
         { type: _main_services_service__WEBPACK_IMPORTED_MODULE_2__["MainServicesService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
     ]; };
     BrandPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -128,7 +137,7 @@ var BrandPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./brand.page.html */ "./node_modules/raw-loader/index.js!./src/app/brand/brand.page.html"),
             styles: [__webpack_require__(/*! ./brand.page.scss */ "./src/app/brand/brand.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_main_services_service__WEBPACK_IMPORTED_MODULE_2__["MainServicesService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_main_services_service__WEBPACK_IMPORTED_MODULE_2__["MainServicesService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], BrandPage);
     return BrandPage;
 }());

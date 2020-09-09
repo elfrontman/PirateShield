@@ -195,12 +195,15 @@ def login_app(request):
                 if OperativoConnection.objects.filter(name_user=request.data.get('user_name'), operativo__token=request.data.get('token')).exists():
                     user_connection = OperativoConnection.objects.get(name_user=request.data.get('user_name'), operativo__token=request.data.get('token'))
                 
-
+                print(user_connection)
                 if user_connection:
                     pprint(user_connection.__dict__)
                     user_connection.ip = request.client_ip
                     user_connection.is_active = True;
-                    token = Token.objects.create(user=user_connection.user)
+                    token = Token.objects.get(user=user_connection.user)
+                    
+                    if not token:
+                        token = Token.objects.create(user=user_connection.user)
 
                     user_connection.save();
 

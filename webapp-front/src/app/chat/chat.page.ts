@@ -18,11 +18,18 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	messages:any = [];
 	tokenUser = '';
 	tokenOP;
+	modalImage = false;
+	imageSelected;
 
 	constructor(private socket: Socket, private service: MainServicesService) { }
 
 	ngAfterViewChecked(){
 		//this.scrollBottom();
+	}
+
+	showImage(image) {
+		this.imageSelected = image;
+		this.modalImage = true;
 	}
 
 	ngOnInit() {

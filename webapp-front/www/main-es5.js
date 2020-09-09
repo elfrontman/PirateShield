@@ -10,31 +10,26 @@
 var map = {
 	"./brand/brand.module": [
 		"./src/app/brand/brand.module.ts",
-		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
-		"common",
+		"default~brand-brand-module~brands-brands-module~detail-image-detail-image-module~image-product-image~6f30b3a0",
 		"brand-brand-module"
 	],
 	"./brands/brands.module": [
 		"./src/app/brands/brands.module.ts",
-		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
-		"common",
+		"default~brand-brand-module~brands-brands-module~detail-image-detail-image-module~image-product-image~6f30b3a0",
 		"brands-brands-module"
 	],
 	"./chat/chat.module": [
 		"./src/app/chat/chat.module.ts",
-		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
 		"chat-chat-module"
 	],
 	"./detail-image/detail-image.module": [
 		"./src/app/detail-image/detail-image.module.ts",
-		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
-		"common",
+		"default~brand-brand-module~brands-brands-module~detail-image-detail-image-module~image-product-image~6f30b3a0",
 		"detail-image-detail-image-module"
 	],
 	"./image-product/image-product.module": [
 		"./src/app/image-product/image-product.module.ts",
-		"default~brand-brand-module~brands-brands-module~chat-chat-module~detail-image-detail-image-module~im~a8795f73",
-		"common",
+		"default~brand-brand-module~brands-brands-module~detail-image-detail-image-module~image-product-image~6f30b3a0",
 		"image-product-image-product-module"
 	],
 	"./login/login.module": [
@@ -634,8 +629,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm5/ngx-socket-io.js");
+/* harmony import */ var _auth_interceptor_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./auth-interceptor.service */ "./src/app/auth-interceptor.service.ts");
+
+
+
 
 
 
@@ -651,24 +652,90 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]],
             entryComponents: [],
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(),
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"],
+                ngx_socket_io__WEBPACK_IMPORTED_MODULE_11__["SocketIoModule"].forRoot(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].SoketIoConfig)
             ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] }
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"],
+                    useClass: _auth_interceptor_service__WEBPACK_IMPORTED_MODULE_12__["AuthInterceptorService"],
+                    multi: true
+                }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth-interceptor.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/auth-interceptor.service.ts ***!
+  \*********************************************/
+/*! exports provided: AuthInterceptorService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInterceptorService", function() { return AuthInterceptorService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+var AuthInterceptorService = /** @class */ (function () {
+    function AuthInterceptorService(router) {
+        this.router = router;
+    }
+    AuthInterceptorService.prototype.intercept = function (req, next) {
+        var _this = this;
+        var session_id = sessionStorage.getItem('session_id');
+        var request = req;
+        console.log(session_id);
+        if (session_id) {
+            request = req.clone({
+                setHeaders: {
+                    authorization: "token " + session_id
+                }
+            });
+        }
+        console.log(request);
+        return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
+            if (err.status === 401) {
+                _this.router.navigateByUrl('/login');
+            }
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(err);
+        }));
+    };
+    AuthInterceptorService.ctorParameters = function () { return [
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    ]; };
+    AuthInterceptorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    ], AuthInterceptorService);
+    return AuthInterceptorService;
 }());
 
 
@@ -690,8 +757,13 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    //API_URL: 'http://127.0.0.1:8000/backend',
-    //API_URL: 'http://192.168.1.108:8000/backend',
+    // API_URL: 'http://localhost:8000/backend',
+    // STATIC_URL: 'http://localhost/static/backend',
+    // SoketIoConfig: { 
+    //   url: 'http://190.60.205.188:500',
+    //   //url: 'http://localhost:500',
+    // 	options: {}
+    // }
     API_URL: 'http://190.60.205.188:8080/backend',
     STATIC_URL: 'http://190.60.205.188:8080/static/backend',
     SoketIoConfig: {
@@ -746,6 +818,17 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 
 module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/PirateShield/webapp-front/src/main.ts */"./src/main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/*!********************!*\
+  !*** ws (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

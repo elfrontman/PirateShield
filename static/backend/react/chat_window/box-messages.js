@@ -7,10 +7,15 @@ class BoxMessagesChatWindow extends React.Component{
 		super(props);
 	}
 
+	sendMessage(message) {
+		console.log(message, this.props)
+		this.props.forwardMessage(message)
+	}
+
 	render(){
 		const chats = [];
 		for(const [index, chat] of this.props.chats.entries()){
-			chats.push(<MessageChatWindow key={index} message={chat} />);
+			chats.push(<MessageChatWindow onClick={ () => this.sendMessage(chat) } key={index} message={chat} />);
 		}
 
 		return (
