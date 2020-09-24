@@ -75,6 +75,7 @@ function printTable(response) {
 
 
 function getOperativosList(value) {
+console.log(value)
 	var send_data = {
 		filter_ops:value
 	}
@@ -89,6 +90,8 @@ function getOperativosList(value) {
         })
 
 	}
+
+console.log(params)
 
 	fetch(url, params)
 		.then(response => response.json())
