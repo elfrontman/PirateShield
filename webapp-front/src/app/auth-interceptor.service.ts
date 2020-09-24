@@ -17,8 +17,6 @@ export class AuthInterceptorService implements HttpInterceptor{
 
     let request = req;
 
-    console.log(session_id)
-
     if(session_id){
     	request = req.clone({
         setHeaders: {
@@ -26,7 +24,6 @@ export class AuthInterceptorService implements HttpInterceptor{
         }
       });
     }
-    console.log(request)
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
 

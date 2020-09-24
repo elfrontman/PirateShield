@@ -28,7 +28,7 @@
 						
 					<input class="parent-select" name="brands[]" type="checkbox" value="{{brand.id}}" {% if brand.id in brandsList%} checked {% endif %}> {{ brand.name }}
 						<ul>
-						{% for product in brand.product_set.all %}
+						{% for product in brand.products.all %}
 							<li>
 								
 								<input class="child-select" name="products[]" type="checkbox" {% if product.id in productList %} checked {% endif %} value="{{product.id}}"> {{ product.name }}

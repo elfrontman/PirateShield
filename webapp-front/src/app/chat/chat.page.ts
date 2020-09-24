@@ -18,11 +18,18 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	messages:any = [];
 	tokenUser = '';
 	tokenOP;
+	modalImage = false;
+	imageSelected;
 
 	constructor(private socket: Socket, private service: MainServicesService) { }
 
 	ngAfterViewChecked(){
 		//this.scrollBottom();
+	}
+
+	showImage(image) {
+		this.imageSelected = image;
+		this.modalImage = true;
 	}
 
 	ngOnInit() {
@@ -37,13 +44,12 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 			this.service.getChat(this.tokenUser)
 				.subscribe( data => {
-					console.log(data)
 					this.messages = data;
 					this.scrollBottom();
 				})
 		})
 
-		this.socket.fromEvent('received').subscribe( message => {
+		this.socket.fromEvent('received').subscribe(message => {
 			this.messages.push(message)
 			this.scrollBottom();
 		})

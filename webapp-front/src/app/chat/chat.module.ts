@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChatPage } from './chat.page';
+import { ModalImageComponent } from './modal-image/modal-image.component';
 import { environment } from './../../environments/environment';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -25,6 +26,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SocketIoModule.forRoot(environment.SoketIoConfig)
   ],
-  declarations: [ChatPage]
+  declarations: [ChatPage, ModalImageComponent]
 })
 export class ChatPageModule {}

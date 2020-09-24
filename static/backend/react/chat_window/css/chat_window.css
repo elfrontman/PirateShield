@@ -123,14 +123,24 @@
 
 .box-message p{
 	font-size: 0.9rem;
-    line-height: 1.2;
+	line-height: 1.2;
+	word-break: break-word;
 }
 
 
 .box-message time{
-	display: block;
+	display: inline-block;
     font-size: 80%;
     text-align: right;
+    width: 90%;
+    vertical-align: middle;
+}
+
+.button-send{
+	width: 10%;
+    text-align: center;
+    padding-top: 10px;
+    display: inline-block;
 }
 
 .form-box{
@@ -146,4 +156,45 @@
     background: #edf6fd;
     margin-bottom: 0 !important;
     height: 40px;
+}
+
+.forwardModal{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.6);
+}
+
+.forwardModal ul{
+	position: absolute;
+    max-height: 90%;
+    width: 300px;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 50%);
+    background: white;
+	
+	list-style: none;
+	border-bottom: none;
+	margin: 0;
+	padding: 1rem;
+
+
+}
+
+.forwardModal h3{
+	font-size: 1.2rem;
+}
+
+.forwardModal li{
+	padding: 0.5rem 0.8rem;
+	border: 1px solid #add5f5;;
+	transition: all 0.28s ease-in-out;
+	cursor: pointer;
+
+}
+
+.forwardModal li:hover{
+	background: #0081ed;
+	color: white
 }

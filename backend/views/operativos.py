@@ -17,13 +17,61 @@ from datetime import datetime
 from pprint import pprint
 from inspect import getmembers
 
+from rest_framework.generics import ListAPIView
+from backend.serializers import (
+    OperativoSerializer
+)
+
+class OperativoList(ListAPIView):
+    serializer_class = OperativoSerializer
+
+    def post(self, request, *args, **kwargs):
+        
+        return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryList = Operativo.objects.filter(is_ready=True)
+        
+        value_filter = self.request.data.get('filter_ops', None)
+
+        if value_filter == '' or value_filter == None:
+            queryList = Operativo.objects.all()
+        if value_filter == '1':
+            queryList = Operativo.objects.filter(is_ready=True)
+        if value_filter == '2':
+            queryList = Operativo.objects.filter(is_active=True, is_ready=False)
+        if value_filter == '3':
+            queryList = Operativo.objects.filter(is_active=False)
+
+        return queryList
+
+
+
 
 @login_required
 def index(request):
-    operativos = Operativo.objects.filter(is_active=True)
+    operativos = Operativo.objects.filter(is_ready=True)
     template = loader.get_template('operativos/list_operativos.html')
 
-    return HttpResponse(template.render({'operativos': operativos}, request))
+    value_filter = '1'
+
+    if request.method == 'POST':
+        value_filter = request.POST['filter_ops']
+        if value_filter == '':
+            operativos = Operativo.objects.all()
+        if value_filter == '1':
+            operativos = Operativo.objects.filter(is_ready=True)
+        if value_filter == '2':
+            operativos = Operativo.objects.filter(is_active=True, is_ready=False)
+        if value_filter == '3':
+            operativos = Operativo.objects.filter(is_active=False)
+
+
+    return HttpResponse(template.render({'operativos': operativos, 'value_filter': value_filter}, request))
+
+
+
+
 
 @login_required
 def new(request):
@@ -140,6 +188,17 @@ def operativo_edit(request, pk):
     
     return HttpResponse(template.render({'form': form, 'brands' : brands, 'is_edit':True, 'brandsList': brandsList, 'productList': productList}, request))
 
+def view(request, pk):
+    template = loader.get_template('operativos/ver_operativo.html')
+    brands = Brand.objects.all()
+    operativo = get_object_or_404(Operativo, pk=pk)
+
+    brandsList = list(map(int, operativo.brandsList.split(','))) if len(operativo.brandsList) else []
+    productList = list(map(int, operativo.productList.split(','))) if len(operativo.productList) else []
+
+    return HttpResponse(template.render({'operativo': operativo, 'brands' : brands, 'brandsList': brandsList, 'productList': productList}, request))
+
+
 
 def invalidate(request, pk):
     template = loader.get_template('operativos/invalidate_operativo.html')
@@ -155,17 +214,19 @@ def invalidate(request, pk):
 
             for conn in all_connection:
                 user = conn.user
-                conn.user.auth_token.delete()
-                conn.delete()
-                user.delete()
+                if user:
+                    conn.user.auth_token.delete()
+                    conn.delete()
+                    user.delete()
 
             operativo.is_active = False
+            operativo.is_ready = False
             operativo.save()
             return redirect('operativos')
     else:
         form = InactiveOperativo(instance=operativo)
 
-    return HttpResponse(template.render({}, request))
+    return HttpResponse(template.render({'form': form}, request))
 
 
 def activate(request, pk):

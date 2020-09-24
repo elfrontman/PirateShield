@@ -386,8 +386,33 @@ aside{
 .list-data li .button-group .button.tiny{
 	font-size: 0.6rem;
 	color: white;
+	min-width: 120px;
 }
 
+.django-ckeditor-widget, #cke_id_close_observation{
+	width: 100% !important;
+}
+
+.cell-boxes{
+	border: 1px solid #cccccc;
+	border-bottom: none;
+	padding: 0 !important;
+	
+}
+.cell-boxes .cell{
+	font-size: 1.2rem;
+    line-height: 1;
+    background: white;
+    border-bottom: 1px solid #cccccc;
+    padding: 0.8rem;
+}
+
+.cell-boxes .cell label{
+	font-size: 70%;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
 
 .list-data.single-list li{
 	padding: 1rem;
@@ -428,6 +453,20 @@ aside{
 
 .actions-bar .button{
 	margin-bottom: 0;
+}
+
+.actions-bar form{
+	display: inline-block;
+	padding: 0;
+}
+
+.actions-bar select{
+	margin-bottom: 0;
+    max-width: 150px;
+    height: 34px;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 1.5rem;
 }
 
 .actions-bar .title-actions-bar{

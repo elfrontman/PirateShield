@@ -173,6 +173,7 @@ class Operativo(models.Model):
     productList = models.CharField(max_length=250, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified = models.DateTimeField(auto_now=True)
+    close_observation = RichTextField(blank=True, null=True)
 
 
 class OperativoBrand(models.Model):

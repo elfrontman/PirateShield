@@ -39,8 +39,8 @@ class SideChatWindow extends React.Component{
 		const chat_id =this.props.message_selected ? this.props.message_selected.user : null
 
 		const chats = [];
-		for(const [index, chat] of this.props.chatsList.entries()){
-
+		for (const [index, chat] of this.props.chatsList.entries()) {
+			
 			const options = {
 				year: 'numeric', month: 'numeric', day: 'numeric',
   				hour: 'numeric', minute: 'numeric', second: 'numeric', 
@@ -52,8 +52,11 @@ class SideChatWindow extends React.Component{
 			if(chat._id){
 				chats.push(
 				<li key={index} className={ chat.user== chat_id ? 'open-chat' : ''} onClick={ () => this.selectMessage(chat)}>
-					<label>{chat.name_user}</label>
-					<p>{chat.message.length > 50 ? chat.message.slice(0,50) + '...' : chat.message }</p>
+						<label>{chat.name_user}</label>
+						{
+							(chat.type === 'image') ? <p>Imagen</p> : <p>{chat.message.length > 50 ? chat.message.slice(0,50) + '...' : chat.message }</p>
+						}
+					
 					<time>{date}</time>
 				</li>);	
 			}else{

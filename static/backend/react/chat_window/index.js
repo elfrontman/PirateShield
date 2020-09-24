@@ -19,7 +19,8 @@ class ChatWindow extends React.Component{
 			isLoaded: false,
 			receive_chat: null,
 			chat_list: [],
-			chats_messages: []
+			chats_messages: [],
+			showForward: false
 		}
 	}
 
@@ -41,15 +42,16 @@ class ChatWindow extends React.Component{
 	        	x = Object.assign(x, obj)
 	        })
 
-	        const _result = this.state.chat_list.find( x => x.user == result[0].sender)
+			const _result = result.length > 0 ? this.state.chat_list.find(x => x.user == result[0].sender) : null;
+			
 	        
 	        this.setState({
 	          isLoaded: true,
 	          chat_list: chat_list,
-	          receive_chat: _result ? this.state.chat_list[0] : {}
+	          receive_chat: this.state.chat_list[0] ? this.state.chat_list[0] : {}
 	        })
 
-          	if(_result){
+          	if(this.state.chat_list[0]){
           		this.getChat(this.state.chat_list[0].user);	
           	}
           		
@@ -80,7 +82,6 @@ class ChatWindow extends React.Component{
 	}
 
 	getConversations(token_operativo){
-		console.log(token_operativo)
 		fetch(GLOBAL_API + "/operativoconnection/?search=" + token_operativo)
 	      .then(res => res.json())
 	      .then(
@@ -106,21 +107,19 @@ class ChatWindow extends React.Component{
 		this.getChat(chat_id.user);
 	}
 
-	handleFormSubmitImage = (image) => {
+	handleFormSubmitImage = (image, user = null) => {
 
 		var reader = new FileReader();
-
-		console.log(this.state.receive_chat)
 
 		reader.onload = (evt) => {
 			const msg = {
 				message: reader.result,
 				sender: Number(user_sender_id),
-				receiver: Number(this.state.receive_chat.sender),
+				receiver:  user ? user.sender : Number(this.state.receive_chat.sender),
 				type: "image",
 				user_sender: "Admin",
-				user_receiver: this.state.receive_chat.name_user,
-				chat_id: this.state.receive_chat._id.chat_id,
+				user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
+				chat_id: user ? user.chat_id : (this.state.receive_chat._id ? this.state.receive_chat._id.chat_id : this.state.receive_chat.user),
 				operativo: this.state.operativo.token,
 				createdAt: new Date()
 			}
@@ -141,33 +140,37 @@ class ChatWindow extends React.Component{
 
 		reader.readAsDataURL(image)
 	}
-
-	handleFormSubmit = (message) => {
-
+ 
+	handleFormSubmit = (message, user = null) => {
 		const msg = {
 			message: message,
-			sender: Number(user_sender_id),
-			receiver: Number(this.state.receive_chat.sender),
-			type: "text",
+			sender: Number(user_sender_id || 1),
+			receiver: user ? (user.sender || user.receiver) : Number(this.state.receive_chat.sender || this.state.receive_chat.user),
+			type: user ? user.type : "text",
 			user_sender: "Admin",
-			user_receiver: this.state.receive_chat.name_user,
-			chat_id: this.state.receive_chat._id.chat_id,
+			user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
+			chat_id: user ? (user.user_id || user.receiver) : (this.state.receive_chat._id ? this.state.receive_chat._id.chat_id : this.state.receive_chat.receiver),
+			//chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
 			operativo: this.state.operativo.token,
 			createdAt: new Date()
 		}
 
 		socket.emit("send-message", msg);
 
-		let chats = this.state.chats_messages;
-		chats.push(msg);
+		if (!user) {
+			let chats = this.state.chats_messages;
+			chats.push(msg);
 
-		setTimeout( () => {
-			scrollToBottom()	
-		}, 1)
+			setTimeout( () => {
+				scrollToBottom()	
+			}, 1)
 
-		this.setState({
-			chats_messages: chats
-		})
+			this.setState({
+				chats_messages: chats
+			})	
+		}
+
+		
 
 
 	}
@@ -203,13 +206,12 @@ class ChatWindow extends React.Component{
 			const new_chat = this.state.chat_list.find(x => x.user == id)
 			if(!new_chat){
 				this.loadOperativo();
-			}else{
+			} else {
 				this.handleSelectedChat(new_chat)
 			}
 		})
 		
 		socket.on('received', (msg) => {
-
 
 			let chats = this.state.chats_messages;
 
@@ -227,17 +229,43 @@ class ChatWindow extends React.Component{
 		
 	}
 
+	handleForwardMessage = (message) => {
+		this.setState({
+			forwardMessage: message,
+			showForward: true
+		})
+	}
+
+	handleSubmitForwardMessage = (message, user, type) => {
+		this.handleFormSubmit(message, user);
+		this.handleCloseForwardMessage();
+	}
+
+	handleCloseForwardMessage = () => {
+		this.setState({
+			forwardMessage: null,
+			showForward: false
+		})
+	}
+
 	render(){
 
 		if(this.state.isLoaded){
 			return (
 				<div className="window_chat">
+					{
+						(this.state.showForward) &&
+							<ForwardChatWindow message_selected={this.state.receive_chat} chatsList={this.state.chat_list} message={this.state.forwardMessage} onSendMessage={this.handleSubmitForwardMessage} onCloseModal={this.handleCloseForwardMessage}></ForwardChatWindow>
+					}
+						
+								
 					<div className="side_chat">
 						<HeaderChatWindow chatInfo={this.state.operativo}/>
 						<SideChatWindow chatsList={this.state.chat_list} message_selected={this.state.receive_chat} onSelectChat={this.handleSelectedChat}/>
 					</div>
 					<div className="view_chat">
-						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user }/>
+						
+						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user} forwardMessage={this.handleForwardMessage}/>
 						<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit} onSubmitImage={this.handleFormSubmitImage}/>
 						
 		  			</div>

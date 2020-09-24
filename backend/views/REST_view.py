@@ -46,7 +46,7 @@ class OperativoSerializerViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ['operativo__token']
 
-    queryset = OperativoConnection.objects.filter(is_active = True)
+    queryset = OperativoConnection.objects.filter( is_active = True)
     serializer_class = OperativoConnectionSerializer
 
 class OperativoViewSet(viewsets.ModelViewSet):
@@ -188,8 +188,36 @@ def login_app(request):
                 user_session_token = jwt.encode(user_session, "SECRET", algorithm='HS256')
 
                 all_connection = OperativoConnection.objects.filter(
-                    operativo__token=request.data.get('token'), is_active = True).count()
+                    operativo__token=request.data.get('token'), is_active=True).count()
 
+                user_connection = None
+
+                if OperativoConnection.objects.filter(name_user=request.data.get('user_name'), operativo__token=request.data.get('token')).exists():
+                    user_connection = OperativoConnection.objects.get(name_user=request.data.get('user_name'), operativo__token=request.data.get('token'))
+                
+                if user_connection:
+                    pprint(user_connection.__dict__)
+                    user_connection.ip = request.client_ip
+                    user_connection.is_active = True;
+                    token = Token.objects.filter(user=user_connection.user).exists()
+                    
+                    if token:
+                        token = Token.objects.get(user=user_connection.user)
+                    else:
+                        token = Token.objects.create(user=user_connection.user)
+                    user_connection.save();
+
+                    return JsonResponse({
+                        'active_user': True,
+                        'login': 'true',
+                        'msg': 'Active Session',
+                        'user_name': request.data.get('user_name'),
+                        'user': user_session_token.decode('utf-8'),
+                        'user_id': user_connection.user.id,
+                        'session_id': token.key,
+                        'chat_id': user_connection.id,
+                        'ip': request.client_ip}, status=HTTP_200_OK)
+                
                 if all_connection < operativo.connections:
 
                     user_token = User()
@@ -205,6 +233,7 @@ def login_app(request):
                     connection.ip = request.client_ip
                     connection.user = user_token
                     connection.status = 1
+                    connection.is_active = True;
 
                     connection.save()
 
@@ -248,7 +277,7 @@ def login_app(request):
                 'msg': 'Token invalido 1'},
                 status=HTTP_401_UNAUTHORIZED)
 
-
+@permission_classes((IsAuthenticated,))
 class Logout(APIView):
     def get(self, request, format=None):
 
@@ -260,7 +289,7 @@ class Logout(APIView):
         connection.is_active = 0
         connection.save()
 
-        request.user.delete()
+        #request.user.delete()
 
         return Response(status=HTTP_200_OK)
 

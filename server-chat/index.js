@@ -71,7 +71,7 @@ socket.on("connection", socket =>{
 		console.log("user disconect")
 	})
 
-	socket.on("send-message", (msg) =>{
+	socket.on("send-message", (msg) => {
 		socket.broadcast.to(msg.chat_id).emit("received", msg);
 		socket.broadcast.emit("update_admin", msg.chat_id);
 
