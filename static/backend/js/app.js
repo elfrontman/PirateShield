@@ -74,9 +74,9 @@ function printTable(response) {
 }
 
 
-function getOperativosList() {
+function getOperativosList(value) {
 	var send_data = {
-		filter_ops: $('#filter_ops').val()
+		filter_ops:value
 	}
 	const url = $('#list_operativo').attr('url');
 
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
 	$('#filter_ops').change(function (event) {
 		//$('#form_filter').submit();
-		getOperativosList();
+		getOperativosList(this.value);
 	})
 
 
