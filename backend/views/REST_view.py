@@ -195,7 +195,6 @@ def login_app(request):
                 if OperativoConnection.objects.filter(name_user=request.data.get('user_name'), operativo__token=request.data.get('token')).exists():
                     user_connection = OperativoConnection.objects.get(name_user=request.data.get('user_name'), operativo__token=request.data.get('token'))
                 
-                print(user_connection)
                 if user_connection:
                     pprint(user_connection.__dict__)
                     user_connection.ip = request.client_ip
@@ -209,6 +208,7 @@ def login_app(request):
                     user_connection.save();
 
                     return JsonResponse({
+                        'active_user': True,
                         'login': 'true',
                         'msg': 'Active Session',
                         'user_name': request.data.get('user_name'),

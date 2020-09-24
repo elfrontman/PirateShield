@@ -9,12 +9,15 @@ class ForwardChatWindow extends React.Component{
     }
     
     sendMessage(message, chat) {
+
+        console.log(chat)
         
         const user = {
             name_user: chat.name_user,
-            chat_id: chat._id.chat_id,
+            chat_id: chat._id ? chat._id.chat_id : chat.id,
             sender: chat.sender,
-            type: message.type
+            type: message.type,
+            receiver: chat.user
         }
 
         const type = message.type;

@@ -26,7 +26,7 @@ class FormChatWindow extends React.Component{
 
 	handleChangeImage = (event) => {
 		const file = event.target.files[0];
-		if (file.type.search(/^data:image\/(png|jpg|jpeg|heic);base64,/) > -1) {
+		if (file.type.search(/^image\/(png|jpg|jpeg|heic)/) > -1) {
 			this.props.onSubmitImage(file);
 		}
 	}

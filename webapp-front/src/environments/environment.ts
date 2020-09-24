@@ -8,8 +8,8 @@ export const environment = {
   // STATIC_URL: 'http://localhost/static/backend',
 
   // SoketIoConfig: { 
-  //   url: 'http://190.60.205.188:500',
-  //   //url: 'http://localhost:500',
+  //   //url: 'http://190.60.205.188:500',
+  //   url: 'http://localhost:500',
   // 	options: {}
   // }
 

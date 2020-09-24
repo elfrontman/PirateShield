@@ -14,6 +14,88 @@ $.ajaxSetup({
     }
 });
 
+function printTable(response) {
+
+	$('#list_operativo').empty();
+
+	const formatDate = (date) => {
+		return new Intl.DateTimeFormat('en-US').format(new Date(date));
+	}
+
+	response.forEach(item => {
+		let row = `<li class="grid-x">
+				<div class="cell small-10 medium-10">
+					<div class="info-row ">
+						<h3>${item.name} - ${item.user.first_name} ${item.user.last_name}</h3>		
+						<span><strong>Token: ${item.token}</strong></span>`;
+			
+			if (item.is_ready) {
+				row +=`<span class="label success"><strong>Operativo Activo</strong></span><br>`;	
+			}
+			
+			
+			row += `<span><strong>Activo desde:</strong> ${formatDate(item.activation)}</span> - 
+						<span><strong>Valido hasta:</strong> ${formatDate(item.expiration)}</span>
+						<span><strong>Cantidad dispositivos:</strong> ${item.connections}</span>
+					</div>	
+				</div>
+				<div class="cell auto content-buttons">
+					<div class="small button-group">`;
+
+			if (!item.is_ready && item.is_active) {
+				row += `<a href="/backend/operativos/activate/${item.id}"  class="button tiny expanded">Activar operativo</a>`;
+			}
+		
+			if (item.is_active) { 
+				row += `<a href="/backend/operativos/invalidate/${item.id}"  class="button tiny alert expanded">Cerrar operativo</a>
+				<a href="/backend/operativos/${item.id}" class="button tiny expanded">Editar</a>`;
+			}
+		
+			if (!item.is_active) { 
+				row += `<a href="/backend/operativos/view/${item.id}" class="button tiny expanded">Ver</a>`;
+			}
+			
+			row += ` <a href="/backend/operativos/connetions/${item.id}" class="button tiny warning expanded">Conexiones</a>
+						<a href="/backend/operativos/chat/${item.id}" class="button tiny success expanded">Chat</a>
+						
+					</div>
+				</div>
+			</li>`;
+			$('#list_operativo').append(row);
+	})
+
+	
+
+	
+	
+
+	
+
+}
+
+
+function getOperativosList() {
+	var send_data = {
+		filter_ops: $('#filter_ops').val()
+	}
+	const url = $('#list_operativo').attr('url');
+
+	const params = {
+		method: 'POST',
+		body: JSON.stringify(send_data),
+		headers: new Headers( {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': csrftoken
+        })
+
+	}
+
+	fetch(url, params)
+		.then(response => response.json())
+		.then(data => printTable(data))
+		.catch( error => console.log('error:', error))
+	
+}
 
 
 $(document).ready(function(){
@@ -85,8 +167,11 @@ $(document).ready(function(){
 	})
 
 	$('#filter_ops').change(function (event) {
-		$('#form_filter').submit();
+		//$('#form_filter').submit();
+		getOperativosList();
 	})
+
+
 });
 
 

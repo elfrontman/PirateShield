@@ -7,10 +7,7 @@ class ProductSingleSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 
-class OperativoSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Operativo
-		fields = '__all__'
+
 
 
 class CategoryBrandSerializer(serializers.ModelSerializer):
@@ -40,6 +37,17 @@ class UserSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ['url', 'username', 'email', 'brand']
 
+class UserAllSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = User
+		fields = '__all__'
+
+class OperativoSerializer(serializers.ModelSerializer):
+	user = UserAllSerializer(many=False, read_only=True)
+	class Meta:
+		model = Operativo
+		fields = '__all__'
 
 class ImageDetailCompareSerializer(serializers.ModelSerializer):
 	class Meta:

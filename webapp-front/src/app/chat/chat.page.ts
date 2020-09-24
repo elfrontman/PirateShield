@@ -44,13 +44,12 @@ export class ChatPage implements OnInit, AfterViewChecked {
 
 			this.service.getChat(this.tokenUser)
 				.subscribe( data => {
-					console.log(data)
 					this.messages = data;
 					this.scrollBottom();
 				})
 		})
 
-		this.socket.fromEvent('received').subscribe( message => {
+		this.socket.fromEvent('received').subscribe(message => {
 			this.messages.push(message)
 			this.scrollBottom();
 		})

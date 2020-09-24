@@ -17,10 +17,40 @@ from datetime import datetime
 from pprint import pprint
 from inspect import getmembers
 
+from rest_framework.generics import ListAPIView
+from backend.serializers import (
+    OperativoSerializer
+)
+
+class OperativoList(ListAPIView):
+    serializer_class = OperativoSerializer
+
+    def post(self, request, *args, **kwargs):
+        
+        return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryList = Operativo.objects.filter(is_ready=True)
+        
+        value_filter = self.request.data.get('filter_ops', None)
+
+        if value_filter == '' or value_filter == None:
+            queryList = Operativo.objects.all()
+        if value_filter == '1':
+            queryList = Operativo.objects.filter(is_ready=True)
+        if value_filter == '2':
+            queryList = Operativo.objects.filter(is_active=True, is_ready=False)
+        if value_filter == '3':
+            queryList = Operativo.objects.filter(is_active=False)
+
+        return queryList
+
+
+
 
 @login_required
 def index(request):
-    operativos = operativos = Operativo.objects.filter(is_ready=True)
+    operativos = Operativo.objects.filter(is_ready=True)
     template = loader.get_template('operativos/list_operativos.html')
 
     value_filter = '1'
@@ -38,6 +68,8 @@ def index(request):
 
 
     return HttpResponse(template.render({'operativos': operativos, 'value_filter': value_filter}, request))
+
+
 
 
 

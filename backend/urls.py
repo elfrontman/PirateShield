@@ -94,8 +94,7 @@ urlpatterns = [
     path('login_app/', REST_view.login_app, name="login_app"),
     path('logout/', REST_view.Logout.as_view(), name="logout"),
     path('token_chat/', REST_view.chat_token, name="chat_token"),
-    path('auth/', ObtainAuthToken.as_view())
-
-
+    path('auth/', ObtainAuthToken.as_view()),
+    path('opertivos_list/', operativos.OperativoList.as_view(), name="list_operativo")
 
 ]

@@ -42,16 +42,16 @@ class ChatWindow extends React.Component{
 	        	x = Object.assign(x, obj)
 	        })
 
-		
-				  const _result = result.length > 0 ? this.state.chat_list.find(x => x.user == result[0].sender) : null;
+			const _result = result.length > 0 ? this.state.chat_list.find(x => x.user == result[0].sender) : null;
+			
 	        
 	        this.setState({
 	          isLoaded: true,
 	          chat_list: chat_list,
-	          receive_chat: _result ? this.state.chat_list[0] : {}
+	          receive_chat: this.state.chat_list[0] ? this.state.chat_list[0] : {}
 	        })
 
-          	if(_result){
+          	if(this.state.chat_list[0]){
           		this.getChat(this.state.chat_list[0].user);	
           	}
           		
@@ -82,7 +82,6 @@ class ChatWindow extends React.Component{
 	}
 
 	getConversations(token_operativo){
-		console.log(token_operativo)
 		fetch(GLOBAL_API + "/operativoconnection/?search=" + token_operativo)
 	      .then(res => res.json())
 	      .then(
@@ -112,8 +111,6 @@ class ChatWindow extends React.Component{
 
 		var reader = new FileReader();
 
-		console.log(this.state.receive_chat)
-
 		reader.onload = (evt) => {
 			const msg = {
 				message: reader.result,
@@ -122,7 +119,7 @@ class ChatWindow extends React.Component{
 				type: "image",
 				user_sender: "Admin",
 				user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
-				chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
+				chat_id: user ? user.chat_id : (this.state.receive_chat._id ? this.state.receive_chat._id.chat_id : this.state.receive_chat.user),
 				operativo: this.state.operativo.token,
 				createdAt: new Date()
 			}
@@ -145,20 +142,18 @@ class ChatWindow extends React.Component{
 	}
  
 	handleFormSubmit = (message, user = null) => {
-		console.log(user)
 		const msg = {
 			message: message,
-			sender: Number(user_sender_id),
-			receiver: user ? user.sender : Number(this.state.receive_chat.sender),
+			sender: Number(user_sender_id || 1),
+			receiver: user ? (user.sender || user.receiver) : Number(this.state.receive_chat.sender || this.state.receive_chat.user),
 			type: user ? user.type : "text",
 			user_sender: "Admin",
 			user_receiver: user ? user.name_user : this.state.receive_chat.name_user,
-			chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
+			chat_id: user ? (user.user_id || user.receiver) : (this.state.receive_chat._id ? this.state.receive_chat._id.chat_id : this.state.receive_chat.receiver),
+			//chat_id: user ? user.chat_id : this.state.receive_chat._id.chat_id,
 			operativo: this.state.operativo.token,
 			createdAt: new Date()
 		}
-
-		console.log(msg)
 
 		socket.emit("send-message", msg);
 
@@ -211,13 +206,12 @@ class ChatWindow extends React.Component{
 			const new_chat = this.state.chat_list.find(x => x.user == id)
 			if(!new_chat){
 				this.loadOperativo();
-			}else{
+			} else {
 				this.handleSelectedChat(new_chat)
 			}
 		})
 		
 		socket.on('received', (msg) => {
-
 
 			let chats = this.state.chats_messages;
 

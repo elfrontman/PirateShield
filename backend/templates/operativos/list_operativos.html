@@ -21,7 +21,8 @@
 	</nav>
 
 	{% if operativos %}
-	<ul class="list-data single-list">
+	<ul id="list_operativo" class="list-data single-list" url="{%url 'list_operativo' %}">
+		
 		{% for item in operativos %}
 		<li class="grid-x">
 			
