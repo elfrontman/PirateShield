@@ -24,7 +24,7 @@
 	<ul id="list_operativo" class="list-data single-list" url="{%url 'list_operativo' %}">
 		
 		{% for item in operativos %}
-		<li class="grid-x">
+		<li class="grid-x op-{{ item.token }}" >
 			
 			<div class="cell small-10 medium-10">
 				<div class="info-row ">
@@ -52,7 +52,7 @@
 
 
 					<a href="{% url 'connections' pk=item.pk%}" class="button tiny warning expanded">Conexiones</a>
-					<a href="{% url 'chat_operativo' pk=item.pk %}" class="button tiny success expanded">Chat</a>
+					<a href="{% url 'chat_operativo' pk=item.pk %}" class="button tiny success expanded">Chat <span class="badge alert" style="display: none;"></span></a>
 					
 				</div>
 			</div>

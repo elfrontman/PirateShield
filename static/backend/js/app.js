@@ -23,7 +23,7 @@ function printTable(response) {
 	}
 
 	response.forEach(item => {
-		let row = `<li class="grid-x">
+		let row = `<li class="grid-x ${item.token}" >
 				<div class="cell small-10 medium-10">
 					<div class="info-row ">
 						<h3>${item.name} - ${item.user.first_name} ${item.user.last_name}</h3>		
@@ -170,8 +170,62 @@ $(document).ready(function(){
 		//$('#form_filter').submit();
 		getOperativosList();
 	})
-
-
 });
+
+(function () {
+	let unReadList = JSON.parse(localStorage.getItem('unReadAdmin'));
+	unReadList = unReadList ? unReadList : [];
+
+	const total = unReadList.length > 0 ? unReadList.map(x => x.messages).reduce((acc, curr) => acc + curr) : 0;
+	$('.chat-notification .badge').html(total);
+
+	if (total == 0) {
+		$('.chat-notification .badge').hide();	  
+	}
+
+	unReadList.map(op => {
+		if (op.messages > 0) {
+			$(`.op-${op.token} .badge`).show();
+			$(`.op-${op.token} .badge`).html(op.messages);	
+		} else {
+			console.log($(`.op-${op.token} .badge`))
+			$(`.op-${op.token} .badge`).hide();
+		}
+	})
+
+
+	localStorage.setItem('unReadAdmin', JSON.stringify(unReadList));
+
+	let socket = io(CHAT_API);
+
+	socket.emit('create', 'adminnotify');
+	socket.on('notification', (id) => { 
+		const op = {
+			token: id
+		};
+
+		const existOp = unReadList.find(x => x.token === id);
+
+		if (!existOp) {
+			op.messages = 1;
+			unReadList.push(op);
+		} else {
+			existOp.messages++;
+		}
+		localStorage.setItem('unReadAdmin', JSON.stringify(unReadList));
+		
+		const total = unReadList.length > 0 ? unReadList.map(x => x.messages).reduce((acc, curr) => acc + curr) : 0;
+		unReadList.map(op => {
+			if (op.messages > 0) {
+				$(`.op-${op.token} .badge`).show();
+				$(`.op-${op.token} .badge`).html(op.messages);	
+			} else {
+				console.log($(`.op-${op.token} .badge`))
+				$(`.op-${op.token} .badge`).hide();
+			}
+		})
+		$('.chat-notification .badge').html(total);
+	})	
+})();
 
 

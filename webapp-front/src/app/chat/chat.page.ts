@@ -33,6 +33,8 @@ export class ChatPage implements OnInit, AfterViewChecked {
 	}
 
 	ngOnInit() {
+		this.service.setUnReadMessages(0)
+
 		this.username = localStorage.getItem('user_name')
 		this.socket.connect();
 
