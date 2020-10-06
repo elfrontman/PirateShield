@@ -15,6 +15,7 @@ $.ajaxSetup({
 });
 
 function printTable(response) {
+	console.log(response)
 
 	$('#list_operativo').empty();
 
@@ -74,10 +75,10 @@ function printTable(response) {
 }
 
 
-function getOperativosList(value) {
-console.log(value)
+function getOperativosList() {
+
 	var send_data = {
-		filter_ops:value
+		filter_ops: $('#filter_ops').val()
 	}
 	const url = $('#list_operativo').attr('url');
 
@@ -171,7 +172,7 @@ $(document).ready(function(){
 
 	$('#filter_ops').change(function (event) {
 		//$('#form_filter').submit();
-		getOperativosList(this.value);
+		getOperativosList();
 	})
 
 

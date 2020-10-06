@@ -20,9 +20,9 @@
 		</div>
 	</nav>
 
-	{% if operativos %}
+	
 	<ul id="list_operativo" class="list-data single-list" url="{%url 'list_operativo' %}">
-		
+		{% if operativos %}	
 		{% for item in operativos %}
 		<li class="grid-x">
 			
@@ -58,6 +58,7 @@
 			</div>
 		</li>
 		{% endfor %}
+		{% endif %}
 	</ul>
-	{% endif %}
+	
 {% endblock %}
