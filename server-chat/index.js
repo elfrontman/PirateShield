@@ -74,6 +74,7 @@ socket.on("connection", socket =>{
 	socket.on("send-message", (msg) => {
 		socket.broadcast.to(msg.chat_id).emit("received", msg);
 		socket.broadcast.emit("update_admin", msg.chat_id);
+		socket.broadcast.emit("notification", msg.operativo);
 
 		connect.then( db => {
 			console.log("Connected DB Mongo")

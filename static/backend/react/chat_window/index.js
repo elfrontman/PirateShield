@@ -180,6 +180,22 @@ class ChatWindow extends React.Component{
 	      .then(res => res.json())
 	      .then(
 	        (result) => {
+				let unReadList = JSON.parse(localStorage.getItem('unReadAdmin'));
+				  unReadList = unReadList ? unReadList : [];
+				  
+				const existOp = unReadList.find(x => x.token === result.token);
+
+				if (existOp) {
+					existOp.messages = 0;
+				}
+				  
+				  const total = unReadList.length > 0 ? unReadList.map(x => x.messages).reduce((acc, curr) => acc + curr) : 0;
+				  if (total == 0) {
+					  $('.chat-notification .badge').hide();	  
+				  }
+				$('.chat-notification .badge').html(total);
+				localStorage.setItem('unReadAdmin', JSON.stringify(unReadList));
+				
 
 	          this.setState({
 	            operativo: {
@@ -285,4 +301,5 @@ if(operativo_id){
 		document.querySelector('#chat_window')
 	);	
 }
+
 
