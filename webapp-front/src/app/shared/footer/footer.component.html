@@ -16,6 +16,7 @@
 				<ion-tab-button routerLink="/chat">
 					<img class="icon-svg" src="./assets/images/chat.svg" alt="">
 					<span>chat</span>
+					<ion-badge *ngIf="unReadMessages != 0" color="danger">{{ unReadMessages }}</ion-badge>
 				</ion-tab-button>
 			</ion-tab-bar>
 		</ion-tabs>

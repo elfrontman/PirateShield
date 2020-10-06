@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Location } from '@angular/common';
+import { MainServicesService } from 'src/app/main-services.service';
 
 
 @Component({
@@ -12,11 +13,27 @@ export class FooterComponent implements OnInit {
 
 	@Input() backRoute;
 	tokenUser;
+	unReadMessages = 0;
 
-	constructor(private location: Location, private socket: Socket) { }
+	constructor(private location: Location, private socket: Socket, private service: MainServicesService) { }
 
 	ngOnInit() {
-		this.tokenUser = localStorage.getItem('token_chat')
+
+		this.unReadMessages = Number(localStorage.getItem('unReadMessages'));
+		this.service.setUnReadMessages(this.unReadMessages);
+
+		this.service.getUnReadMessages().subscribe(value => {
+			this.unReadMessages = value;
+		});
+
+		this.tokenUser = this.service.getUserId();
+		this.socket.connect();
+
+		this.socket.emit('create', this.tokenUser)
+		this.socket.fromEvent('received').subscribe(message => {
+			this.unReadMessages++;
+			this.service.setUnReadMessages(this.unReadMessages);
+		})
 	}
 
 	sendImageMessage(file_input){

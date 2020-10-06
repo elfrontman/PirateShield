@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 
 
 import {map} from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,22 @@ export class MainServicesService {
   session_id;
   chat_id;
   user_id;
+  unReadMessages = new Subject<number>();
+  unReadMessages$ = this.unReadMessages.asObservable();
 
   constructor(private http: HttpClient) { 
+    
+    this.unReadMessages.next(Number(localStorage.getItem('unReadMessages')));
+  }
 
+  getUnReadMessages() {
+    return this.unReadMessages;
+  }
+
+  setUnReadMessages(value) {
+    console.log(value);
+    this.unReadMessages.next(Number(value));
+    localStorage.setItem('unReadMessages', value.toString());
   }
 
   getChatId(){
