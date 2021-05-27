@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
@@ -214,7 +215,9 @@ def invalidate(request, pk):
 
             for conn in all_connection:
                 user = conn.user
-                if user:
+                is_tokened = Token.objects.filter(user=user)
+                
+                if is_tokened:
                     conn.user.auth_token.delete()
                     conn.delete()
                     user.delete()

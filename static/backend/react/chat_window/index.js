@@ -1,6 +1,6 @@
 'use strict';
 
-let operativo_id, user_sender_id, conections;
+let operativo_id, user_sender_id, conections, readonly;
 let socket = io(CHAT_API);
 
 
@@ -8,6 +8,7 @@ if(document.querySelector('#chat_window')){
 	operativo_id = document.querySelector('#chat_window').dataset.operativo;
 	user_sender_id = Number(document.querySelector('#chat_window').dataset.user);
 	conections = document.querySelector('#chat_window').dataset.clientes.split(',').filter(x => x.length > 0);
+	readonly = document.querySelector('#chat_window').dataset.readonly;
 }
 const scrollToBottom = () => document.querySelector('.box-chat').scrollTo(0,document.querySelector('.box-chat').scrollHeight);  
 const e = React.createElement;
@@ -281,8 +282,12 @@ class ChatWindow extends React.Component{
 					</div>
 					<div className="view_chat">
 						
-						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user} forwardMessage={this.handleForwardMessage}/>
-						<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit} onSubmitImage={this.handleFormSubmitImage}/>
+						<BoxMessagesChatWindow chats={this.state.chats_messages} user={this.state.receive_chat.name_user} forwardMessage={this.handleForwardMessage} readonly={readonly}/>
+						{
+							!readonly &&
+								<FormChatWindow sender={user_sender_id} reciever={this.state.receive_chat} onSubmitMessage={this.handleFormSubmit} onSubmitImage={this.handleFormSubmitImage}/>
+						}
+						
 						
 		  			</div>
 	  			</div>

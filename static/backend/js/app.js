@@ -178,7 +178,7 @@ $(document).ready(function(){
 	unReadList = unReadList ? unReadList : [];
 
 	const total = unReadList.length > 0 ? unReadList.map(x => x.messages).reduce((acc, curr) => acc + curr) : 0;
-	$('.chat-notification .badge').html(total);
+	//$('.chat-notification .badge').html(total);
 
 	if (total == 0) {
 		$('.chat-notification .badge').hide();	  
@@ -225,7 +225,7 @@ $(document).ready(function(){
 				$(`.op-${op.token} .badge`).hide();
 			}
 		})
-		$('.chat-notification .badge').html(total);
+		//$('.chat-notification .badge').html(total);
 	})	
 })();
 

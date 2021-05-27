@@ -70,8 +70,12 @@ class MessageChatWindow extends React.Component{
 			return (
 				<div className={`box-message ${this.props.message.sender == user_sender_id ? 'me' : ''}`} >
 					<a href={blobUrl} target="_blank"><img src={this.props.message.message} /></a>
-						<time>{date}</time>
+					<time>{date}</time>
+					{
+						!this.props.readonly &&
 						<i className="fas fa-share button-send" onClick={ () => {this.handleClick()} }></i>
+					}
+						
 				</div>
 			);
 		} else{
