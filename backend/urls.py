@@ -88,6 +88,7 @@ urlpatterns = [
 
     path('informes', informes.index, name="informes"),
     path('informes/operativos', informes.operativos, name="informe_operativo"),
+    path('informes/operativos/<int:pk>/chat', informes.chat, name="chat_informe"),
 
     path('', include(router.urls)),
 

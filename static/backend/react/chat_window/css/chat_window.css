@@ -104,6 +104,9 @@
     padding: 0.8rem;
 }
 
+.box-chat.readonly-chat{
+    height: calc(100vh - 347px);
+}
 .box-message{
 	padding: 0.5rem 0.8rem;
     width: 50%;
