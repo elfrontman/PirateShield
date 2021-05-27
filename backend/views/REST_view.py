@@ -60,15 +60,16 @@ class OperativoViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+    authentication_classes = TokenAuthentication
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-   # permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
 
@@ -88,24 +89,30 @@ class BrandViewSet(viewsets.ModelViewSet):
 
 
 class CategoryBrandViewSet(viewsets.ModelViewSet):
-   # permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     queryset = CategoryBrand.objects.all()
     serializer_class = CategoryBrandSerializer
 
 
 class CategoryProductViewSet(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     queryset = CategoryProduct.objects.all()
     serializer_class = CategoryProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
     filter_backends = (filters.SearchFilter,)
     search_fields = ['id']
 
@@ -114,8 +121,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class ProductList(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     list_display = ("brand")
     queryset = Product.objects.all()
@@ -138,16 +147,20 @@ class ProductList(viewsets.ModelViewSet):
 
 
 class ImageDetailProduct(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     queryset = ImageProduct.objects.all()
     serializer_class = ImageProductSerializer
 
 
 class DetailImageProductViewSet(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ['image_product__id']
@@ -156,8 +169,10 @@ class DetailImageProductViewSet(viewsets.ModelViewSet):
 
 
 class DetailMarkerProduct(viewsets.ModelViewSet):
-    #permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication, SessionAuthentication
+
+    permission_classes = IsAuthenticated,
+    authentication_classes = TokenAuthentication
+
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ['id']
