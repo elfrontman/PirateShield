@@ -13,25 +13,29 @@
 	{% if operativos %}
 	<table>
 		<thead>
-			<th>Persona encargada</th>
-			<th>Creación</th>
-			<th>Activación</th>
-			<th>Cierre</th>
+			<th>Operativo</th>
+			<th>Fecha de creación</th>
+			<th>Fecha de Activación</th>
+			<th>Fecha de Cierre</th>
 			<th>Marcas</th>
 			<th>Productos</th>
+			<th>Persona encargada</th>
 			<th></th>
 		</thead>
 
 		<tbody>
 			{% for operativo in operativos %}
 				<tr>
-					<td>{{ operativo.user.first_name }} {{ operativo.user.last_name }}</td>
+					<td>{{ operativo.name }}</td>
+					
 					<td>{{ operativo.created_at |date:"M d, Y" }}</td>
 					<td>{{ operativo.activation |date:"M d, Y"}}</td>
 					<td></td>
 					<td>{{ operativo.brands }}</td>
 					<td>{{ operativo.products }}</td>
-					<td><a href="#" class="button tiny success expanded">Chat</a></td>
+					<td>{{ operativo.user.first_name }} {{ operativo.user.last_name }}</td>
+					
+					<td><a href="{% url 'chat_informe' pk=operativo.pk %}" class="button tiny success expanded">Chat</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

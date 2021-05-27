@@ -1,0 +1,16 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+{% csrf_token %}
+<nav class="actions-bar grid-x">
+	<div class="cell small-12 medium-6">
+		<div class="title-actions-bar">Chat de operativo</div>
+	</div>
+</nav>
+
+<div class="content-view-chat chat_window">
+	
+	<div id="chat_window" data-operativo="{{ operativo.id }}" data-user="{{ usuario.id }}" data-clientes='{% for cli in clientes %}{{ cli }},{% endfor %}' data-readonly="true"></div>	
+</div>
+
+{% endblock %}
