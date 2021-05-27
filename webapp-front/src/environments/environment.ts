@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:8000/backend',
-  STATIC_URL: 'http://localhost/static/backend',
+  // API_URL: 'http://localhost:8000/backend',
+  // STATIC_URL: 'http://localhost/static/backend',
 
   // SoketIoConfig: { 
   //   //url: 'http://190.60.205.188:500',
@@ -13,8 +13,8 @@ export const environment = {
   // 	options: {}
   // }
 
-  //API_URL: 'http://190.60.205.188:8080/backend',
-  //STATIC_URL: 'http://190.60.205.188:8080/static/backend',
+  API_URL: 'http://190.60.205.188:8080/backend',
+  STATIC_URL: 'http://190.60.205.188:8080/static/backend',
   SoketIoConfig: { 
   	url: 'http://190.60.205.188:500',
   	options: {}
