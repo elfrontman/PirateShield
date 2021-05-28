@@ -8,6 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
@@ -24,7 +25,7 @@ from backend.serializers import (
     OperativoSerializer
 )
 
-#@permission_classes((AllowAny,))
+@permission_classes((IsAuthenticated,))
 class OperativoList(ListAPIView):
     serializer_class = OperativoSerializer
 
