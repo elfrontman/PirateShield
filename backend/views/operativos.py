@@ -220,8 +220,8 @@ def invalidate(request, pk):
                 user = conn.user
                 is_tokened = Token.objects.filter(user=user)
                 
-               # if is_tokened:
-                #    conn.user.auth_token.delete()
+                if is_tokened:
+                    conn.user.auth_token.delete()
                 #    conn.delete()
                 #    user.delete()
 
