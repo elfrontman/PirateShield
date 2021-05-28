@@ -30,7 +30,7 @@
 					
 					<td>{{ operativo.created_at |date:"M d, Y" }}</td>
 					<td>{{ operativo.activation |date:"M d, Y"}}</td>
-					<td></td>
+					<td>{{ operativo.expiration |date:"M d, Y"}}</td>
 					<td>{{ operativo.brands }}</td>
 					<td>{{ operativo.products }}</td>
 					<td>{{ operativo.user.first_name }} {{ operativo.user.last_name }}</td>
