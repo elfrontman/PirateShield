@@ -44,20 +44,20 @@ function printTable(response) {
 					<div class="small button-group">`;
 
 			if (!item.is_ready && item.is_active) {
-				row += `<a href="/backend/operativos/activate/${item.id}"  class="button tiny expanded">Activar operativo</a>`;
+				row += `<a href="/agatha/backend/operativos/activate/${item.id}"  class="button tiny expanded">Activar operativo</a>`;
 			}
 		
 			if (item.is_active) { 
-				row += `<a href="/backend/operativos/invalidate/${item.id}"  class="button tiny alert expanded">Cerrar operativo</a>
-				<a href="/backend/operativos/${item.id}" class="button tiny expanded">Editar</a>`;
+				row += `<a href="/agatha/backend/operativos/invalidate/${item.id}"  class="button tiny alert expanded">Cerrar operativo</a>
+				<a href="/agatha/backend/operativos/${item.id}" class="button tiny expanded">Editar</a>`;
 			}
 		
 			if (!item.is_active) { 
-				row += `<a href="/backend/operativos/view/${item.id}" class="button tiny expanded">Ver</a>`;
+				row += `<a href="/agatha/backend/operativos/view/${item.id}" class="button tiny expanded">Ver</a>`;
 			}
 			
-			row += ` <a href="/backend/operativos/connetions/${item.id}" class="button tiny warning expanded">Conexiones</a>
-						<a href="/backend/operativos/chat/${item.id}" class="button tiny success expanded">Chat</a>
+			row += ` <a href="/agatha/backend/operativos/connetions/${item.id}" class="button tiny warning expanded">Conexiones</a>
+						<a href="/agatha/backend/operativos/chat/${item.id}" class="button tiny success expanded">Chat</a>
 						
 					</div>
 				</div>
