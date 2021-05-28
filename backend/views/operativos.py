@@ -220,10 +220,10 @@ def invalidate(request, pk):
                 user = conn.user
                 is_tokened = Token.objects.filter(user=user)
                 
-                if is_tokened:
-                    conn.user.auth_token.delete()
-                    conn.delete()
-                    user.delete()
+               # if is_tokened:
+                #    conn.user.auth_token.delete()
+                #    conn.delete()
+                #    user.delete()
 
             operativo.is_active = False
             operativo.is_ready = False
