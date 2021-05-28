@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view, permission_classes
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
@@ -23,6 +24,7 @@ from backend.serializers import (
     OperativoSerializer
 )
 
+#@permission_classes((AllowAny,))
 class OperativoList(ListAPIView):
     serializer_class = OperativoSerializer
 

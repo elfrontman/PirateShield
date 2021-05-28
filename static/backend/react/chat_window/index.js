@@ -194,7 +194,7 @@ class ChatWindow extends React.Component{
 				  if (total == 0) {
 					  $('.chat-notification .badge').hide();	  
 				  }
-				$('.chat-notification .badge').html(total);
+				//$('.chat-notification .badge').html(total);
 				localStorage.setItem('unReadAdmin', JSON.stringify(unReadList));
 				
 

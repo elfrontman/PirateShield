@@ -190,7 +190,7 @@ $(document).ready(function(){
 	unReadList.map(op => {
 		if (op.messages > 0) {
 			$(`.op-${op.token} .badge`).show();
-			$(`.op-${op.token} .badge`).html(op.messages);	
+			//$(`.op-${op.token} .badge`).html(op.messages);	
 		} else {
 			console.log($(`.op-${op.token} .badge`))
 			$(`.op-${op.token} .badge`).hide();
@@ -222,7 +222,7 @@ $(document).ready(function(){
 		unReadList.map(op => {
 			if (op.messages > 0) {
 				$(`.op-${op.token} .badge`).show();
-				$(`.op-${op.token} .badge`).html(op.messages);	
+				//$(`.op-${op.token} .badge`).html(op.messages);	
 			} else {
 				console.log($(`.op-${op.token} .badge`))
 				$(`.op-${op.token} .badge`).hide();
