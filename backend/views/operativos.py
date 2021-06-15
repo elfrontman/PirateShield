@@ -302,10 +302,11 @@ def disconnect_session(request, pk, tk):
     session = OperativoConnection.objects.get(id = pk, operativo = tk)
 
     user = session.user
+    user.auth_token.delete()
     
     session.is_active = 0
     session.save()
 
-    user.delete()
+    #user.delete()
    
     return redirect('connections', pk=tk)
