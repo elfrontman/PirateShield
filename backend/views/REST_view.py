@@ -213,12 +213,25 @@ def login_app(request):
                     pprint(user_connection.__dict__)
                     user_connection.ip = request.client_ip
                     user_connection.is_active = True;
-                    token = Token.objects.filter(user=user_connection.user).exists()
                     
-                    if token:
-                        token = Token.objects.get(user=user_connection.user)
+                    if user_connection.user:
+                        token = Token.objects.filter(user=user_connection.user).exists()
+                        if token:
+                            token = Token.objects.get(user=user_connection.user)
+                        else:
+                            token = Token.objects.create(user=user_connection.user)
                     else:
-                        token = Token.objects.create(user=user_connection.user)
+                        user_token = User()
+                        user_token.username = username
+                        user_token.password = password
+                        user_token.is_user_token = True
+
+                        user_token.save()
+                        token = Token.objects.create(user=user_token)
+
+                        user_connection.user = user_token
+                    
+                    
                     user_connection.save();
 
                     return JsonResponse({
