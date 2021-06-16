@@ -8,6 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 
 from backend.forms import UserTerrenoForm, InactiveOperativo
@@ -24,7 +25,7 @@ from backend.serializers import (
     OperativoSerializer
 )
 
-#@permission_classes((AllowAny,))
+@permission_classes((AllowAny,))
 class OperativoList(ListAPIView):
     serializer_class = OperativoSerializer
 
@@ -221,8 +222,8 @@ def invalidate(request, pk):
                 
                 if is_tokened:
                     conn.user.auth_token.delete()
-                    conn.delete()
-                    user.delete()
+                #    conn.delete()
+                #    user.delete()
 
             operativo.is_active = False
             operativo.is_ready = False
@@ -301,10 +302,11 @@ def disconnect_session(request, pk, tk):
     session = OperativoConnection.objects.get(id = pk, operativo = tk)
 
     user = session.user
+    user.auth_token.delete()
     
     session.is_active = 0
     session.save()
 
-    user.delete()
+    #user.delete()
    
     return redirect('connections', pk=tk)
